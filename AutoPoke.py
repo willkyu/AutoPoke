@@ -26,4 +26,15 @@ eo=win32gui.FindWindow(None,'Operator × v0.9.0-beta')
 # print(t)
 # sendMail()
 
+
+#=================================
+# How to use?
+# Make player role where you need to encounter PM, and set parameters below. Then run this file.
+# if not found Operator: run function 'get_all_window()' and copy your Operator's name to eo=win32gui.FindWindow(None,'Operator × v0.9.1-beta').
+#=================================
+# jump:bool=False. if you want to encounter PM by riding Acro Bike and jumping, set 'jump' True.
+# inCave:bool=False. if you are in Cave where is dark around, set it True.
+# ifLR:bool=True. if you want to move left and right, set it True. Up and down, set it False.
+# i:int=0. Start counting from i.
+#=================================
 wildPoke(eo,jump=False,inCave=True,ifLR=True)
