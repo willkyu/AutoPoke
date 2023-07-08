@@ -4,3 +4,9 @@ Auto hunting shiny pokemon using Epilogue GB operator, writing with Python. Only
 
 # How to use?
 Make player role where you need to encounter PM, and set parameters in AutoPoke.py. Then run AutoPoke.py.
+
+# Update Log
+- 2023-07-08: 
+  - Much faster when in safari zone.
+  - Auto record encounter counts in `parser.ini`.
+  - Support edit keymapping in `parser.ini`.
