@@ -45,7 +45,6 @@ def sendMail(i=0, toMail='接收邮箱', subject='', picfilename='tempIMG.bmp'):
     try:
         smtpObj = smtplib.SMTP_SSL(mail_host)
         smtpObj.login(mail_user,mail_pass)
-        print(123)
         smtpObj.sendmail(mail_user,  receivers, mail.as_string())
         # print (f"{receivers} 邮件发送成功")
     except smtplib.SMTPException:
