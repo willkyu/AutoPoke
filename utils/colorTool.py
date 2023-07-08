@@ -36,7 +36,12 @@ def getColor(eo,x,y):
     win32gui.ReleaseDC(eo,hWndDC)
     return im.getpixel((x,y))
 
- 
+def getSize():
+    im=Image.open('tempIMG.bmp')
+    return[im.width,im.height]
+
+
+
 #如果要截图到打印设备：
 ###最后一个int参数：0-保存整个窗口，1-只保存客户区。如果PrintWindow成功函数返回值为1
 #result = windll.user32.PrintWindow(hWnd,saveDC.GetSafeHdc(),0)
