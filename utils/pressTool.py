@@ -44,18 +44,5 @@ def HitKey(eo,key):
     sleep(0.3)
     ReleaseKey(eo,key)
 
-def SL(eo):
-    """
-        eo SL once
-    """
-    PressKey(eo,'Z')
-    PressKey(eo,'X')
-    PressKey(eo,'ENTER')
-    PressKey(eo,'BACKSPACE')
-    sleep(0.3)
-    ReleaseKey(eo,'Z')
-    ReleaseKey(eo,'X')
-    ReleaseKey(eo,'ENTER')
-    ReleaseKey(eo,'BACKSPACE')
 
 
