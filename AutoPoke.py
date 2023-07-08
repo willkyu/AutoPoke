@@ -2,7 +2,7 @@ import win32gui
 from utils.pressTool import *
 from utils.colorTool import *
 from utils.Functions import *
-from utils.mailTools import sendMail
+from utils.iniTool import *
 
 def get_all_hwnd(hwnd, mouse):
 	hwnd_title = dict()
@@ -19,6 +19,8 @@ def get_all_window(hwnd_title):
 
 eo=win32gui.FindWindow(None,'Operator × v0.9.0-beta')
 
+cfg=Config()
+cfg.readConfig()
 # get_all_window()
 
 
@@ -37,4 +39,4 @@ eo=win32gui.FindWindow(None,'Operator × v0.9.0-beta')
 # ifLR:bool=True. if you want to move left and right, set it True. Up and down, set it False.
 # i:int=0. Start counting from i.
 #=================================
-wildPoke(eo,jump=False,inCave=True,ifLR=True)
+wildPoke(eo, cfg, jump = False, inCave = True, ifLR = True)
