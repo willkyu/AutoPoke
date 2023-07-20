@@ -6,7 +6,7 @@ Auto hunting shiny pokemon using Epilogue GB operator, writing with Python. Only
 Make player role where you need to encounter PM, and set parameters in config.ini file. Then run AutoPoke.py or AutoPoke.exe.
 
 # Already confirmed be of use in
-- English version: `R``S``E`
+- English version: `RS`
   - safari zone
   - wild encounter
   - stationary
