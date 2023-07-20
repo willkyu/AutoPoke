@@ -17,9 +17,12 @@ def get_all_window(hwnd_title):
 		    print(h, t)
 
 if __name__=='__main__':
-	eo=win32gui.FindWindow(None,'Operator × v0.9.1-beta')
+	print("Running....Press Ctrl+C to cancel.")
 	cfg=Config()
+	eo=win32gui.FindWindow(None,cfg.window_name)
 	eval(cfg.mode.upper()+'(eo,cfg)')
+
+
 
 #=================================
 # How to use?

@@ -1,11 +1,11 @@
 from multiprocessing.connection import wait
 from time import sleep
-from .pressTool import *
-from .colorTool import *
-from .mailTools import sendMail
+from utils.pressTool import *
+from utils.colorTool import *
+from utils.mailTools import sendMail
 from random import choice
 from atexit import register, unregister
-from .iniTool import *
+from utils.iniTool import *
 
 
 class posConfig:
@@ -45,6 +45,7 @@ def RandomHitKey(eo, keyList):
 def exit_print_i(i, cfg: Config):
     print('no shiny pokemon in {} times.'.format(i))
     cfg.writeCountConfig(i)
+    sleep(5)
 
 
 def RUN(eo, cfg: Config):
@@ -54,6 +55,9 @@ def RUN(eo, cfg: Config):
     sleep(0.5)
     HitKey(eo, cfg.keymap['A'])
     sleep(2.7)
+
+def sendMail_(cfg:Config,i):
+    sendMail(i,cfg.toMail,cfg.mail_host,cfg.sendMail,cfg.sendMail_password)
 
 
 def WILDPOKE(eo, cfg: Config):
@@ -103,7 +107,7 @@ def WILDPOKE(eo, cfg: Config):
         # print(colorGot)
         if colorGot not in BGYellow:
             print('Got Shiny Pokemon!')
-            sendMail(i=SLs)
+            sendMail_(cfg,i=SLs)
             cfg.writeConfig(0)
             unregister(exit_print_i)
             break
@@ -147,7 +151,7 @@ def STATIONARY(eo, cfg: Config, ifFRLG=False, hitkeys=[], i=0):
         colorGot = getColor(eo, *pos.colorPos)
         if colorGot not in BGYellow:
             print('Got Shiny Pokemon!')
-            sendMail(i=SLs)
+            sendMail_(cfg,i=SLs)
             cfg.writeConfig(0)
             unregister(exit_print_i)
             break
