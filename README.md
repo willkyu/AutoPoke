@@ -16,7 +16,6 @@ Make player role where you need to encounter PM, and set parameters in config.in
   - Stationary function is available now.
   - Optimized codes structure and make all configs in one file.
   - Make the .exe file for those can not use python.
-
 - 2023-07-08: 
   - Much faster when in safari zone.
   - Auto record encounter counts in `parser.ini`.
