@@ -9,11 +9,11 @@ from PIL import Image
 # 邮件服务器地址,以下为网易邮箱
 pop3_server = 'pop.163.com'
 
-def sendMail(i=0, toMail='496373158@qq.com', subject='', picfilename='tempIMG.bmp'):
+def sendMail(i=0, toMail='接收邮箱', subject='', picfilename='tempIMG.bmp'):
     mail = MIMEMultipart('related')
     mail_host = "smtp.163.com"
-    mail_user = "will1233210@163.com"
-    mail_pass = "SHIEYFHPOKBAHUKE"
+    mail_user = "发送邮箱"
+    mail_pass = "授权码"
     receivers = toMail
     
     if subject=='':
@@ -45,9 +45,8 @@ def sendMail(i=0, toMail='496373158@qq.com', subject='', picfilename='tempIMG.bm
     try:
         smtpObj = smtplib.SMTP_SSL(mail_host)
         smtpObj.login(mail_user,mail_pass)
-        # print(123)
         smtpObj.sendmail(mail_user,  receivers, mail.as_string())
-        print (f"{receivers} 邮件发送成功")
+        # print (f"{receivers} 邮件发送成功")
     except smtplib.SMTPException:
         print ("Error: 无法发送邮件")
         pass
