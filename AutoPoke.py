@@ -21,7 +21,8 @@ if __name__=='__main__':
 	cfg=Config()
 	eval(cfg.mode.upper()+'(eo,cfg)')
 
-
-
-	# wildPoke(eo,cfg,jump=False,inCave=False,ifLR=True)
-# stationary(eo,cfg)
+#=================================
+# How to use?
+# Make player role where you need to encounter PM, and set parameters in config.ini file. Then run this file.
+# If not found Operator: run function 'get_all_window()' and copy your Operator's name to eo=win32gui.FindWindow(None,'Operator × v0.9.1-beta').
+#=================================
