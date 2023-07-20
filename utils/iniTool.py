@@ -28,7 +28,7 @@ class Config:
 
     def writeCountConfig(self, i):
         self.config['DEFAULT']['count'] = str(i)
-        with open(self.inifile, 'w') as cfgfile:
+        with open(self.inifile, 'w',encoding='utf-8') as cfgfile:
             self.config.write(cfgfile)
 
     def endApp(self, message):
