@@ -108,7 +108,7 @@ def WILDPOKE(eo, cfg: Config):
         if colorGot not in BGYellow:
             print('Got Shiny Pokemon!')
             sendMail_(cfg,i=SLs)
-            cfg.writeConfig(0)
+            cfg.writeCountConfig(0)
             unregister(exit_print_i)
             break
         colorGot = getColor(eo, *pos.colorPos1)
@@ -152,7 +152,7 @@ def STATIONARY(eo, cfg: Config, ifFRLG=False, hitkeys=[], i=0):
         if colorGot not in BGYellow:
             print('Got Shiny Pokemon!')
             sendMail_(cfg,i=SLs)
-            cfg.writeConfig(0)
+            cfg.writeCountConfig(0)
             unregister(exit_print_i)
             break
         SL(eo, cfg)
