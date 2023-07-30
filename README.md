@@ -3,8 +3,9 @@ Auto hunting shiny pokemon using Epilogue GB operator, writing with Python. Only
 宝可梦三代自动化刷闪工具，使用Epilogue GB operator。模拟器等也可参考使用。
 
 # How to use?
-**Make sure Text speed in the setting of your game is *Fast*.**
-Make player role where you need to encounter PM, and set parameters in config.ini file. Then run `AutoPoke.py` or `AutoPoke.exe`.
+- **Make sure Text speed in the setting of your game is *Fast*.**
+- **Do not change the window size of Operator.**
+- Make player role where you need to encounter PM, and set parameters in `config.ini` file. Then run `AutoPoke.py` or `AutoPoke.exe`.
 
 # Already confirmed be of use in
 - English version: `RS`
