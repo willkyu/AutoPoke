@@ -13,16 +13,19 @@ class posConfig:
         getColor(eo, 1, 1)
         self.w, self.h = getSize()
 
-        self.colorPos = [self.percentXPos(955), self.percentYPos(400)]
-        self.colorPos0 = [self.percentXPos(555), self.percentYPos(
-            360)] if inCave else self.colorPos
-        self.colorPos1 = [self.percentXPos(945), self.percentYPos(660)]
+        # self.colorPos = [self.percentXPos(955), self.percentYPos(400)]
+        self.colorPos = [943, 430]  #BGYellow
+        # self.colorPos0 = [self.percentXPos(555), self.percentYPos(
+        #     360)] if inCave else self.colorPos
+        self.colorPos0 = [660,450] if inCave else self.colorPos
+        # self.colorPos1 = [self.percentXPos(945), self.percentYPos(660)]
+        self.colorPos1 = [800,620]
 
-    def percentXPos(self, x: int):
-        return int(x*self.w/1116)
+    # def percentXPos(self, x: int):
+    #     return int(x*self.w/1116)
 
-    def percentYPos(self, y: int):
-        return int(y*self.h/714)
+    # def percentYPos(self, y: int):
+    #     return int(y*self.h/714)
 
 
 # (255, 251, 247)白色
@@ -30,8 +33,11 @@ white = [(254+i, 250+j, 246+k) for i in range(2)
          for j in range(3) for k in range(3)]
 # (0, 0, 0) 黑色
 black = [(0+i, 0+j, 0+k) for i in range(3) for j in range(3) for k in range(3)]
-# (107, 162, 165)BG深绿
+# (107, 162, 165)BG深绿 宝石
 BGdeepGreen = [(106+i, 161+j, 165+k) for i in range(3)
+               for j in range(3) for k in range(3)]
+# (41, 81, 107)BG深蓝 火叶
+BGdeepBlue = [(41+i, 81+j, 107+k) for i in range(3)
                for j in range(3) for k in range(3)]
 # (255, 251, 222)BG浅黄
 BGYellow = [(254+i, 250+j, 221+k) for i in range(2)
@@ -92,7 +98,7 @@ def WILDPOKE(eo, cfg: Config):
                 register(exit_print_i, i=SLs, cfg=cfg)
                 break
 
-        sleep(4)
+        sleep(4.1)
         HitKey(eo, cfg.keymap['A'])
         # if in safari zone, its much more faster than others.
         sleep(0.12)
@@ -112,7 +118,7 @@ def WILDPOKE(eo, cfg: Config):
             unregister(exit_print_i)
             break
         colorGot = getColor(eo, *pos.colorPos1)
-        if colorGot in BGdeepGreen:
+        if colorGot in BGdeepGreen + BGdeepBlue:
             # 威吓检测
             # print('威吓!')
             # sleep(3.6)
