@@ -5,7 +5,7 @@ Auto hunting shiny pokemon using Epilogue GB operator, writing with Python. Only
 # How to use?
 - **Make sure Text speed in the setting of your game is *Fast*.**
 - **Do not change the window size of Operator.**
-- **Do not minimize the window of Operator when AutoPoke is running.
+- **Do not minimize the window of Operator when AutoPoke is running.**
 - Make player role where you need to encounter PM, and set parameters in `config.ini` file. Then run `AutoPoke.py` or `AutoPoke.exe`.
 - If your Operator version is lower than `v1.0.0`, download AutoPoke of `v1.1` version.
 
