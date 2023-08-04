@@ -16,16 +16,24 @@ def get_all_window(hwnd_title):
 	    if t != "":
 		    print(h, t)
 
-if __name__=='__main__':
+def main():
 	print("Running....Press Ctrl+C to cancel.")
 	cfg=Config()
 	eo=win32gui.FindWindow(None,cfg.window_name)
 	eval(cfg.mode.upper()+'(eo,cfg)')
 
-
+if __name__=='__main__':
+	main()
 
 #=================================
 # How to use?
 # Make player role where you need to encounter PM, and set parameters in config.ini file. Then run this file.
 # If not found Operator: run function 'get_all_window()' and copy your Operator's name to eo=win32gui.FindWindow(None,'Operator × v0.9.1-beta').
+#=================================
+
+#=================================
+# Test codes:
+# cfg=Config()
+# eo=win32gui.FindWindow(None,cfg.window_name)
+# print(getColor(eo, 490, 620))
 #=================================
