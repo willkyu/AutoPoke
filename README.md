@@ -6,6 +6,7 @@ Auto hunting shiny pokemon using Epilogue GB operator, writing with Python. Only
 - **Make sure Text speed in the setting of your game is *Fast*.**
 - **Do not change the window size of Operator.**
 - Make player role where you need to encounter PM, and set parameters in `config.ini` file. Then run `AutoPoke.py` or `AutoPoke.exe`.
+- If your Operator version is lower than `v1.0.0`, download AutoPoke of `v1.1` version.
 
 # Already confirmed be of use in
 - English version: `RS`
@@ -16,6 +17,10 @@ Auto hunting shiny pokemon using Epilogue GB operator, writing with Python. Only
   - wild encounter
 
 # Update Log
+- 2023-08-04
+  - Update for Operator version later than `v1.0.0`.
+  - Support extra anime detection for `FrLg`, which only support `RS` in lower version.
+
 - 2023-07-20
   - Stationary function is available now.
   - Optimized codes structure and make all configs in one file.
