@@ -9,17 +9,17 @@ from utils.iniTool import *
 
 
 class posConfig:
-    def __init__(self, eo, inCave) -> None:
+    def __init__(self, eo) -> None:
         getColor(eo, 1, 1)
         self.w, self.h = getSize()
 
         # self.colorPos = [self.percentXPos(955), self.percentYPos(400)]
-        self.colorPos = [943, 430]  #BGYellow
+        self.colorPos = [943, 430]  # BGYellow
         # self.colorPos0 = [self.percentXPos(555), self.percentYPos(
         #     360)] if inCave else self.colorPos
-        self.colorPos0 = [660,450] if inCave else self.colorPos
+        self.colorPos0 = [510, 350]
         # self.colorPos1 = [self.percentXPos(945), self.percentYPos(660)]
-        self.colorPos1 = [800,620]
+        self.colorPos1 = [800, 620]
 
     # def percentXPos(self, x: int):
     #     return int(x*self.w/1116)
@@ -31,6 +31,10 @@ class posConfig:
 # (255, 251, 247)白色
 white = [(254+i, 250+j, 246+k) for i in range(2)
          for j in range(3) for k in range(3)]
+# (255, 251, 255)(77, 76, 77)Dialogue
+dialogueColor = [(254+i, 250+j, 254+k) for i in range(3) for j in range(3) for k in range(3)] + \
+    [(76+i, 75+j, 76+k) for i in range(3)
+     for j in range(3) for k in range(3)]
 # (0, 0, 0) 黑色
 black = [(0+i, 0+j, 0+k) for i in range(3) for j in range(3) for k in range(3)]
 # (107, 162, 165)BG深绿 宝石
@@ -38,7 +42,7 @@ BGdeepGreen = [(106+i, 161+j, 165+k) for i in range(3)
                for j in range(3) for k in range(3)]
 # (41, 81, 107)BG深蓝 火叶
 BGdeepBlue = [(41+i, 81+j, 107+k) for i in range(3)
-               for j in range(3) for k in range(3)]
+              for j in range(3) for k in range(3)]
 # (255, 251, 222)BG浅黄
 BGYellow = [(254+i, 250+j, 221+k) for i in range(2)
             for j in range(3) for k in range(3)]
@@ -62,17 +66,18 @@ def RUN(eo, cfg: Config):
     HitKey(eo, cfg.keymap['A'])
     sleep(2.7)
 
-def sendMail_(cfg:Config,i):
-    sendMail(i,cfg.toMail,cfg.mail_host,cfg.sendMail,cfg.sendMail_password)
+
+def sendMail_(cfg: Config, i):
+    sendMail(i, cfg.toMail, cfg.mail_host, cfg.sendMail, cfg.sendMail_password)
 
 
 def WILDPOKE(eo, cfg: Config):
 
-    inCave = eval(cfg.mode_config['incave'])
+    #inCave = eval(cfg.mode_config['incave'])
     jump = eval(cfg.mode_config['jump'])
     ifLR = eval(cfg.mode_config['iflr'])
     SLs = cfg.i
-    pos = posConfig(eo, inCave)
+    pos = posConfig(eo)
 
     # 默认左右走，ifLR=False时，上下走
     register(exit_print_i, i=SLs, cfg=cfg)
@@ -89,16 +94,26 @@ def WILDPOKE(eo, cfg: Config):
         while 1:
             if not jump:
                 RandomHitKey(eo, keyList)
-            colorGot = getColor(eo, *(pos.colorPos0))
+                # HitKey(eo,cfg.keymap['B'])
+            colorGot = getColor(eo, *pos.colorPos0)
             if colorGot in black:
                 if jump:
                     ReleaseKey(eo, cfg.keymap['B'])
+                while colorGot in black:
+                    colorGot = getColor(eo, *pos.colorPos0)
+
                 SLs += 1
                 unregister(exit_print_i)
                 register(exit_print_i, i=SLs, cfg=cfg)
                 break
+            elif cfg.version == 'E':
+                colorGot = getColor(eo, *pos.colorPos1)
+                if colorGot in dialogueColor:
+                    while colorGot in dialogueColor:
+                        HitKey(eo, cfg.keymap['B'])
+                        colorGot = getColor(eo, *pos.colorPos1)
 
-        sleep(4.1)
+        sleep(3.1)
         HitKey(eo, cfg.keymap['A'])
         # if in safari zone, its much more faster than others.
         sleep(0.12)
@@ -113,13 +128,13 @@ def WILDPOKE(eo, cfg: Config):
         # print(colorGot)
         if colorGot not in BGYellow:
             print('Got Shiny Pokemon!')
-            sendMail_(cfg,i=SLs)
+            sendMail_(cfg, i=SLs)
             cfg.writeCountConfig(0)
             unregister(exit_print_i)
             break
         colorGot = getColor(eo, *pos.colorPos1)
         if colorGot in BGdeepGreen + BGdeepBlue:
-            # 威吓检测
+            # 额外动画检测
             # print('威吓!')
             # sleep(3.6)
             while 1:
@@ -157,7 +172,7 @@ def STATIONARY(eo, cfg: Config, ifFRLG=False, hitkeys=[], i=0):
         colorGot = getColor(eo, *pos.colorPos)
         if colorGot not in BGYellow:
             print('Got Shiny Pokemon!')
-            sendMail_(cfg,i=SLs)
+            sendMail_(cfg, i=SLs)
             cfg.writeCountConfig(0)
             unregister(exit_print_i)
             break
