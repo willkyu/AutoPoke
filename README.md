@@ -20,7 +20,7 @@ Auto hunting shiny pokemon using Epilogue GB operator, writing with Python. Only
 # Update Log
 - 2023-08-05
   - Fixed bug for special anime when wildpoke raising.
-  - Fixed when wildpoke, receiving pokenav will interrupt autopoke.
+  - Fixed in `E` when wildpoke, receiving pokenav will interrupt autopoke. (NOT TESTED)
   - Fixed bug when in cave. InCave parameter is no longer needed.
 
 - 2023-08-04
