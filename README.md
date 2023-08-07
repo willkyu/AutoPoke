@@ -24,7 +24,7 @@ Auto hunting shiny pokemon using Epilogue GB operator, writing with Python. Only
   - Fixed bug when in cave. InCave parameter is no longer needed.
 
 - 2023-08-04
-  - Update for Operator version later than `v1.0.0`.
+  - Update for Operator version later than `v1.0.0`, renamed to `Playback`.
   - Support extra anime detection for `FrLg`, which only support `RS` in lower version.
 
 - 2023-07-20
