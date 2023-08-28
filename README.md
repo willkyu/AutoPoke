@@ -18,6 +18,8 @@ Auto hunting shiny pokemon using Playback(Epilogue GB operator), writing with Py
   - wild encounter
 
 # Update Log
+-2023-08-28
+  - Fixed bugs.
 - 2023-08-05
   - Fixed bug for special anime when wildpoke raising.
   - Fixed in `E` when wildpoke, receiving pokenav will interrupt autopoke. (NOT TESTED)
