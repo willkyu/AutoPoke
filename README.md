@@ -18,7 +18,7 @@ Auto hunting shiny pokemon using Playback(Epilogue GB operator), writing with Py
   - wild encounter
 
 # Update Log
--2023-08-28
+- 2023-08-28
   - Fixed an issue where additional animation detection and dialogue detection (E) may cause errors when there is a menu bar below.
 - 2023-08-05
   - Fixed bug for special anime when wildpoke raising.
