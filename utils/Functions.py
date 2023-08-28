@@ -19,7 +19,7 @@ class posConfig:
         #     360)] if inCave else self.colorPos
         self.colorPos0 = [510, 350]
         # self.colorPos1 = [self.percentXPos(945), self.percentYPos(660)]
-        self.colorPos1 = [800, 620]
+        self.colorPos1 = [900, 620]
 
     # def percentXPos(self, x: int):
     #     return int(x*self.w/1116)
@@ -113,7 +113,7 @@ def WILDPOKE(eo, cfg: Config):
                         HitKey(eo, cfg.keymap['B'])
                         colorGot = getColor(eo, *pos.colorPos1)
 
-        sleep(3.1)
+        sleep(3.0)
         HitKey(eo, cfg.keymap['A'])
         # if in safari zone, its much more faster than others.
         sleep(0.12)
@@ -140,6 +140,7 @@ def WILDPOKE(eo, cfg: Config):
             while 1:
                 colorGot = getColor(eo, *pos.colorPos1)
                 if colorGot not in BGdeepGreen:
+                    sleep(0.02)
                     break
         RUN(eo, cfg)
 
