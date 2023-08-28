@@ -43,6 +43,7 @@ BGdeepGreen = [(106+i, 161+j, 165+k) for i in range(3)
 # (41, 81, 107)BG深蓝 火叶
 BGdeepBlue = [(41+i, 81+j, 107+k) for i in range(3)
               for j in range(3) for k in range(3)]
+
 # (255, 251, 222)BG浅黄
 BGYellow = [(254+i, 250+j, 221+k) for i in range(2)
             for j in range(3) for k in range(3)]
@@ -75,6 +76,7 @@ def WILDPOKE(eo, cfg: Config):
 
     #inCave = eval(cfg.mode_config['incave'])
     jump = eval(cfg.mode_config['jump'])
+    run = eval(cfg.mode_config['run'])
     ifLR = eval(cfg.mode_config['iflr'])
     SLs = cfg.i
     pos = posConfig(eo)
@@ -89,7 +91,7 @@ def WILDPOKE(eo, cfg: Config):
     # pos.colorPos0 if inCave else pos.colorPos
     while 1:
         # move till encounter
-        if jump:
+        if jump or run:
             PressKey(eo, cfg.keymap['B'])
         while 1:
             if not jump:
@@ -97,7 +99,7 @@ def WILDPOKE(eo, cfg: Config):
                 # HitKey(eo,cfg.keymap['B'])
             colorGot = getColor(eo, *pos.colorPos0)
             if colorGot in black:
-                if jump:
+                if jump or run:
                     ReleaseKey(eo, cfg.keymap['B'])
                 while colorGot in black:
                     colorGot = getColor(eo, *pos.colorPos0)
@@ -139,7 +141,7 @@ def WILDPOKE(eo, cfg: Config):
             # sleep(3.6)
             while 1:
                 colorGot = getColor(eo, *pos.colorPos1)
-                if colorGot not in BGdeepGreen:
+                if colorGot not in BGdeepGreen + BGdeepBlue:
                     sleep(0.02)
                     break
         RUN(eo, cfg)
