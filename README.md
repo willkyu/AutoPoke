@@ -20,6 +20,7 @@ Auto hunting shiny pokemon using Playback(Epilogue GB operator), writing with Py
 # Update Log
 - 2023-08-28
   - Fixed an issue where additional animation detection and dialogue detection (`E`) may cause errors when there is a menu bar below.
+  - Add *run* parameter.
 - 2023-08-05
   - Fixed bug for special anime when wildpoke raising.
   - Fixed in `E` when wildpoke, receiving pokenav will interrupt autopoke. (NOT TESTED)
