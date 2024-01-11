@@ -21,9 +21,15 @@ def main():
 	cfg=Config()
 	eo=win32gui.FindWindow(None,cfg.window_name)
 	eval(cfg.mode.upper()+'(eo,cfg)')
+#=================================
+# Test codes:
+def test():
+	cfg=Config()
+	eo=win32gui.FindWindow(None,cfg.window_name)
+	print(getColor(eo, 915, 430))
+	input()
+#=================================
 
-if __name__=='__main__':
-	main()
 
 #=================================
 # How to use?
@@ -31,9 +37,6 @@ if __name__=='__main__':
 # If not found Operator: run function 'get_all_window()' and copy your Operator's name to eo=win32gui.FindWindow(None,'Operator × v0.9.1-beta').
 #=================================
 
-#=================================
-# Test codes:
-# cfg=Config()
-# eo=win32gui.FindWindow(None,cfg.window_name)
-# print(getColor(eo, 490, 620))
-#=================================
+if __name__=='__main__':
+	# test()
+	main()
