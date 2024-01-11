@@ -3,7 +3,7 @@ import win32gui, win32ui, win32con
 from PIL import Image
 
 
-def getColor(eo,x,y):
+def getColor_(eo,x,y):
     left, top, right, bot = win32gui.GetWindowRect(eo)
     width = right - left
     height = bot - top
@@ -35,6 +35,50 @@ def getColor(eo,x,y):
     mfcDC.DeleteDC()
     win32gui.ReleaseDC(eo,hWndDC)
     return im.getpixel((x,y))
+
+def rgbint2rgbtuple(RGBint):
+
+    blue = RGBint & 255
+    green = (RGBint >> 8) & 255
+    red = (RGBint >> 16) & 255
+
+    return (blue, green, red)
+
+def getColor(eo,x,y):
+    left, top, right, bot = win32gui.GetWindowRect(eo)
+    width = right - left
+    height = bot - top
+    #print('width:{}, height:{}.'.format(width,height))
+    #返回句柄窗口的设备环境，覆盖整个窗口，包括非客户区，标题栏，菜单，边框
+    # mfcDC = win32ui.CreateDCFromHandle(hWndDC)
+    color=rgbint2rgbtuple(win32gui.GetPixel(win32gui.GetWindowDC(eo),x,y))
+    # win32gui.ReleaseDC(eo,hWndDC)
+    # print("{},{} ====> ".format(x,y)+str(color))
+    return color
+
+def saveImg(eo):
+    left, top, right, bot = win32gui.GetWindowRect(eo)
+    width = right - left
+    height = bot - top
+    #print('width:{}, height:{}.'.format(width,height))
+    #返回句柄窗口的设备环境，覆盖整个窗口，包括非客户区，标题栏，菜单，边框
+    hWndDC = win32gui.GetWindowDC(eo)
+    #创建设备描述表
+    mfcDC = win32ui.CreateDCFromHandle(hWndDC)
+    #创建内存设备描述表
+    saveDC = mfcDC.CreateCompatibleDC()
+    #创建位图对象准备保存图片
+    saveBitMap = win32ui.CreateBitmap()
+    #为bitmap开辟存储空间
+    saveBitMap.CreateCompatibleBitmap(mfcDC,width,height)
+    #将截图保存到saveBitMap中
+    saveDC.SelectObject(saveBitMap)
+    #保存bitmap到内存设备描述表
+    saveDC.BitBlt((0,0), (width,height), mfcDC, (0, 0), win32con.SRCCOPY)
+    ###保存bitmap到文件
+    saveBitMap.SaveBitmapFile(saveDC,"tempIMG.bmp")
+    
+    return 
 
 def getSize():
     im=Image.open('tempIMG.bmp')
