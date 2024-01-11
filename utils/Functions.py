@@ -14,7 +14,9 @@ class posConfig:
         self.w, self.h = getSize()
 
         # self.colorPos = [self.percentXPos(955), self.percentYPos(400)]
-        self.colorPos = [943, 430]  # BGYellow
+        # self.colorPos = [943, 430]  # BGYellow
+        # self.colorPos = [915,430]
+        self.colorPos = [690,455]
         # self.colorPos0 = [self.percentXPos(555), self.percentYPos(
         #     360)] if inCave else self.colorPos
         self.colorPos0 = [510, 350]
@@ -68,8 +70,10 @@ def RUN(eo, cfg: Config):
     sleep(2.7)
 
 
-def sendMail_(cfg: Config, i):
-    sendMail(i, cfg.toMail, cfg.mail_host, cfg.sendMail, cfg.sendMail_password)
+def sendMail_(eo,cfg: Config, i):
+    if cfg.ifsend:
+        saveImg(eo)
+        sendMail(i, cfg.toMail, cfg.mail_host, cfg.sendMail, cfg.sendMail_password)
 
 
 def WILDPOKE(eo, cfg: Config):
@@ -90,19 +94,38 @@ def WILDPOKE(eo, cfg: Config):
     # [555, 375]  [590,475]
     # pos.colorPos0 if inCave else pos.colorPos
     while 1:
+        # print(run)
         # move till encounter
         if jump or run:
+            
             PressKey(eo, cfg.keymap['B'])
+            # PressKey(eo, cfg.keymap['B'])
+            # sleep(0.1)
+        colorcount=100
+        colorGot = getColor(eo, *pos.colorPos0)
         while 1:
             if not jump:
                 RandomHitKey(eo, keyList)
                 # HitKey(eo,cfg.keymap['B'])
+            else:
+                sleep(0.1)
+            
             colorGot = getColor(eo, *pos.colorPos0)
+            # colorcount-=1
+            # if colorcount<=0:
+            #     colorGot = getColor(eo, *pos.colorPos0)
+            #     colorcount=100
+
+            # encounter
             if colorGot in black:
                 if jump or run:
                     ReleaseKey(eo, cfg.keymap['B'])
+                flag=True
                 while colorGot in black:
                     colorGot = getColor(eo, *pos.colorPos0)
+                    if flag:
+                        sleep(0.98)
+                        flag=False
 
                 SLs += 1
                 unregister(exit_print_i)
@@ -115,22 +138,26 @@ def WILDPOKE(eo, cfg: Config):
                         HitKey(eo, cfg.keymap['B'])
                         colorGot = getColor(eo, *pos.colorPos1)
 
-        sleep(3.0)
+        sleep(3.3)
+        # if cfg.version=='E':
+        #     sleep(0.27)
         HitKey(eo, cfg.keymap['A'])
-        # if in safari zone, its much more faster than others.
-        sleep(0.12)
+        HitKey(eo, cfg.keymap['A'])
+        # if in safari zone, it's much more faster than others.
+        sleep(0.4)
         colorGot = getColor(eo, *pos.colorPos)
         if colorGot in BGYellow:
             # print('Zone')
             RUN(eo, cfg)
             continue
 
-        sleep(2.88)
+        sleep(2.90)
+        # getColor_(eo,*pos.colorPos)
         colorGot = getColor(eo, *pos.colorPos)
         # print(colorGot)
         if colorGot not in BGYellow:
             print('Got Shiny Pokemon!')
-            sendMail_(cfg, i=SLs)
+            sendMail_(eo,cfg, i=SLs)
             cfg.writeCountConfig(0)
             unregister(exit_print_i)
             break
@@ -144,6 +171,7 @@ def WILDPOKE(eo, cfg: Config):
                 if colorGot not in BGdeepGreen + BGdeepBlue:
                     sleep(0.02)
                     break
+                sleep(0.1)
         RUN(eo, cfg)
 
 
@@ -175,7 +203,7 @@ def STATIONARY(eo, cfg: Config, ifFRLG=False, hitkeys=[], i=0):
         colorGot = getColor(eo, *pos.colorPos)
         if colorGot not in BGYellow:
             print('Got Shiny Pokemon!')
-            sendMail_(cfg, i=SLs)
+            sendMail_(eo,cfg, i=SLs)
             cfg.writeCountConfig(0)
             unregister(exit_print_i)
             break
