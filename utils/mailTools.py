@@ -6,7 +6,7 @@ from email.mime.multipart import MIMEMultipart
 from email.header import Header
 from PIL import Image
 
-def sendMail(i, toMail, mail_host, mail_user, mail_pass):
+def sendMail(i, toMail, mail_host, mail_user, mail_pass, printf):
     mail = MIMEMultipart('related')
 
     receivers = toMail
@@ -36,13 +36,17 @@ def sendMail(i, toMail, mail_host, mail_user, mail_pass):
     """.format(i)
     mail.attach(MIMEText(myMessage, 'html', 'utf-8'))
     mail['Subject'] = Header(subject, 'utf-8')
+    # print(mail_host)
+    # print(mail_user)
+    # print(mail_pass)
+    # print(receivers)
 
     try:
         smtpObj = smtplib.SMTP_SSL(mail_host)
         smtpObj.login(mail_user,mail_pass)
         # print(123)
         smtpObj.sendmail(mail_user,  receivers, mail.as_string())
-        print (f"{receivers} 邮件发送成功")
+        printf(f"{receivers} 邮件发送成功")
     except smtplib.SMTPException:
-        print ("Error: 无法发送邮件")
+        printf("Error: 无法发送邮件")
         pass
