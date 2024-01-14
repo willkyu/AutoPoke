@@ -18,7 +18,7 @@ Auto hunting shiny pokemon using Playback(Epilogue GB operator), writing with Py
   - wild encounter
 
 # Update Log
--2024-01-14
+- 2024-01-14
   - Add UI.
   - Auto create config.ini file if it does not exist.
 
