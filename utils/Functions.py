@@ -10,8 +10,8 @@ from utils.iniTool import *
 
 class posConfig:
     def __init__(self, eo) -> None:
-        getColor(eo, 1, 1)
-        self.w, self.h = getSize()
+        # getColor(eo, 1, 1)
+        # self.w, self.h = getSize()
 
         # self.colorPos = [self.percentXPos(955), self.percentYPos(400)]
         # self.colorPos = [943, 430]  # BGYellow
@@ -55,13 +55,14 @@ def RandomHitKey(eo, keyList):
     HitKey(eo, choice(keyList))
 
 
-def exit_print_i(i, cfg: Config):
-    print('no shiny pokemon in {} times.'.format(i))
+def exit_print_i(i, cfg: Config, printf):
+    printf('No shiny pokemon in {} times.'.format(i))
     cfg.writeCountConfig(i)
-    sleep(5)
+    # sleep(5)
 
 
-def RUN(eo, cfg: Config):
+def RUN(eo, cfg: Config, printf):
+    # printf("Run...")
     HitKey(eo, cfg.keymap['RIGHT'])
     HitKey(eo, cfg.keymap['DOWN'])
     HitKey(eo, cfg.keymap['A'])
@@ -70,29 +71,33 @@ def RUN(eo, cfg: Config):
     sleep(2.7)
 
 
-def sendMail_(eo,cfg: Config, i):
+def sendMail_(eo,cfg: Config, i,printf):
     if cfg.ifsend:
         saveImg(eo)
-        sendMail(i, cfg.toMail, cfg.mail_host, cfg.sendMail, cfg.sendMail_password)
+        try:
+            sendMail(i, cfg.toMail, cfg.mail_host, cfg.sendMail, cfg.sendMail_password, printf)
+        except:
+            printf("Please open config.ini file to config email information.")
 
 
-def WILDPOKE(eo, cfg: Config):
-
+def WILDPOKE(eo, cfg: Config, printf, update_count):
+    getColorTest(eo,printf)
     #inCave = eval(cfg.mode_config['incave'])
     jump = eval(cfg.mode_config['jump'])
     run = eval(cfg.mode_config['run'])
     ifLR = eval(cfg.mode_config['iflr'])
-    SLs = cfg.i
+    # SLs = cfg.i
     pos = posConfig(eo)
 
     # 默认左右走，ifLR=False时，上下走
-    register(exit_print_i, i=SLs, cfg=cfg)
+    # register(exit_print_i, i=SLs, cfg=cfg, printf=printf)
     keyList = [cfg.keymap['LEFT'], cfg.keymap['RIGHT']] if ifLR else [
         cfg.keymap['UP'], cfg.keymap['DOWN']]
 
     # 如果在洞穴就检测中间部分
     # [555, 375]  [590,475]
     # pos.colorPos0 if inCave else pos.colorPos
+    printf("Encountering...")
     while 1:
         # print(run)
         # move till encounter
@@ -118,6 +123,7 @@ def WILDPOKE(eo, cfg: Config):
 
             # encounter
             if colorGot in black:
+                printf("A wild pokemon encountered!")
                 if jump or run:
                     ReleaseKey(eo, cfg.keymap['B'])
                 flag=True
@@ -127,13 +133,15 @@ def WILDPOKE(eo, cfg: Config):
                         sleep(0.98)
                         flag=False
 
-                SLs += 1
-                unregister(exit_print_i)
-                register(exit_print_i, i=SLs, cfg=cfg)
+                cfg.i += 1
+                update_count(cfg.i)
+                # unregister(exit_print_i)
+                # register(exit_print_i, i=SLs, cfg=cfg)
                 break
             elif cfg.version == 'E':
                 colorGot = getColor(eo, *pos.colorPos1)
                 if colorGot in dialogueColor:
+                    printf("PokeNav detected.")
                     while colorGot in dialogueColor:
                         HitKey(eo, cfg.keymap['B'])
                         colorGot = getColor(eo, *pos.colorPos1)
@@ -143,10 +151,12 @@ def WILDPOKE(eo, cfg: Config):
         #     sleep(0.27)
         HitKey(eo, cfg.keymap['A'])
         HitKey(eo, cfg.keymap['A'])
+        printf("Hit A.")
         # if in safari zone, it's much more faster than others.
         sleep(0.4)
         colorGot = getColor(eo, *pos.colorPos)
         if colorGot in BGYellow:
+            printf("Not shiny, run...")
             # print('Zone')
             RUN(eo, cfg)
             continue
@@ -156,31 +166,34 @@ def WILDPOKE(eo, cfg: Config):
         colorGot = getColor(eo, *pos.colorPos)
         # print(colorGot)
         if colorGot not in BGYellow:
-            print('Got Shiny Pokemon!')
-            sendMail_(eo,cfg, i=SLs)
+            printf('Got Shiny Pokemon!')
+            sendMail_(eo,cfg, i=cfg.i,printf=printf)
             cfg.writeCountConfig(0)
-            unregister(exit_print_i)
+            # unregister(exit_print_i)
             break
         colorGot = getColor(eo, *pos.colorPos1)
         if colorGot in BGdeepGreen + BGdeepBlue:
             # 额外动画检测
             # print('威吓!')
             # sleep(3.6)
+            printf("Special anime detected.")
             while 1:
                 colorGot = getColor(eo, *pos.colorPos1)
                 if colorGot not in BGdeepGreen + BGdeepBlue:
                     sleep(0.02)
                     break
                 sleep(0.1)
-        RUN(eo, cfg)
+        printf("Not shiny, run...")
+        RUN(eo, cfg, printf)
+        printf("Encountering...")
 
 
-def STATIONARY(eo, cfg: Config, ifFRLG=False, hitkeys=[], i=0):
+def STATIONARY(eo, cfg: Config, printf, update_count, hitkeys=[]):
+    getColorTest(eo,printf)
+    ifFRLG = cfg.version == "FrLg"
 
-    ifFRLG = cfg.version in ['Fr', 'Lg']
-
-    SLs = eval(cfg.i)
-    register(exit_print_i, i=SLs, cfg=cfg)
+    # SLs = eval(cfg.i)
+    # register(exit_print_i, i=cfg.i, cfg=cfg)
     pos = posConfig(eo, False)
     delay_list = [a/100 for a in range(0, 60, 2)]
     # SLs = i
@@ -193,20 +206,23 @@ def STATIONARY(eo, cfg: Config, ifFRLG=False, hitkeys=[], i=0):
             HitKey(eo, cfg.keymap['A'])
             colorGot = getColor(eo, *pos.colorPos)
             if colorGot in black:
-                SLs += 1
-                unregister(exit_print_i)
-                register(exit_print_i, i=SLs, cfg=cfg)
+                cfg.i += 1
+                update_count(cfg.i)
+                # unregister(exit_print_i)
+                # register(exit_print_i, i=cfg.i, cfg=cfg)
                 break
         sleep(4)
         HitKey(eo, cfg.keymap['A'])
+        printf("Hit A.")
         sleep(3)
         colorGot = getColor(eo, *pos.colorPos)
         if colorGot not in BGYellow:
-            print('Got Shiny Pokemon!')
-            sendMail_(eo,cfg, i=SLs)
+            printf('Got Shiny Pokemon!')
+            sendMail_(eo,cfg, i=cfg.i, printf=printf)
             cfg.writeCountConfig(0)
-            unregister(exit_print_i)
+            # unregister(exit_print_i)
             break
+        printf("SLing...")
         SL(eo, cfg)
         sleep(2)
         HitKey(eo, cfg.keymap['A'])
@@ -252,3 +268,7 @@ def SL(eo, cfg: Config):
     ReleaseKey(eo, cfg.keymap['B'])
     ReleaseKey(eo, cfg.keymap['START'])
     ReleaseKey(eo, cfg.keymap['SELECT'])
+
+def release_all_keys(eo, cfg:Config):
+    for key in cfg.keymap.values():
+        ReleaseKey(eo,key)
