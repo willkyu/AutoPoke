@@ -56,6 +56,19 @@ def getColor(eo,x,y):
     # print("{},{} ====> ".format(x,y)+str(color))
     return color
 
+
+def getColorTest(eo,printf):
+    try:
+        #print('width:{}, height:{}.'.format(width,height))
+        #返回句柄窗口的设备环境，覆盖整个窗口，包括非客户区，标题栏，菜单，边框
+        # mfcDC = win32ui.CreateDCFromHandle(hWndDC)
+        rgbint2rgbtuple(win32gui.GetPixel(win32gui.GetWindowDC(eo),1,1))
+        # win32gui.ReleaseDC(eo,hWndDC)
+        # print("{},{} ====> ".format(x,y)+str(color))
+        # return color
+    except:
+        printf("Something wrong, please refresh.")
+
 def saveImg(eo):
     left, top, right, bot = win32gui.GetWindowRect(eo)
     width = right - left
