@@ -1,42 +1,11 @@
-import win32gui
-from utils.pressTool import *
-from utils.colorTool import *
-from utils.Functions import *
-from utils.iniTool import *
+import flet
+from utils.home import Home
 
-def get_all_hwnd(hwnd, mouse):
-	hwnd_title = dict()
-	if win32gui.IsWindow(hwnd) and win32gui.IsWindowEnabled(hwnd) and win32gui.IsWindowVisible(hwnd):
-		hwnd_title.update({hwnd: win32gui.GetWindowText(hwnd)})
-	return hwnd_title
+def mainPage(page: flet.Page)->None:
+    page.title="AutoPoke v4.0"
+    page.window_width = 720
+    page.window_height = 300
+    homePage = Home(page)
 
-def get_all_window(hwnd_title):
-    win32gui.EnumWindows(get_all_hwnd, 0)
-    for h, t in hwnd_title.items():
-	    if t != "":
-		    print(h, t)
-
-def main():
-	print("Running....Press Ctrl+C to cancel.")
-	cfg=Config()
-	eo=win32gui.FindWindow(None,cfg.window_name)
-	eval(cfg.mode.upper()+'(eo,cfg)')
-#=================================
-# Test codes:
-def test():
-	cfg=Config()
-	eo=win32gui.FindWindow(None,cfg.window_name)
-	print(getColor(eo, 915, 430))
-	input()
-#=================================
-
-
-#=================================
-# How to use?
-# Make player role where you need to encounter PM, and set parameters in config.ini file. Then run this file.
-# If not found Operator: run function 'get_all_window()' and copy your Operator's name to eo=win32gui.FindWindow(None,'Operator × v0.9.1-beta').
-#=================================
-
-if __name__=='__main__':
-	# test()
-	main()
+if __name__ == '__main__':
+    flet.app(target=mainPage)
