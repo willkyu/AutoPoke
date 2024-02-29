@@ -19,6 +19,9 @@ Auto hunting shiny pokemon using Playback(Epilogue GB operator), writing with Py
 
 # Update Log
 - 2024-02-29
+  - Performance optimization.
+
+- 2024-02-29
   - Support bigger window. (may occur bugs when the window is too large.)
   - Fixed bugs.
 
