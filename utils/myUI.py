@@ -1,5 +1,5 @@
 import flet
-from utils.base64img import *
+# from utils.base64img import *
 
 class myHome(object):
     def __init__(self, page: flet.Page) -> None:
@@ -22,9 +22,10 @@ class myHome(object):
         self.checkbox_column=flet.Column(controls=[self.jump_block,self.run_block])
         # img_src_base64="iVBORw0KGgoAAAANSUhEUgAAAEQAAABECAMAAAAPzWOAAAAAnFBMVEUAAAD///8AAABBQEHe1py0pYNaSkEAAAi0pIMABAhMSjzm3qSZlHB7Y0qwo39OREFWTkHFlWrVg0FKRjzm2qR3bU4ADBi/lF3VhUF4bld4b1pHNSt+b1eDZUqDcVqOhmJHQzGck3CsnYMIBABKRzRKRzm0pYsIBAg8OjFSODE8OjTViVLVypTe0qRBQDne1qTm1px1clp1cl/2wnNjjoyyAAAAAnRSTlMAAHaTzTgAAAEhSURBVHhe7dbHcoUwDIZR55ds024v6b339v7vFsmQudki2MXfwsszIDGA2xuhf4NkJCMZyYjrAtzfLIgagxHQKAhhOMJP5QjI3WAEzB4jIIcjIBKUQcqCgNsA1YgI/RHwb16PujIg4M833uWbCEJfpDzFOfPHBldKeF0T+iJYLC5emDfX83lrWLaD52OWVvEGgpzAtuJtQl5XkLO7EMtgib74e/9gN5EJLCsmehSkM8LEgKjil8uiSAhCCAZEDUkQqGFFpOnZ0QNUnIUA02AFeZ/60iUEYlkQZeR20lQDnAlhRbhDYEHgOdUOdmZ6YnU1yVDEi2FC6Jbrhor1JXFTkQ1xiBwrovU9UR1hfsfCgSARBn532sOG5D+ljGQkIxn5AeTYGlTNxZ6xAAAAAElFTkSuQmCC"
         # img_src="https://github.com/willkyu/willkyu.github.io/blob/main/images/avatar_.png?raw=true"
-        self.image=flet.Image(src_base64=img_src,width=100,height=100,border_radius=flet.border_radius.all(10),expand=1)
+        # self.image=flet.Image(src_base64=img_src,width=100,height=100,border_radius=flet.border_radius.all(10),expand=1)
+        self.image=flet.Container(image_src="https://github.com/willkyu/AutoPoke/blob/main/fig.png?raw=true",width=100,height=100,border_radius=flet.border_radius.all(10),expand=1)
         self.row_in_column2=flet.Row(controls=[self.checkbox_column,self.image],expand=1)
-        self.count_pannel=flet.Column(controls=[flet.Text(value="Encounters Count: ",style=flet.TextThemeStyle.HEADLINE_SMALL),
+        self.count_pannel=flet.Column(controls=[flet.Text(value="Encounters Count: ",theme_style=flet.TextThemeStyle.HEADLINE_SMALL),
             flet.TextField(value="8192",text_style=flet.TextStyle(size=32),text_align=flet.TextAlign.CENTER)])
         self.Column2=flet.Column(controls=[self.row_in_column2,self.count_pannel], expand=1)
 
@@ -59,8 +60,11 @@ class MainPanel(flet.ListView):
         super().__init__(expand=1, spacing=10, auto_scroll=True)
         self.maxlen=maxlen
         self.controls.append(flet.Text(
-            value='=== AutoPoke v4.0 ==='))
-    
+            value='=== AutoPoke v4.1 ==='))
+        self.controls.append((flet.Text(
+            value="*Text Speed of Game MUST be Fast AND NO Window Minimizing of Operator."
+            )))
+
     def append(self, text: flet.Text):
         self.controls.append(text)
         if len(self.controls)>50:
