@@ -104,8 +104,8 @@ def get_color_dict(eo):
     left, top, right, bot = win32gui.GetWindowRect(eo)
     width = right - left
     height = bot - top
-    x_list=[width-i for i in range(1,width//2,5)]
-    y_list=[height//2+i for i in range(0,height//4,5)]
+    x_list=[width-i for i in range(50,width//4,13)]
+    y_list=[height//2+i for i in range(50,height//4,13)]
     #print('width:{}, height:{}.'.format(width,height))
     #返回句柄窗口的设备环境，覆盖整个窗口，包括非客户区，标题栏，菜单，边框
     # mfcDC = win32ui.CreateDCFromHandle(hWndDC)
@@ -118,8 +118,10 @@ def get_color_dict(eo):
                 color_dict[color]=1
             else:
                 color_dict[color]+=1
+            # if color==(255, 251, 222):
+            #     print(x,y)
 
-    # win32gui.ReleaseDC(eo,hWndDC)
+    win32gui.ReleaseDC(eo,screenshot)
     # print("{},{} ====> ".format(x,y)+str(color))
     return color_dict
 
@@ -129,7 +131,7 @@ def color_exist(eo, color):
     # print(color_set)
     for c in color:
         if c in color_dict:
-            # print(color_dict[c])
+            # print(color_dict)
             return True
     return False
 
@@ -137,8 +139,8 @@ def color_exist_(eo, color0):
     left, top, right, bot = win32gui.GetWindowRect(eo)
     width = right - left
     height = bot - top
-    x_list=[width-i for i in range(3,width//4,5)]
-    y_list=[height-i for i in range(3,height//4,5)]
+    x_list=[width-i for i in range(50,width//4,13)]
+    y_list=[height-i for i in range(50,height//4,13)]
     #print('width:{}, height:{}.'.format(width,height))
     #返回句柄窗口的设备环境，覆盖整个窗口，包括非客户区，标题栏，菜单，边框
     # mfcDC = win32ui.CreateDCFromHandle(hWndDC)
@@ -152,7 +154,7 @@ def color_exist_(eo, color0):
                 color_dict[color]=1
             else:
                 color_dict[color]+=1
-
+    win32gui.ReleaseDC(eo,screenshot)
     for c in color0:
         if c in color_dict:
             # print(color_dict[c])
@@ -172,4 +174,6 @@ def black_out(eo):
     # mfcDC = win32ui.CreateDCFromHandle(hWndDC)
     screenshot=win32gui.GetWindowDC(eo)
     # color_set=set()
-    return win32gui.GetPixel(screenshot,width//2-aa,height//2-aa)==0 and win32gui.GetPixel(screenshot,width//2+aa,height//2-aa)==0 and win32gui.GetPixel(screenshot,width//2-aa,height//2+aa)==0 and win32gui.GetPixel(screenshot,width//2+aa,height//2+aa)==0
+    res = win32gui.GetPixel(screenshot,width//2-aa,height//2-aa)==0 and win32gui.GetPixel(screenshot,width//2+aa,height//2-aa)==0 and win32gui.GetPixel(screenshot,width//2-aa,height//2+aa)==0 and win32gui.GetPixel(screenshot,width//2+aa,height//2+aa)==0
+    win32gui.ReleaseDC(eo,screenshot)
+    return res
