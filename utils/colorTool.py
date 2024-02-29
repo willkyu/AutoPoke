@@ -1,6 +1,7 @@
 #对后台窗口截图
 import win32gui, win32ui, win32con
 from PIL import Image
+# from random import randint
 
 
 def getColor_(eo,x,y):
@@ -24,7 +25,7 @@ def getColor_(eo,x,y):
     saveDC.BitBlt((0,0), (width,height), mfcDC, (0, 0), win32con.SRCCOPY)
     ###保存bitmap到文件
     saveBitMap.SaveBitmapFile(saveDC,"tempIMG.bmp")
-    
+
     im=Image.open('tempIMG.bmp')#文件的路径
     # print(im.mode)
     # print(im.getpixel((x,y)))#像素点的rgb
@@ -90,8 +91,8 @@ def saveImg(eo):
     saveDC.BitBlt((0,0), (width,height), mfcDC, (0, 0), win32con.SRCCOPY)
     ###保存bitmap到文件
     saveBitMap.SaveBitmapFile(saveDC,"tempIMG.bmp")
-    
-    return 
+
+    return
 
 def getSize():
     im=Image.open('tempIMG.bmp')
@@ -99,12 +100,76 @@ def getSize():
 
 
 
-#如果要截图到打印设备：
-###最后一个int参数：0-保存整个窗口，1-只保存客户区。如果PrintWindow成功函数返回值为1
-#result = windll.user32.PrintWindow(hWnd,saveDC.GetSafeHdc(),0)
-#print(result) #PrintWindow成功则输出1
- 
-#保存图像
-##方法一：windows api保存
+def get_color_dict(eo):
+    left, top, right, bot = win32gui.GetWindowRect(eo)
+    width = right - left
+    height = bot - top
+    x_list=[width-i for i in range(1,width//2,5)]
+    y_list=[height//2+i for i in range(0,height//4,5)]
+    #print('width:{}, height:{}.'.format(width,height))
+    #返回句柄窗口的设备环境，覆盖整个窗口，包括非客户区，标题栏，菜单，边框
+    # mfcDC = win32ui.CreateDCFromHandle(hWndDC)
+    screenshot=win32gui.GetWindowDC(eo)
+    color_dict={}
+    for x in x_list:
+        for y in y_list:
+            color=rgbint2rgbtuple(win32gui.GetPixel(screenshot,x,y))
+            if color not in color_dict:
+                color_dict[color]=1
+            else:
+                color_dict[color]+=1
 
- 
+    # win32gui.ReleaseDC(eo,hWndDC)
+    # print("{},{} ====> ".format(x,y)+str(color))
+    return color_dict
+
+def color_exist(eo, color):
+    color_dict=get_color_dict(eo)
+    # print(color)
+    # print(color_set)
+    for c in color:
+        if c in color_dict:
+            # print(color_dict[c])
+            return True
+    return False
+
+def color_exist_(eo, color0):
+    left, top, right, bot = win32gui.GetWindowRect(eo)
+    width = right - left
+    height = bot - top
+    x_list=[width-i for i in range(3,width//4,5)]
+    y_list=[height-i for i in range(3,height//4,5)]
+    #print('width:{}, height:{}.'.format(width,height))
+    #返回句柄窗口的设备环境，覆盖整个窗口，包括非客户区，标题栏，菜单，边框
+    # mfcDC = win32ui.CreateDCFromHandle(hWndDC)
+    screenshot=win32gui.GetWindowDC(eo)
+    color_dict={}
+    for x in x_list:
+        for y in y_list:
+            # print(x,y)
+            color=rgbint2rgbtuple(win32gui.GetPixel(screenshot,x,y))
+            if color not in color_dict:
+                color_dict[color]=1
+            else:
+                color_dict[color]+=1
+
+    for c in color0:
+        if c in color_dict:
+            # print(color_dict[c])
+            return True
+    return False
+
+def black_out(eo):
+    left, top, right, bot = win32gui.GetWindowRect(eo)
+    width = right - left
+    height = bot - top
+    aa=height//10
+    # x,y=left+width//2
+    # x_list=[left+i for i in range(0,width//2,3)]
+    # y_list=[top+i for i in range(0,height//2,3)]
+    #print('width:{}, height:{}.'.format(width,height))
+    #返回句柄窗口的设备环境，覆盖整个窗口，包括非客户区，标题栏，菜单，边框
+    # mfcDC = win32ui.CreateDCFromHandle(hWndDC)
+    screenshot=win32gui.GetWindowDC(eo)
+    # color_set=set()
+    return win32gui.GetPixel(screenshot,width//2-aa,height//2-aa)==0 and win32gui.GetPixel(screenshot,width//2+aa,height//2-aa)==0 and win32gui.GetPixel(screenshot,width//2-aa,height//2+aa)==0 and win32gui.GetPixel(screenshot,width//2+aa,height//2+aa)==0
