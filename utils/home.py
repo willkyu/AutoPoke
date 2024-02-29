@@ -25,8 +25,8 @@ class Home(myHome):
         self.run_block.controls[1].on_change=self.run_on_change
         self.mode="WILDPOKE"
         self.page.update()
-        
-    
+
+
     def readConfig(self):
         self.print_to_pannel("Reading config from config.ini file...")
         self.cfg = Config(self.print_to_pannel)
@@ -37,7 +37,7 @@ class Home(myHome):
         self.count_pannel.controls[1].value=str(count)
         self.count_pannel.update()
         # self.cfg.updateConfig("DEFAULT","i",str(count))
-    
+
     def count_on_change(self,e):
         self.cfg.updateConfig("DEFAULT","count",e.control.value)
 
@@ -66,11 +66,12 @@ class Home(myHome):
         if not self.version_dropdown.value or not self.mode_dropdown.value:
             self.print_to_pannel("Please choose version or AutoPoke mode.")
             return
-        
+
         self.lock()
         self.print_to_pannel("=== AutoPoke Start===")
         self.count_pannel.controls[1].on_change=None
         self.count_pannel.controls[1].disabled=True
+        self.page.update()
         self.running=threading.Thread(target=eval(self.cfg.mode.upper()), args=(self.eo, self.cfg, self.print_to_pannel, self.update_count))
         self.running.start()
 
@@ -112,8 +113,8 @@ class Home(myHome):
             e.control.update_state('ud')
         elif e.control.value=='ud':
             e.control.update_state('lr')
-        self.cfg.updateConfig("WILDPOKE","iflr","True" if e.control.value=='lr' else "False")  
-        
+        self.cfg.updateConfig("WILDPOKE","iflr","True" if e.control.value=='lr' else "False")
+
         e.control.update()
         # return super().on_click
 
@@ -147,7 +148,7 @@ class Home(myHome):
         elif e.control.value=='Stationary':
             self.mode='Stationary'.upper()
             self.lock()
-            
+
         self.cfg.updateConfig("DEFAULT","mode",self.mode)
         self.page.update()
         pass
