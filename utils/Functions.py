@@ -1,10 +1,10 @@
-from multiprocessing.connection import wait
+# from multiprocessing.connection import wait
 from time import sleep
 from utils.pressTool import *
 from utils.colorTool import *
 from utils.mailTools import sendMail
 from random import choice
-from atexit import register, unregister
+# from atexit import register, unregister
 from utils.iniTool import *
 
 
@@ -31,23 +31,23 @@ class posConfig:
 
 
 # (255, 251, 247)白色
-white = [(254+i, 250+j, 246+k) for i in range(2)
+white = [(255, 251, 247)]+[(254+i, 250+j, 246+k) for i in range(2)
          for j in range(3) for k in range(3)]
 # (255, 251, 255)(77, 76, 77)Dialogue
-dialogueColor = [(254+i, 250+j, 254+k) for i in range(3) for j in range(3) for k in range(3)] + \
+dialogueColor = [(255, 251, 255),(77, 76, 77)]+[(254+i, 250+j, 254+k) for i in range(3) for j in range(3) for k in range(3)] + \
     [(76+i, 75+j, 76+k) for i in range(3)
      for j in range(3) for k in range(3)]
 # (0, 0, 0) 黑色
 black = [(0+i, 0+j, 0+k) for i in range(3) for j in range(3) for k in range(3)]
 # (107, 162, 165)BG深绿 宝石
-BGdeepGreen = [(106+i, 161+j, 165+k) for i in range(3)
+BGdeepGreen = [(107, 162, 165)]+[(106+i, 161+j, 165+k) for i in range(3)
                for j in range(3) for k in range(3)]
 # (41, 81, 107)BG深蓝 火叶
-BGdeepBlue = [(41+i, 81+j, 107+k) for i in range(3)
+BGdeepBlue = [(41, 81, 107)]+[(41+i, 81+j, 107+k) for i in range(3)
               for j in range(3) for k in range(3)]
 
 # (255, 251, 222)BG浅黄
-BGYellow = [(254+i, 250+j, 221+k) for i in range(2)
+BGYellow = [(255, 251, 222)]+[(254+i, 250+j, 221+k) for i in range(2)
             for j in range(3) for k in range(3)]
 
 
@@ -102,36 +102,41 @@ def WILDPOKE(eo, cfg: Config, printf, update_count):
         # print(run)
         # move till encounter
         if jump or run:
-            
+
             PressKey(eo, cfg.keymap['B'])
             # PressKey(eo, cfg.keymap['B'])
             # sleep(0.1)
-        colorcount=100
-        colorGot = getColor(eo, *pos.colorPos0)
+        # colorcount=100
+        # colorGot = getColor(eo, *pos.colorPos0)
         while 1:
             if not jump:
                 RandomHitKey(eo, keyList)
                 # HitKey(eo,cfg.keymap['B'])
             else:
                 sleep(0.1)
-            
-            colorGot = getColor(eo, *pos.colorPos0)
+
+            # colorGot = getColor(eo, *pos.colorPos0)
             # colorcount-=1
             # if colorcount<=0:
             #     colorGot = getColor(eo, *pos.colorPos0)
             #     colorcount=100
 
             # encounter
-            if colorGot in black:
+            # if colorGot in black:
+            if black_out(eo):
                 printf("A wild pokemon encountered!")
                 if jump or run:
                     ReleaseKey(eo, cfg.keymap['B'])
                 flag=True
-                while colorGot in black:
-                    colorGot = getColor(eo, *pos.colorPos0)
+                while black_out(eo):
                     if flag:
                         sleep(0.98)
                         flag=False
+                # while colorGot in black:
+                #     colorGot = getColor(eo, *pos.colorPos0)
+                #     if flag:
+                #         sleep(0.98)
+                #         flag=False
 
                 cfg.i += 1
                 update_count(cfg.i)
@@ -140,11 +145,16 @@ def WILDPOKE(eo, cfg: Config, printf, update_count):
                 break
             elif cfg.version == 'E':
                 colorGot = getColor(eo, *pos.colorPos1)
-                if colorGot in dialogueColor:
+                # if colorGot in dialogueColor:
+                #     printf("PokeNav detected.")
+                #     while colorGot in dialogueColor:
+                #         HitKey(eo, cfg.keymap['B'])
+                #         colorGot = getColor(eo, *pos.colorPos1)
+                if color_exist(eo,dialogueColor):
                     printf("PokeNav detected.")
-                    while colorGot in dialogueColor:
+                    while color_exist(eo,dialogueColor):
                         HitKey(eo, cfg.keymap['B'])
-                        colorGot = getColor(eo, *pos.colorPos1)
+                        sleep(0.2)
 
         sleep(3.3)
         # if cfg.version=='E':
@@ -153,36 +163,63 @@ def WILDPOKE(eo, cfg: Config, printf, update_count):
         HitKey(eo, cfg.keymap['A'])
         printf("Hit A.")
         # if in safari zone, it's much more faster than others.
-        sleep(0.4)
-        colorGot = getColor(eo, *pos.colorPos)
-        if colorGot in BGYellow:
+        # sleep(0.2)
+        # colorGot = getColor(eo, *pos.colorPos)
+        # if colorGot in BGYellow:
+        #     printf("Not shiny, run...")
+        #     # print('Zone')
+        #     RUN(eo, cfg)
+        #     continue
+        if color_exist(eo,BGYellow):
             printf("Not shiny, run...")
-            # print('Zone')
-            RUN(eo, cfg)
+            RUN(eo,cfg,printf)
             continue
 
-        sleep(2.90)
+        printf("not safari...")
+        sleep(2)
         # getColor_(eo,*pos.colorPos)
-        colorGot = getColor(eo, *pos.colorPos)
-        # print(colorGot)
-        if colorGot not in BGYellow:
-            printf('Got Shiny Pokemon!')
+        # printf("detecting...")
+        # colorGot = getColor(eo, *pos.colorPos)
+        # # print(colorGot)
+        # if colorGot not in BGYellow:
+        #     printf('Got Shiny Pokemon!')
+        #     sendMail_(eo,cfg, i=cfg.i,printf=printf)
+        #     cfg.writeCountConfig(0)
+        #     # unregister(exit_print_i)
+        #     break
+        if not color_exist(eo,BGYellow):
+            printf('Got Shiny Pokemon! {} times.'.format(cfg.i))
             sendMail_(eo,cfg, i=cfg.i,printf=printf)
             cfg.writeCountConfig(0)
+            # cfg.i += 1
+            # update_count(cfg.i)
             # unregister(exit_print_i)
             break
-        colorGot = getColor(eo, *pos.colorPos1)
-        if colorGot in BGdeepGreen + BGdeepBlue:
+
+        # colorGot = getColor(eo, *pos.colorPos1)
+        # if colorGot in BGdeepGreen + BGdeepBlue:
+        #     # 额外动画检测
+        #     # print('威吓!')
+        #     # sleep(3.6)
+        #     printf("Special anime detected.")
+        #     while 1:
+        #         colorGot = getColor(eo, *pos.colorPos1)
+        #         if colorGot not in BGdeepGreen + BGdeepBlue:
+        #             sleep(0.02)
+        #             break
+        #         sleep(0.1)
+        if color_exist_(eo,BGdeepGreen) or color_exist_(eo,BGdeepBlue):
             # 额外动画检测
             # print('威吓!')
             # sleep(3.6)
             printf("Special anime detected.")
             while 1:
-                colorGot = getColor(eo, *pos.colorPos1)
-                if colorGot not in BGdeepGreen + BGdeepBlue:
+                # colorGot = getColor(eo, *pos.colorPos1)
+                if not color_exist_(eo,BGdeepGreen) and not color_exist_(eo,BGdeepBlue):
                     sleep(0.02)
                     break
                 sleep(0.1)
+
         printf("Not shiny, run...")
         RUN(eo, cfg, printf)
         printf("Encountering...")
@@ -194,7 +231,7 @@ def STATIONARY(eo, cfg: Config, printf, update_count, hitkeys=[]):
 
     # SLs = eval(cfg.i)
     # register(exit_print_i, i=cfg.i, cfg=cfg)
-    pos = posConfig(eo, False)
+    pos = posConfig(eo)
     delay_list = [a/100 for a in range(0, 60, 2)]
     # SLs = i
     while 1:
@@ -204,19 +241,28 @@ def STATIONARY(eo, cfg: Config, printf, update_count, hitkeys=[]):
         # hit 'A' till encounter
         while 1:
             HitKey(eo, cfg.keymap['A'])
-            colorGot = getColor(eo, *pos.colorPos)
-            if colorGot in black:
+            # colorGot = getColor(eo, *pos.colorPos)
+            # if colorGot in black:
+            if black_out(eo):
+                printf("encountered!")
+                flag=True
+                while black_out(eo):
+                    if flag:
+                        sleep(0.98)
+                        flag=False
                 cfg.i += 1
                 update_count(cfg.i)
                 # unregister(exit_print_i)
                 # register(exit_print_i, i=cfg.i, cfg=cfg)
                 break
+            sleep(0.1)
         sleep(4)
         HitKey(eo, cfg.keymap['A'])
         printf("Hit A.")
         sleep(3)
-        colorGot = getColor(eo, *pos.colorPos)
-        if colorGot not in BGYellow:
+        # colorGot = getColor(eo, *pos.colorPos)
+        # if colorGot not in BGYellow:
+        if not color_exist(eo,BGYellow):
             printf('Got Shiny Pokemon!')
             sendMail_(eo,cfg, i=cfg.i, printf=printf)
             cfg.writeCountConfig(0)
@@ -238,15 +284,19 @@ def STATIONARY(eo, cfg: Config, printf, update_count, hitkeys=[]):
         # hit 'A' till entering
         while 1:
             HitKey(eo, cfg.keymap['A'])
-            colorGot = getColor(eo, *pos.colorPos)
-            if colorGot in black:
+            # colorGot = getColor(eo, *pos.colorPos)
+            # if colorGot in black:
+            if black_out(eo):
                 break
+            sleep(0.1)
 
         while 1:
             HitKey(eo, cfg.keymap['A'])
-            colorGot = getColor(eo, *pos.colorPos)
-            if colorGot in black:
+            # colorGot = getColor(eo, *pos.colorPos)
+            # if colorGot in black:
+            if black_out(eo):
                 break
+            sleep(0.1)
     pass
 
 
