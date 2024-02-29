@@ -31,24 +31,24 @@ class posConfig:
 
 
 # (255, 251, 247)白色
-white = [(255, 251, 247)]+[(254+i, 250+j, 246+k) for i in range(2)
-         for j in range(3) for k in range(3)]
+white = [(255, 251, 247)]#+[(254+i, 250+j, 246+k) for i in range(2)
+         #for j in range(3) for k in range(3)]
 # (255, 251, 255)(77, 76, 77)Dialogue
-dialogueColor = [(255, 251, 255),(77, 76, 77)]+[(254+i, 250+j, 254+k) for i in range(3) for j in range(3) for k in range(3)] + \
-    [(76+i, 75+j, 76+k) for i in range(3)
-     for j in range(3) for k in range(3)]
+dialogueColor = [(255, 251, 255),(77, 76, 77)]#+[(254+i, 250+j, 254+k) for i in range(3) for j in range(3) for k in range(3)] + \
+    #[(76+i, 75+j, 76+k) for i in range(3)
+    #for j in range(3) for k in range(3)]
 # (0, 0, 0) 黑色
-black = [(0+i, 0+j, 0+k) for i in range(3) for j in range(3) for k in range(3)]
+# black = [(0+i, 0+j, 0+k) for i in range(3) for j in range(3) for k in range(3)]
 # (107, 162, 165)BG深绿 宝石
-BGdeepGreen = [(107, 162, 165)]+[(106+i, 161+j, 165+k) for i in range(3)
-               for j in range(3) for k in range(3)]
+BGdeepGreen = [(107, 162, 165)]#+[(106+i, 161+j, 165+k) for i in range(3)
+               #for j in range(3) for k in range(3)]
 # (41, 81, 107)BG深蓝 火叶
-BGdeepBlue = [(41, 81, 107)]+[(41+i, 81+j, 107+k) for i in range(3)
-              for j in range(3) for k in range(3)]
+BGdeepBlue = [(41, 81, 107)]#+[(41+i, 81+j, 107+k) for i in range(3)
+            #   for j in range(3) for k in range(3)]
 
 # (255, 251, 222)BG浅黄
-BGYellow = [(255, 251, 222)]+[(254+i, 250+j, 221+k) for i in range(2)
-            for j in range(3) for k in range(3)]
+BGYellow = [(255, 251, 222)]#+[(254+i, 250+j, 221+k) for i in range(2)
+            # for j in range(3) for k in range(3)]
 
 
 def RandomHitKey(eo, keyList):
