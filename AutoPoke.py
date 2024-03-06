@@ -2,7 +2,7 @@ import flet
 from utils.home import Home
 
 def mainPage(page: flet.Page)->None:
-    page.title="AutoPoke v4.0"
+    page.title="AutoPoke v4.2.1 by willkyu"
     page.window_width = 720
     page.window_height = 300
     homePage = Home(page)
