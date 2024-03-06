@@ -60,7 +60,7 @@ class MainPanel(flet.ListView):
         super().__init__(expand=1, spacing=10, auto_scroll=True)
         self.maxlen=maxlen
         self.controls.append(flet.Text(
-            value='=== AutoPoke v4.1 ==='))
+            value='=== AutoPoke v4.2.1 ==='))
         self.controls.append((flet.Text(
             value="*Text Speed of Game MUST be Fast AND NO Window Minimizing of Operator."
             )))
