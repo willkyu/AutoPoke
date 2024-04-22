@@ -46,17 +46,6 @@ jobs:
     - name: Packing AutoPoke-Win
       uses: actions/upload-artifact@v4
       with:
-        name: AutoPoke-Win-old-origin
+        name: AutoPoke-Win
         path: ./AutoPoke-Win
-    - name: Ready for Packing
-      #run: |
-      #  mkdir ./OlivOS-Win/lib
-      #  curl -L https://github.com/Mrs4s/go-cqhttp/releases/latest/download/go-cqhttp_windows_amd64.exe -o ./OlivOS-Win/lib/go-cqhttp.exe
-      #  curl -L https://github.com/onebot-walle/walle-q/releases/latest/download/walle-q-i686-windows-gnu.exe -o ./OlivOS-Win/lib/walle-q.exe
-      run: |
-        mkdir ./AutoPoke-Win/lib
-    - name: Packing AutoPoke-Win-with-lib
-      uses: actions/upload-artifact@v4
-      with:
-        name: AutoPoke-Win-old
-        path: ./AutoPoke-Win
+
