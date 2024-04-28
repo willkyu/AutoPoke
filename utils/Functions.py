@@ -9,30 +9,30 @@ from random import choice
 from utils.iniTool import *
 
 
-class posConfig:
-    def __init__(self, eo) -> None:
-        # getColor(eo, 1, 1)
-        # self.w, self.h = getSize()
+# class posConfig:
+#     def __init__(self, eo) -> None:
+#         # getColor(eo, 1, 1)
+#         # self.w, self.h = getSize()
 
-        # self.colorPos = [self.percentXPos(955), self.percentYPos(400)]
-        # self.colorPos = [943, 430]  # BGYellow
-        # self.colorPos = [915,430]
-        self.colorPos = [690, 455]
-        # self.colorPos0 = [self.percentXPos(555), self.percentYPos(
-        #     360)] if inCave else self.colorPos
-        self.colorPos0 = [510, 350]
-        # self.colorPos1 = [self.percentXPos(945), self.percentYPos(660)]
-        self.colorPos1 = [900, 620]
+#         # self.colorPos = [self.percentXPos(955), self.percentYPos(400)]
+#         # self.colorPos = [943, 430]  # BGYellow
+#         # self.colorPos = [915,430]
+#         self.colorPos = [690, 455]
+#         # self.colorPos0 = [self.percentXPos(555), self.percentYPos(
+#         #     360)] if inCave else self.colorPos
+#         self.colorPos0 = [510, 350]
+#         # self.colorPos1 = [self.percentXPos(945), self.percentYPos(660)]
+#         self.colorPos1 = [900, 620]
 
-    # def percentXPos(self, x: int):
-    #     return int(x*self.w/1116)
+# def percentXPos(self, x: int):
+#     return int(x*self.w/1116)
 
-    # def percentYPos(self, y: int):
-    #     return int(y*self.h/714)
+# def percentYPos(self, y: int):
+#     return int(y*self.h/714)
 
 
 # (255, 251, 247)白色
-white = [(255, 251, 247)]  # +[(254+i, 250+j, 246+k) for i in range(2)
+# white = [(255, 251, 247)]  # +[(254+i, 250+j, 246+k) for i in range(2)
 # for j in range(3) for k in range(3)]
 # (255, 251, 255)(77, 76, 77)Dialogue
 dialogueColor = [
@@ -53,6 +53,14 @@ BGdeepBlue = [(41, 81, 107)]  # +[(41+i, 81+j, 107+k) for i in range(3)
 # (255, 251, 222)BG浅黄
 BGYellow = [(255, 251, 222)]  # +[(254+i, 250+j, 221+k) for i in range(2)
 # for j in range(3) for k in range(3)]
+
+
+def ReadColor(colorList: list):
+    global dialogueColor, BGdeepGreen, BGdeepBlue, BGYellow
+    try:
+        dialogueColor, BGdeepGreen, BGdeepBlue, BGYellow = colorList
+    except:
+        print("Read color from ini failed.")
 
 
 def RandomHitKey(eo, keyList):
@@ -98,7 +106,7 @@ def WILDPOKE(eo, cfg: Config, printf, update_count):
     run = eval(cfg.mode_config["run"])
     ifLR = eval(cfg.mode_config["iflr"])
     # SLs = cfg.i
-    pos = posConfig(eo)
+    # pos = posConfig(eo)
 
     # 默认左右走，ifLR=False时，上下走
     # register(exit_print_i, i=SLs, cfg=cfg, printf=printf)
@@ -158,7 +166,7 @@ def WILDPOKE(eo, cfg: Config, printf, update_count):
                 # register(exit_print_i, i=SLs, cfg=cfg)
                 break
             elif cfg.version == "E":
-                colorGot = getColor(eo, *pos.colorPos1)
+                # colorGot = getColor(eo, *pos.colorPos1)
                 # if colorGot in dialogueColor:
                 #     printf("PokeNav detected.")
                 #     while colorGot in dialogueColor:
@@ -248,7 +256,7 @@ def STATIONARY(eo, cfg: Config, printf, update_count, hitkeys=[]):
 
     # SLs = eval(cfg.i)
     # register(exit_print_i, i=cfg.i, cfg=cfg)
-    pos = posConfig(eo)
+    # pos = posConfig(eo)
     delay_list = [a / 100 for a in range(0, 60, 2)]
     # SLs = i
     while 1:
