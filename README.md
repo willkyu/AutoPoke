@@ -1,8 +1,10 @@
 # AutoPoke
+
 Auto hunting shiny pokemon using Playback(Epilogue GB operator), writing with Python. Only for Gen3.  
 宝可梦三代自动化刷闪工具，使用Playback(Epilogue GB operator)。模拟器等也可参考使用。
 
 # How to use?
+
 - **Make sure Text speed in the setting of your game is *Fast*.**
 - **Do not change the window size of Operator too large.**
 - **Do not minimize the window of Operator when AutoPoke is running.**
@@ -10,14 +12,27 @@ Auto hunting shiny pokemon using Playback(Epilogue GB operator), writing with Py
 - If your Operator version is lower than `v1.0.0`, download AutoPoke of `v1.1` version.
 
 # Already confirmed be of use in
-- English version: `RS`
-  - safari zone
-  - wild encounter
-  - stationary
-- English version: `FrLg`
-  - wild encounter
+
+- English version:
+
+|  Confirmed   | RS | E | FrLg |
+| :----: | :----: |:----: |:----: |
+| Wild Encounter | **Yes** | Not Test | **Yes** |
+| Safari Zone | **Yes** | Not Test | Not Test |
+| Stationary | **Yes** | Not Test | Not Test |
+| Special Stationary | Not Complete | Not Complete | Not Complete |
+
+- Japanese version:<br>Not Test
+- Other versions:<br>Not Test
 
 # Update Log
+
+- 2024-04-28
+  - You can change the colors for detection in `config.ini` file now.
+
+- 2024-04-22
+  - Simplify the size of app.
+
 - 2024-02-29
   - Performance optimization.
 
