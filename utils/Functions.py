@@ -40,6 +40,7 @@ dialogueColor = [
     (77, 76, 77),
 ]  # +[(254+i, 250+j, 254+k) for i in range(3) for j in range(3) for k in range(3)] + \
 # [(76+i, 75+j, 76+k) for i in range(3)
+textColor = [(74, 73, 74)]
 # for j in range(3) for k in range(3)]
 # (0, 0, 0) 黑色
 # black = [(0+i, 0+j, 0+k) for i in range(3) for j in range(3) for k in range(3)]
@@ -56,9 +57,9 @@ BGYellow = [(255, 251, 222)]  # +[(254+i, 250+j, 221+k) for i in range(2)
 
 
 def ReadColor(colorList: list):
-    global dialogueColor, BGdeepGreen, BGdeepBlue, BGYellow
+    global dialogueColor, textColor, BGdeepGreen, BGdeepBlue, BGYellow
     try:
-        dialogueColor, BGdeepGreen, BGdeepBlue, BGYellow = colorList
+        dialogueColor, textColor, BGdeepGreen, BGdeepBlue, BGYellow = colorList
     except:
         print("Read color from ini failed.")
 
@@ -172,9 +173,9 @@ def WILDPOKE(eo, cfg: Config, printf, update_count):
                 #     while colorGot in dialogueColor:
                 #         HitKey(eo, cfg.keymap['B'])
                 #         colorGot = getColor(eo, *pos.colorPos1)
-                if color_exist(eo, dialogueColor):
+                if color_exist_fishing0(eo, dialogueColor + textColor):
                     printf("PokeNav detected.")
-                    while color_exist(eo, dialogueColor):
+                    while color_exist(eo, dialogueColor + textColor):
                         HitKey(eo, cfg.keymap["B"])
                         sleep(0.2)
 
@@ -325,7 +326,109 @@ def STATIONARY(eo, cfg: Config, printf, update_count, hitkeys=[]):
     pass
 
 
-def fishing(eo, ifFRLG=False):
+def FISHING(eo, cfg: Config, printf, update_count):
+    getColorTest(eo, printf)
+    fishflag: bool = False
+    while 1:
+        while 1:
+            printf("Fishing...")
+            HitKey(eo, cfg.keymap["SELECT"])
+            fishflag = False
+            sleep(1)
+            while 1:
+                if not color_exist_fishing0(eo, textColor):
+                    # not even a nibble
+                    HitKey(eo, cfg.keymap["A"])
+                    printf("Not even a nibble...")
+                    # sleep(0.5)
+                    break
+                elif color_exist_fishing1(eo, textColor):
+                    # press a
+                    # sleep(0.2)
+                    HitKey(eo, cfg.keymap["A"])
+                    printf("Got pokemon!")
+                    sleep(0.2)
+                    # HitKey(eo, cfg.keymap["A"])
+                    fishflag = True
+                    break
+                sleep(0.1)
+            # HitKey(eo, cfg.keymap["A"])
+            if not fishflag:
+                while color_exist_fishing2(eo, dialogueColor + textColor):
+                    HitKey(eo, cfg.keymap["B"])
+                    sleep(0.2)
+                # HitKey(eo, cfg.keymap["B"])
+                # sleep(0.2)
+                # HitKey(eo, cfg.keymap["B"])
+                continue
+            # colorGot = getColor(eo, *pos.colorPos)
+            # if colorGot in black:
+
+            # second rod
+            while color_exist_fishing0(eo, dialogueColor + textColor):
+                if color_exist_fishing1(eo, textColor):
+                    HitKey(eo, cfg.keymap["A"])
+                    sleep(0.2)
+                    continue
+                # sleep(0.2)
+                elif color_exist_fishing2(eo, textColor):
+                    # print("Yes")
+                    HitKey(eo, cfg.keymap["A"])
+                    sleep(0.2)
+                    HitKey(eo, cfg.keymap["A"])
+                    break
+            while not black_out(eo):
+                # print("blackout?")
+                HitKey(eo, cfg.keymap["B"])
+                sleep(0.2)
+
+            if black_out(eo):
+                printf("encountered!")
+                flag = True
+                while black_out(eo):
+                    if flag:
+                        sleep(0.98)
+                        flag = False
+                cfg.i += 1
+                update_count(cfg.i)
+                # unregister(exit_print_i)
+                # register(exit_print_i, i=cfg.i, cfg=cfg)
+                break
+
+        sleep(3.6)
+        # if cfg.version=='E':
+        #     sleep(0.27)
+        HitKey(eo, cfg.keymap["A"])
+        HitKey(eo, cfg.keymap["A"])
+        printf("Hit A.")
+        if color_exist(eo, BGYellow):
+            printf("Not shiny, run...")
+            RUN(eo, cfg, printf)
+            continue
+
+        printf("not safari...")
+        sleep(2.8)
+        if not color_exist(eo, BGYellow):
+            printf("Got Shiny Pokemon! {} times.".format(cfg.i))
+            sendMail_(eo, cfg, i=cfg.i, printf=printf)
+            cfg.i = 0
+            cfg.writeCountConfig()
+            break
+        if color_exist_(eo, BGdeepGreen) or color_exist_(eo, BGdeepBlue):
+            # 额外动画检测
+            printf("Special anime detected.")
+            while 1:
+                # colorGot = getColor(eo, *pos.colorPos1)
+                if not color_exist_(eo, BGdeepGreen) and not color_exist_(
+                    eo, BGdeepBlue
+                ):
+                    sleep(0.02)
+                    break
+                sleep(0.1)
+
+        printf("Not shiny, run...")
+        RUN(eo, cfg, printf)
+        # printf("Encountering...")
 
     pass
 
