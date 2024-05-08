@@ -1,5 +1,7 @@
 import configparser
 
+MODES = ["WILDPOKE", "STATIONARY", "FISHING"]
+
 
 class Config:
     def __init__(self, printf, inifile="config.ini") -> None:
@@ -37,6 +39,7 @@ class Config:
             self.colorList.append(
                 eval(self.config.get("COLOR", "dialogueColor".lower()))
             )
+            self.colorList.append(eval(self.config.get("COLOR", "textColor".lower())))
             self.colorList.append(eval(self.config.get("COLOR", "BGdeepGreen".lower())))
             self.colorList.append(eval(self.config.get("COLOR", "BGdeepBlue".lower())))
             self.colorList.append(eval(self.config.get("COLOR", "BGYellow".lower())))
@@ -44,10 +47,13 @@ class Config:
             pass
 
     def readConfig(self):
-        mode_list = ["WILDPOKE", "STATIONARY"]
-        if self.mode not in mode_list:
+        # mode_list = ["WILDPOKE", "STATIONARY"]
+        if self.mode not in MODES:
             self.endApp("Error 'mode' in config.ini file.")
-        self.mode_config = dict(self.config.items(self.mode))
+        try:
+            self.mode_config = dict(self.config.items(self.mode))
+        except:
+            print("No extra config needed.")
         pass
 
     def writeCountConfig(self):
@@ -72,7 +78,7 @@ class Config:
             "window_name": "Playback",
             "version_comment": '"Your game version, RS/E/FrLg."',
             "version": "RS",
-            "mode_comment": '"Choose mode, WILDPOKE or STATIONARY."',
+            "mode_comment": '"Choose mode, WILDPOKE/STATIONARY/FISHING."',
             "mode": "WILDPOKE",
             "count_comment": '"Count of encounters."',
             "count": "0",
@@ -112,7 +118,8 @@ class Config:
             "select": "BACKSPACE",
         }
         configfile["COLOR"] = {
-            "dialoguecolor": "[(255, 251, 255),(77, 76, 77),]",
+            "dialoguecolor": "[(255, 251, 255), (77, 76, 77)]",
+            "textcolor": "[(74,73,74)]",
             "bgdeepgreen": "[(107, 162, 165)]",
             "bgdeepblue": "[(41, 81, 107)]",
             "bgyellow": "[(255, 251, 222)]",
