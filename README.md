@@ -8,7 +8,8 @@ Auto hunting shiny pokemon using Playback(Epilogue GB operator), writing with Py
 - **Make sure Text speed in the setting of your game is *Fast*.**
 - **Do not change the window size of Operator too large.**
 - **Do not minimize the window of Operator when AutoPoke is running.**
-- Make player role where you need to encounter PM, and set parameters in `config.ini` file. Then run `AutoPoke.py` or `AutoPoke.exe`.
+- **Your FIRST pokemon should NOT be shiny.**
+- Make player role where you need to encounter PM, and set parameters in `config.ini` file (Optional). Then run `AutoPoke.py` or `AutoPoke.exe`.
 - If your Operator version is lower than `v1.0.0`, download AutoPoke of `v1.1` version.
 
 # Already confirmed be of use in
@@ -20,12 +21,16 @@ Auto hunting shiny pokemon using Playback(Epilogue GB operator), writing with Py
 | Wild Encounter | **Yes** | Not Test | **Yes** |
 | Safari Zone | **Yes** | Not Test | Not Test |
 | Stationary | **Yes** | Not Test | Not Test |
+| Fishing | **Yes** | Not Test | Not Test |
 | Special Stationary | Not Complete | Not Complete | Not Complete |
 
 - Japanese version:<br>Not Test
 - Other versions:<br>Not Test
 
 # Update Log
+
+- 2024-05-08
+  - Support Fishing.
 
 - 2024-04-28
   - You can change the colors for detection in `config.ini` file now.
