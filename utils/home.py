@@ -164,6 +164,17 @@ class Home(myHome):
         elif e.control.value == "Stationary":
             self.mode = "Stationary".upper()
             self.lock()
+            self.count_pannel.controls[1].on_change = self.count_on_change
+            self.count_pannel.controls[1].disabled = False
+            self.version_dropdown.disabled = False
+            self.mode_dropdown.disabled = False
+        elif e.control.value == "Fishing":
+            self.mode = "Fishing".upper()
+            self.lock()
+            self.count_pannel.controls[1].on_change = self.count_on_change
+            self.count_pannel.controls[1].disabled = False
+            self.version_dropdown.disabled = False
+            self.mode_dropdown.disabled = False
 
         self.cfg.updateConfig("DEFAULT", "mode", self.mode)
         self.page.update()
