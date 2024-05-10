@@ -130,7 +130,20 @@ def get_color_dict(eo):
     return color_dict
 
 
-def color_exist(eo, color0):
+def color_exist_core(screenshot, x_list, y_list, color0, printf):
+
+    for x in x_list:
+        for y in y_list:
+            try:
+                color = rgbint2rgbtuple(win32gui.GetPixel(screenshot, x, y))
+            except Exception as e:
+                printf(str(e))
+            if color in color0:
+                return True
+    return False
+
+
+def color_exist(eo, color0, printf):
     left, top, right, bot = win32gui.GetWindowRect(eo)
     width = right - left
     height = bot - top
@@ -140,36 +153,24 @@ def color_exist(eo, color0):
     # 返回句柄窗口的设备环境，覆盖整个窗口，包括非客户区，标题栏，菜单，边框
     # mfcDC = win32ui.CreateDCFromHandle(hWndDC)
     screenshot = win32gui.GetWindowDC(eo)
-    for x in x_list:
-        for y in y_list:
-            color = rgbint2rgbtuple(win32gui.GetPixel(screenshot, x, y))
-            if color in color0:
-                win32gui.ReleaseDC(eo, screenshot)
-                return True
+    res = color_exist_core(screenshot, x_list, y_list, color0, printf)
     win32gui.ReleaseDC(eo, screenshot)
-    return False
+    return res
 
 
-def color_exist_(eo, color0):
+def color_exist_(eo, color0, printf):
     left, top, right, bot = win32gui.GetWindowRect(eo)
     width = right - left
     height = bot - top
     x_list = [width - i for i in range(50, width // 4, 13)]
     y_list = [height - i for i in range(50, height // 4, 13)]
     screenshot = win32gui.GetWindowDC(eo)
-    color_dict = {}
-    for x in x_list:
-        for y in y_list:
-            # print(x,y)
-            color = rgbint2rgbtuple(win32gui.GetPixel(screenshot, x, y))
-            if color in color0:
-                win32gui.ReleaseDC(eo, screenshot)
-                return True
+    res = color_exist_core(screenshot, x_list, y_list, color0, printf)
     win32gui.ReleaseDC(eo, screenshot)
-    return False
+    return res
 
 
-def color_exist_fishing0(eo, color0):
+def color_exist_fishing0(eo, color0, printf):
     left, top, right, bot = win32gui.GetWindowRect(eo)
     width = right - left
     height = bot - top
@@ -179,19 +180,12 @@ def color_exist_fishing0(eo, color0):
     # 返回句柄窗口的设备环境，覆盖整个窗口，包括非客户区，标题栏，菜单，边框
     # mfcDC = win32ui.CreateDCFromHandle(hWndDC)
     screenshot = win32gui.GetWindowDC(eo)
-    for x in x_list:
-        for y in y_list:
-            color = rgbint2rgbtuple(win32gui.GetPixel(screenshot, x, y))
-            # print(color)
-            if color in color0:
-                win32gui.ReleaseDC(eo, screenshot)
-                # print(color)
-                return True
+    res = color_exist_core(screenshot, x_list, y_list, color0, printf)
     win32gui.ReleaseDC(eo, screenshot)
-    return False
+    return res
 
 
-def color_exist_fishing1(eo, color0):
+def color_exist_fishing1(eo, color0, printf):
     left, top, right, bot = win32gui.GetWindowRect(eo)
     width = right - left
     height = bot - top
@@ -201,18 +195,12 @@ def color_exist_fishing1(eo, color0):
     # 返回句柄窗口的设备环境，覆盖整个窗口，包括非客户区，标题栏，菜单，边框
     # mfcDC = win32ui.CreateDCFromHandle(hWndDC)
     screenshot = win32gui.GetWindowDC(eo)
-    for x in x_list:
-        for y in y_list:
-            # print(x,y)
-            color = rgbint2rgbtuple(win32gui.GetPixel(screenshot, x, y))
-            if color in color0:
-                win32gui.ReleaseDC(eo, screenshot)
-                return True
+    res = color_exist_core(screenshot, x_list, y_list, color0, printf)
     win32gui.ReleaseDC(eo, screenshot)
-    return False
+    return res
 
 
-def color_exist_fishing2(eo, color0):
+def color_exist_fishing2(eo, color0, printf):
     left, top, right, bot = win32gui.GetWindowRect(eo)
     width = right - left
     height = bot - top
@@ -222,15 +210,9 @@ def color_exist_fishing2(eo, color0):
     # 返回句柄窗口的设备环境，覆盖整个窗口，包括非客户区，标题栏，菜单，边框
     # mfcDC = win32ui.CreateDCFromHandle(hWndDC)
     screenshot = win32gui.GetWindowDC(eo)
-    for x in x_list:
-        for y in y_list:
-            # print(x,y)
-            color = rgbint2rgbtuple(win32gui.GetPixel(screenshot, x, y))
-            if color in color0:
-                win32gui.ReleaseDC(eo, screenshot)
-                return True
+    res = color_exist_core(screenshot, x_list, y_list, color0, printf)
     win32gui.ReleaseDC(eo, screenshot)
-    return False
+    return res
 
 
 def black_out(eo):
