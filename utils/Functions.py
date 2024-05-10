@@ -55,6 +55,13 @@ BGdeepBlue = [(41, 81, 107)]  # +[(41+i, 81+j, 107+k) for i in range(3)
 BGYellow = [(255, 251, 222)]  # +[(254+i, 250+j, 221+k) for i in range(2)
 # for j in range(3) for k in range(3)]
 
+# def updateColor(colors:list):
+#     new_color=[]
+#     for color in colors:
+#         new_color.append(color)
+#         for i in range(5):
+#             new_color+=[color[0]+i,]
+
 
 def ReadColor(colorList: list):
     global dialogueColor, textColor, BGdeepGreen, BGdeepBlue, BGYellow
@@ -101,6 +108,27 @@ def sendMail_(eo, cfg: Config, i, printf):
 
 
 def WILDPOKE(eo, cfg: Config, printf, update_count):
+    try:
+        WILDPOKE_(eo, cfg, printf, update_count)
+    except Exception as e:
+        printf(str(e))
+
+
+def STATIONARY(eo, cfg: Config, printf, update_count):
+    try:
+        STATIONARY_(eo, cfg, printf, update_count)
+    except Exception as e:
+        printf(str(e))
+
+
+def FISHING(eo, cfg: Config, printf, update_count):
+    try:
+        FISHING_(eo, cfg, printf, update_count)
+    except Exception as e:
+        printf(str(e))
+
+
+def WILDPOKE_(eo, cfg: Config, printf, update_count):
     getColorTest(eo, printf)
     # inCave = eval(cfg.mode_config['incave'])
     jump = eval(cfg.mode_config["jump"])
@@ -251,7 +279,7 @@ def WILDPOKE(eo, cfg: Config, printf, update_count):
         printf("Encountering...")
 
 
-def STATIONARY(eo, cfg: Config, printf, update_count, hitkeys=[]):
+def STATIONARY_(eo, cfg: Config, printf, update_count, hitkeys=[]):
     getColorTest(eo, printf)
     ifFRLG = cfg.version == "FrLg"
 
@@ -326,7 +354,7 @@ def STATIONARY(eo, cfg: Config, printf, update_count, hitkeys=[]):
     pass
 
 
-def FISHING(eo, cfg: Config, printf, update_count):
+def FISHING_(eo, cfg: Config, printf, update_count):
     getColorTest(eo, printf)
     fishflag: bool = False
     while 1:
