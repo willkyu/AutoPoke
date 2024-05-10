@@ -1,7 +1,6 @@
 import flet
 from utils.home import Home
-
-VERSION = "4.3"
+from utils.myUI import VERSION
 
 
 def mainPage(page: flet.Page) -> None:
