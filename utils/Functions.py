@@ -381,7 +381,7 @@ def FISHING_(eo, cfg: Config, printf, update_count):
                     # HitKey(eo, cfg.keymap["A"])
                     fishflag = True
                     break
-                sleep(0.1)
+                sleep(0.03)
             # HitKey(eo, cfg.keymap["A"])
             if not fishflag:
                 while color_exist_fishing2(eo, dialogueColor + textColor, printf):
