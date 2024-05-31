@@ -74,27 +74,32 @@ def getColorTest(eo, printf):
         printf("Something wrong, please refresh.")
 
 
-def saveImg(eo):
-    left, top, right, bot = win32gui.GetWindowRect(eo)
-    width = right - left
-    height = bot - top
-    # print('width:{}, height:{}.'.format(width,height))
-    # 返回句柄窗口的设备环境，覆盖整个窗口，包括非客户区，标题栏，菜单，边框
-    hWndDC = win32gui.GetWindowDC(eo)
-    # 创建设备描述表
-    mfcDC = win32ui.CreateDCFromHandle(hWndDC)
-    # 创建内存设备描述表
-    saveDC = mfcDC.CreateCompatibleDC()
-    # 创建位图对象准备保存图片
-    saveBitMap = win32ui.CreateBitmap()
-    # 为bitmap开辟存储空间
-    saveBitMap.CreateCompatibleBitmap(mfcDC, width, height)
-    # 将截图保存到saveBitMap中
-    saveDC.SelectObject(saveBitMap)
-    # 保存bitmap到内存设备描述表
-    saveDC.BitBlt((0, 0), (width, height), mfcDC, (0, 0), win32con.SRCCOPY)
-    ###保存bitmap到文件
-    saveBitMap.SaveBitmapFile(saveDC, "tempIMG.bmp")
+def saveImg(eo, printf):
+    try:
+        printf("Save img...")
+        left, top, right, bot = win32gui.GetWindowRect(eo)
+        width = right - left
+        height = bot - top
+        # print('width:{}, height:{}.'.format(width,height))
+        # 返回句柄窗口的设备环境，覆盖整个窗口，包括非客户区，标题栏，菜单，边框
+        hWndDC = win32gui.GetWindowDC(eo)
+        # 创建设备描述表
+        mfcDC = win32ui.CreateDCFromHandle(hWndDC)
+        # 创建内存设备描述表
+        saveDC = mfcDC.CreateCompatibleDC()
+        # 创建位图对象准备保存图片
+        saveBitMap = win32ui.CreateBitmap()
+        # 为bitmap开辟存储空间
+        saveBitMap.CreateCompatibleBitmap(mfcDC, width, height)
+        # 将截图保存到saveBitMap中
+        saveDC.SelectObject(saveBitMap)
+        # 保存bitmap到内存设备描述表
+        saveDC.BitBlt((0, 0), (width, height), mfcDC, (0, 0), win32con.SRCCOPY)
+        ###保存bitmap到文件
+        saveBitMap.SaveBitmapFile(saveDC, "tempIMG.bmp")
+        printf("Success.")
+    except Exception as e:
+        printf("Error: {}".format(e))
 
     return
 
@@ -130,7 +135,7 @@ def get_color_dict(eo):
     return color_dict
 
 
-def color_exist_core(screenshot, x_list, y_list, color0, printf):
+def color_exist_core(screenshot, x_list, y_list, color0, printf, mode=False):
 
     for x in x_list:
         for y in y_list:
@@ -139,6 +144,18 @@ def color_exist_core(screenshot, x_list, y_list, color0, printf):
             except Exception as e:
                 printf(str(e))
             if color in color0:
+                if mode:
+                    if (
+                        rgbint2rgbtuple(win32gui.GetPixel(screenshot, x - 10, y))
+                        in color0
+                        or rgbint2rgbtuple(win32gui.GetPixel(screenshot, x + 10, y))
+                        in color0
+                        or rgbint2rgbtuple(win32gui.GetPixel(screenshot, x, y - 10))
+                        in color0
+                        or rgbint2rgbtuple(win32gui.GetPixel(screenshot, x, y + 10))
+                        in color0
+                    ):
+                        return "N"
                 return True
     return False
 
@@ -170,17 +187,18 @@ def color_exist_(eo, color0, printf):
     return res
 
 
-def color_exist_fishing0(eo, color0, printf):
+def color_exist_fishing0(eo, color0, printf, mode=False):
     left, top, right, bot = win32gui.GetWindowRect(eo)
     width = right - left
     height = bot - top
-    x_list = [i for i in range(100, width // 2, 5)]
-    y_list = [height - i for i in range(50, height // 4, 5)]
+    x_list = [i for i in range(100, width // 2, 3)]
+    y_list = [height - i for i in range(50, height // 4, 3)]
     # print('width:{}, height:{}.'.format(width,height))
     # 返回句柄窗口的设备环境，覆盖整个窗口，包括非客户区，标题栏，菜单，边框
     # mfcDC = win32ui.CreateDCFromHandle(hWndDC)
     screenshot = win32gui.GetWindowDC(eo)
-    res = color_exist_core(screenshot, x_list, y_list, color0, printf)
+    if mode:
+        res = color_exist_core(screenshot, x_list, y_list, color0, printf, mode)
     win32gui.ReleaseDC(eo, screenshot)
     return res
 
@@ -189,8 +207,8 @@ def color_exist_fishing1(eo, color0, printf):
     left, top, right, bot = win32gui.GetWindowRect(eo)
     width = right - left
     height = bot - top
-    x_list = [i for i in range(100, width // 2, 5)]
-    y_list = [height - i for i in range(50, height // 8, 5)]
+    x_list = [i for i in range(100, width // 2, 3)]
+    y_list = [height - i for i in range(50, height // 8, 3)]
     # print('width:{}, height:{}.'.format(width,height))
     # 返回句柄窗口的设备环境，覆盖整个窗口，包括非客户区，标题栏，菜单，边框
     # mfcDC = win32ui.CreateDCFromHandle(hWndDC)
@@ -204,8 +222,8 @@ def color_exist_fishing2(eo, color0, printf):
     left, top, right, bot = win32gui.GetWindowRect(eo)
     width = right - left
     height = bot - top
-    x_list = [width // 2 + i for i in range(0, width // 4, 5)]
-    y_list = [height - i for i in range(50, height // 4, 5)]
+    x_list = [width // 20 * 11 + i for i in range(0, width // 4, 3)]
+    y_list = [height - i for i in range(50, height // 4, 3)]
     # print('width:{}, height:{}.'.format(width,height))
     # 返回句柄窗口的设备环境，覆盖整个窗口，包括非客户区，标题栏，菜单，边框
     # mfcDC = win32ui.CreateDCFromHandle(hWndDC)
