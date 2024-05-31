@@ -174,8 +174,8 @@ def color_exist_fishing0(eo, color0, printf):
     left, top, right, bot = win32gui.GetWindowRect(eo)
     width = right - left
     height = bot - top
-    x_list = [i for i in range(100, width // 2, 3)]
-    y_list = [height - i for i in range(50, height // 4, 3)]
+    x_list = [i for i in range(100, width // 2, 5)]
+    y_list = [height - i for i in range(50, height // 4, 5)]
     # print('width:{}, height:{}.'.format(width,height))
     # 返回句柄窗口的设备环境，覆盖整个窗口，包括非客户区，标题栏，菜单，边框
     # mfcDC = win32ui.CreateDCFromHandle(hWndDC)
@@ -189,8 +189,8 @@ def color_exist_fishing1(eo, color0, printf):
     left, top, right, bot = win32gui.GetWindowRect(eo)
     width = right - left
     height = bot - top
-    x_list = [i for i in range(100, width // 2, 3)]
-    y_list = [height - i for i in range(50, height // 8, 3)]
+    x_list = [i for i in range(100, width // 2, 5)]
+    y_list = [height - i for i in range(50, height // 8, 5)]
     # print('width:{}, height:{}.'.format(width,height))
     # 返回句柄窗口的设备环境，覆盖整个窗口，包括非客户区，标题栏，菜单，边框
     # mfcDC = win32ui.CreateDCFromHandle(hWndDC)
@@ -204,8 +204,8 @@ def color_exist_fishing2(eo, color0, printf):
     left, top, right, bot = win32gui.GetWindowRect(eo)
     width = right - left
     height = bot - top
-    x_list = [width // 2 + i for i in range(0, width // 4, 3)]
-    y_list = [height - i for i in range(50, height // 4, 3)]
+    x_list = [width // 2 + i for i in range(0, width // 4, 5)]
+    y_list = [height - i for i in range(50, height // 4, 5)]
     # print('width:{}, height:{}.'.format(width,height))
     # 返回句柄窗口的设备环境，覆盖整个窗口，包括非客户区，标题栏，菜单，边框
     # mfcDC = win32ui.CreateDCFromHandle(hWndDC)
