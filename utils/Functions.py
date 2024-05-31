@@ -328,13 +328,24 @@ def STATIONARY_(eo, cfg: Config, printf, update_count, hitkeys=[]):
         printf("SLing...")
         SL(eo, cfg)
         sleep(2)
-        HitKey(eo, cfg.keymap["A"])
-        HitKey(eo, cfg.keymap["A"])
-        printf("Hit A")
-        sleep(0.5)
-        HitKey(eo, cfg.keymap["A"])
-        printf("Hit A")
-        sleep(0.5)
+        if ifFRLG:
+            sleep(2)
+            HitKey(eo, cfg.keymap["A"])
+            printf("Hit A")
+            HitKey(eo, cfg.keymap["A"])
+            printf("Hit A")
+            sleep(0.5)
+            HitKey(eo, cfg.keymap["A"])
+            printf("Hit A")
+        else:
+            HitKey(eo, cfg.keymap["A"])
+            printf("Hit A")
+            HitKey(eo, cfg.keymap["A"])
+            printf("Hit A")
+            sleep(0.5)
+            HitKey(eo, cfg.keymap["A"])
+            printf("Hit A")
+            sleep(0.5)
 
         # hit 'A' till entering
         while 1:
