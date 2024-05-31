@@ -330,13 +330,11 @@ def STATIONARY_(eo, cfg: Config, printf, update_count, hitkeys=[]):
         sleep(2)
         HitKey(eo, cfg.keymap["A"])
         HitKey(eo, cfg.keymap["A"])
+        printf("Hit A")
         sleep(0.5)
         HitKey(eo, cfg.keymap["A"])
+        printf("Hit A")
         sleep(0.5)
-        if ifFRLG:
-            # skip memory recall 跳过回忆
-            HitKey(eo, cfg.keymap["B"])
-            sleep(0.5)
 
         # hit 'A' till entering
         while 1:
@@ -344,6 +342,7 @@ def STATIONARY_(eo, cfg: Config, printf, update_count, hitkeys=[]):
             # colorGot = getColor(eo, *pos.colorPos)
             # if colorGot in black:
             if black_out(eo):
+                printf("Entering save choose ui.")
                 break
             sleep(0.1)
 
@@ -352,8 +351,17 @@ def STATIONARY_(eo, cfg: Config, printf, update_count, hitkeys=[]):
             # colorGot = getColor(eo, *pos.colorPos)
             # if colorGot in black:
             if black_out(eo):
+                printf("Entering game.")
                 break
             sleep(0.1)
+
+        # if ifFRLG:
+        if ifFRLG:
+            sleep(2)
+            # skip memory recall 跳过回忆
+            HitKey(eo, cfg.keymap["B"])
+            sleep(0.5)
+            continue
     pass
 
 
