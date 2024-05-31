@@ -77,7 +77,7 @@ def RandomHitKey(eo, keyList):
 
 def exit_print_i(i, cfg: Config, printf):
     printf("No shiny pokemon in {} times.".format(i))
-    cfg.writeCountConfig(i)
+    cfg.writeCountConfig()
     # sleep(5)
 
 
@@ -93,7 +93,7 @@ def RUN(eo, cfg: Config, printf):
 
 def sendMail_(eo, cfg: Config, i, printf):
     if cfg.ifsend:
-        saveImg(eo)
+        saveImg(eo, printf)
         try:
             sendMail(
                 i,
@@ -321,7 +321,8 @@ def STATIONARY_(eo, cfg: Config, printf, update_count, hitkeys=[]):
         if not color_exist(eo, BGYellow, printf):
             printf("Got Shiny Pokemon!")
             sendMail_(eo, cfg, i=cfg.i, printf=printf)
-            cfg.writeCountConfig(0)
+            cfg.i = 0
+            cfg.writeCountConfig()
             # unregister(exit_print_i)
             break
         printf("SLing...")
@@ -366,13 +367,7 @@ def FISHING_(eo, cfg: Config, printf, update_count):
             fishflag = False
             sleep(1)
             while 1:
-                if not color_exist_fishing0(eo, textColor, printf):
-                    # not even a nibble
-                    HitKey(eo, cfg.keymap["A"])
-                    printf("Not even a nibble...")
-                    # sleep(0.5)
-                    break
-                elif color_exist_fishing1(eo, textColor, printf):
+                if color_exist_fishing1(eo, textColor, printf):
                     # press a
                     # sleep(0.2)
                     HitKey(eo, cfg.keymap["A"])
@@ -381,7 +376,13 @@ def FISHING_(eo, cfg: Config, printf, update_count):
                     # HitKey(eo, cfg.keymap["A"])
                     fishflag = True
                     break
-                sleep(0.03)
+                elif color_exist_fishing0(eo, textColor, printf, mode=True) == "N":
+                    # not even a nibble
+                    HitKey(eo, cfg.keymap["A"])
+                    printf("Not even a nibble...")
+                    # sleep(0.5)
+                    break
+                sleep(0.1)
             # HitKey(eo, cfg.keymap["A"])
             if not fishflag:
                 while color_exist_fishing2(eo, dialogueColor + textColor, printf):
