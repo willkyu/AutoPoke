@@ -20,7 +20,7 @@ Auto hunting shiny pokemon using Playback(Epilogue GB operator), writing with Py
 | :----: | :----: |:----: |:----: |
 | Wild Encounter | **Yes** | Not Test | **Yes** |
 | Safari Zone | **Yes** | Not Test | Not Test |
-| Stationary | **Yes** | Not Test | Not Test |
+| Stationary | **Yes** | Not Test | **Yes** |
 | Fishing | **Yes** | Not Test | Not Test |
 | Special Stationary | Not Complete | Not Complete | Not Complete |
 
@@ -28,6 +28,9 @@ Auto hunting shiny pokemon using Playback(Epilogue GB operator), writing with Py
 - Other versions:<br>Not Test
 
 # Update Log
+
+- 2024-05-31
+  - Support Stationary in `FrLg`.
 
 - 2024-05-08
   - Support Fishing.
