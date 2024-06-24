@@ -24,7 +24,7 @@ Follow the images below to config the color. Attention, here we use RGB value fo
 ![dialogcolor](guide/dialogcolor.png)
 ![txtcolor](guide/txtcolor.png)
 
-Here, dialogcolor you can only change the first RGB value and leave the second one there.
+Here, *dialogcolor* you can only change the first RGB value and leave the second one there. In fact, *bgdeepblue* is similar to *bgdeepgreen* while it's of `FrLg`.
 
 # Already confirmed be of use in
 
