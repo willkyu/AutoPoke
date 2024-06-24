@@ -197,8 +197,7 @@ def color_exist_fishing0(eo, color0, printf, mode=False):
     # 返回句柄窗口的设备环境，覆盖整个窗口，包括非客户区，标题栏，菜单，边框
     # mfcDC = win32ui.CreateDCFromHandle(hWndDC)
     screenshot = win32gui.GetWindowDC(eo)
-    if mode:
-        res = color_exist_core(screenshot, x_list, y_list, color0, printf, mode)
+    res = color_exist_core(screenshot, x_list, y_list, color0, printf, mode)
     win32gui.ReleaseDC(eo, screenshot)
     return res
 
