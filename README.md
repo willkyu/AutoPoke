@@ -12,6 +12,20 @@ Auto hunting shiny pokemon using Playback(Epilogue GB operator), writing with Py
 - Make player role where you need to encounter PM, and set parameters in `config.ini` file (Optional). Then run `AutoPoke.py` or `AutoPoke.exe`.
 - If your Operator version is lower than `v1.0.0`, download AutoPoke of `v1.1` version.
 
+## Update the config of AutoPoke
+
+After your first launch, a `config.ini` file will be created in the same directory of AutoPoke. Since I found that the color of Playback differs from PCs, you should update the `Color` config in `config.ini` file, where it looks like this:
+
+![color config example](guide/color_config.png)
+
+Follow the images below to config the color. Attention, here we use RGB value for colors. You can take screenshot and upload to those websites(search them in google) which can give you the RGB you picked.
+
+![bgcolor](guide/bgcolor.png)
+![dialogcolor](guide/dialogcolor.png)
+![txtcolor](guide/txtcolor.png)
+
+Here, dialogcolor you can only change the first RGB value and leave the second one there.
+
 # Already confirmed be of use in
 
 - English version:
@@ -26,6 +40,8 @@ Auto hunting shiny pokemon using Playback(Epilogue GB operator), writing with Py
 
 - Japanese version:<br>Not Test
 - Other versions:<br>Not Test
+
+
 
 # Update Log
 
