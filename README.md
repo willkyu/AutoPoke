@@ -1,5 +1,8 @@
 # AutoPoke
 
+> **I will conduct a large-scale code refactoring of the project in the future and ensure the proper functioning of all features.**
+> **So, if you have any problems while using, try an old version.**
+
 Auto hunting shiny pokemon using Playback(Epilogue GB operator), writing with Python. Only for Gen3.  
 宝可梦三代自动化刷闪工具，使用Playback(Epilogue GB operator)。模拟器等也可参考使用。
 
