@@ -3,9 +3,37 @@ import win32gui
 import inspect
 import threading
 import ctypes
-from utils.myUI import myHome
-from utils.iniTool import Config
-from utils.Functions import *
+from utils.my_ui import myHome
+from utils.config_tool import Config
+from utils.autopoke_core import AutoPokeCore
+
+
+def get_eo(name):
+    def get_window_size(hwnd):
+        # 获取窗口矩形 (left, top, right, bottom)
+        rect = win32gui.GetWindowRect(hwnd)
+        width = rect[2] - rect[0]
+        height = rect[3] - rect[1]
+        return width + height
+
+    def enum_child_windows(parent_hwnd, name):
+        windows = []
+
+        def callback(hwnd, extra):
+            # 获取窗口标题
+            window_title = win32gui.GetWindowText(hwnd)
+            if window_title.strip() == name:
+                windows.append(hwnd)
+
+        # 枚举所有子窗口
+        win32gui.EnumChildWindows(parent_hwnd, callback, None)
+        return windows
+
+    hd = win32gui.GetDesktopWindow()
+    for win in enum_child_windows(hd, name):
+        if get_window_size(win) > 10:
+            return win
+    assert False
 
 
 class Home(myHome):
@@ -13,7 +41,7 @@ class Home(myHome):
 
     def __init__(self, page: flet.Page) -> None:
         super().__init__(page)
-        self.readConfig()
+        self.read_config()
         self.findEO()
         self.refresh.on_click = self.findEO
         self.start_button.on_click = self.start
@@ -25,9 +53,8 @@ class Home(myHome):
         self.run_block.controls[1].on_change = self.run_on_change
         self.mode = "WILDPOKE"
         self.page.update()
-        ReadColor(self.cfg.colorList)
 
-    def readConfig(self):
+    def read_config(self):
         self.print_to_pannel("Reading config from config.ini file...")
         self.cfg = Config(self.print_to_pannel)
         self.update_count(self.cfg.i)
@@ -36,21 +63,20 @@ class Home(myHome):
     def update_count(self, count):
         self.count_pannel.controls[1].value = str(count)
         self.count_pannel.update()
-        # self.cfg.updateConfig("DEFAULT","i",str(count))
 
     def count_on_change(self, e):
-        self.cfg.updateConfig("DEFAULT", "count", e.control.value)
+        self.cfg.update_config("DEFAULT", "count", e.control.value)
 
     def jump_on_change(self, e):
-        self.cfg.updateConfig("WILDPOKE", "jump", str(e.control.value))
+        self.cfg.update_config("WILDPOKE", "jump", str(e.control.value))
 
     def run_on_change(self, e):
-        self.cfg.updateConfig("WILDPOKE", "run", str(e.control.value))
+        self.cfg.update_config("WILDPOKE", "run", str(e.control.value))
 
     def findEO(self, e=None):
-        # self.findeo=False
         self.print_to_pannel("Searching for " + self.cfg.window_name + "......")
-        self.eo = win32gui.FindWindow(None, self.cfg.window_name)
+        # self.eo = win32gui.FindWindow(None, self.cfg.window_name)
+        self.eo = get_eo(self.cfg.window_name)
         if self.eo:
             self.findeo = True
             self.print_to_pannel("Done.")
@@ -58,8 +84,10 @@ class Home(myHome):
             self.findeo = False
             self.print_to_pannel(self.cfg.window_name + " not found.")
 
+        # print(win32gui.GetWindowRect(self.eo))
+
     def start(self, e=None):
-        self.cfg.readini()
+        self.cfg.read_ini()
         if not self.eo:
             self.print_to_pannel(self.cfg.window_name + " not found, please refresh.")
             return
@@ -69,26 +97,23 @@ class Home(myHome):
 
         self.lock()
         self.print_to_pannel("=== AutoPoke Start===")
-        # self.page.update()
+        self.auto_poke_core = AutoPokeCore(
+            self.eo, self.cfg, self.print_to_pannel, self.update_count
+        )
         self.running = threading.Thread(
-            target=eval(self.cfg.mode.upper()),
-            args=(self.eo, self.cfg, self.print_to_pannel, self.update_count),
+            target=self.auto_poke_core.exe_function,
+            args=(self.cfg.mode.upper(),),
         )
         self.running.start()
 
         e.control.text = "Stop!"
         e.control.on_click = self.end
         e.control.update()
-        # self.start_button.text="Stop!"
-        # self.start_button.update()
-        # self.start_button.on_click=self.end
 
         self.running.join()
-        release_all_keys(self.eo, self.cfg)
         self.print_to_pannel("Done.")
         self.unlock()
-        # self.count_pannel.controls[1].on_change=self.count_on_change
-        # self.count_pannel.controls[1].disabled=False
+
         e.control.text = "Start!"
         e.control.on_click = self.start
         self.page.update()
@@ -98,8 +123,8 @@ class Home(myHome):
     def end(self, e=None):
         try:
             self.stop_thread(self.running)
-            release_all_keys(self.eo, self.cfg)
-            self.cfg.writeCountConfig()
+            self.auto_poke_core.release_all_keys()
+            self.cfg.write_count_config()
             self.print_to_pannel("Stopped.")
         except:
             self.print_to_pannel("Stopping failed.")
@@ -110,17 +135,15 @@ class Home(myHome):
         pass
 
     def on_click_direction_button(self, e):
-        # print("111")
         if e.control.value == "lr":
             e.control.update_state("ud")
         elif e.control.value == "ud":
             e.control.update_state("lr")
-        self.cfg.updateConfig(
+        self.cfg.update_config(
             "WILDPOKE", "iflr", "True" if e.control.value == "lr" else "False"
         )
 
         e.control.update()
-        # return super().on_click
 
     def unlock(self):
         self.jump_block.controls[1].disabled = False
@@ -156,8 +179,6 @@ class Home(myHome):
         self.page.update()
 
     def mode_on_change(self, e=None):
-        # print("111")
-        # print(e.control.value)
         if e.control.value == "Wild Encounter":
             self.mode = "WILDPOKE"
             self.unlock()
@@ -176,12 +197,12 @@ class Home(myHome):
             self.version_dropdown.disabled = False
             self.mode_dropdown.disabled = False
 
-        self.cfg.updateConfig("DEFAULT", "mode", self.mode)
+        self.cfg.update_config("DEFAULT", "mode", self.mode)
         self.page.update()
         pass
 
     def version_on_change(self, e=None):
-        self.cfg.updateConfig("DEFAULT", "version", e.control.value)
+        self.cfg.update_config("DEFAULT", "version", e.control.value)
 
     def _async_raise(self, tid, exctype):
         """raises the exception, performs cleanup if needed"""
@@ -192,8 +213,8 @@ class Home(myHome):
         if res == 0:
             raise ValueError("invalid thread id")
         elif res != 1:
-            # """if it returns a number greater than one, you're in trouble,
-            # and you should call it again with exc=NULL to revert the effect"""
+            """if it returns a number greater than one, you're in trouble,
+            and you should call it again with exc=NULL to revert the effect"""
             ctypes.pythonapi.PyThreadState_SetAsyncExc(tid, None)
             raise SystemError("PyThreadState_SetAsyncExc failed")
 

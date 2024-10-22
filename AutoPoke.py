@@ -1,9 +1,9 @@
 import flet
 from utils.home import Home
-from utils.myUI import VERSION
+from utils.my_ui import VERSION
 
 
-def mainPage(page: flet.Page) -> None:
+def main_page(page: flet.Page) -> None:
     page.title = "AutoPoke v{} by willkyu".format(VERSION)
     page.window_width = 720
     page.window_height = 300
@@ -11,4 +11,4 @@ def mainPage(page: flet.Page) -> None:
 
 
 if __name__ == "__main__":
-    flet.app(target=mainPage)
+    flet.app(target=main_page)
