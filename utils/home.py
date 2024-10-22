@@ -33,7 +33,8 @@ def get_eo(name):
     for win in enum_child_windows(hd, name):
         if get_window_size(win) > 10:
             return win
-    assert False
+    # assert False
+    return False
 
 
 class Home(myHome):
