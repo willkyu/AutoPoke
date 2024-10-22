@@ -1,9 +1,8 @@
 # AutoPoke
 
-> **I will conduct a large-scale code refactoring of the project in the future and ensure the proper functioning of all features.**
-> **So, if you have any problems while using, try an old version.**
+> **It seems that the SELECT bottom cannot be pressed in the latest Playback. The test for FISHING funcion will be conducted later.**
 
-Auto hunting shiny pokemon using Playback(Epilogue GB operator), writing with Python. Only for Gen3.  
+Auto hunting shiny pokemon using Playback(Epilogue GB operator), writing with Python. Only for Gen3.
 宝可梦三代自动化刷闪工具，使用Playback(Epilogue GB operator)。模拟器等也可参考使用。
 
 # How to use?
@@ -16,6 +15,8 @@ Auto hunting shiny pokemon using Playback(Epilogue GB operator), writing with Py
 - If your Operator version is lower than `v1.0.0`, download AutoPoke of `v1.1` version.
 
 ## Update the config of AutoPoke
+
+> In the latest version, this section is not necessary.
 
 After your first launch, a `config.ini` file will be created in the same directory of AutoPoke. Since I found that the color of Playback differs from PCs, you should update the `Color` config in `config.ini` file, where it looks like this:
 
@@ -47,6 +48,10 @@ Here, *dialogcolor* you can only change the first RGB value and leave the second
 
 
 # Update Log
+
+- 2024-10-22
+  - Redone the project.
+  - Improve the robustness.
 
 - 2024-05-31
   - Support Stationary in `FrLg`.
