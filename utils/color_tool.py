@@ -23,9 +23,9 @@ def read_color(colorList: list):
 
 
 def rgbint2rgbtuple(RGBint):
-    blue = RGBint & 255
+    red = RGBint & 255
     green = (RGBint >> 8) & 255
-    red = (RGBint >> 16) & 255
+    blue = (RGBint >> 16) & 255
     return (red, green, blue)
     # return (blue, green, red)
 
@@ -157,12 +157,15 @@ class ColorMonitor(object):
         return self.color_exist_core(x_list, y_list, color_list)
 
     def color_exist_core(self, x_list, y_list, target_color_list):
+        # color_set = set()
         for x in self.get_absolute_x(x_list):
             for y in self.get_absolute_y(y_list):
                 color = self.get_color(x, y)
+                # color_set.add(color)
                 for target_color in target_color_list:
                     if self.in_color_range(color, target_color):
                         return True
+        # print(color_set)
         return False
 
     def color_exist_core_with_count(self, x_list, y_list, target_color_list):
@@ -216,6 +219,9 @@ class ColorMonitor(object):
 
     def save_image(self, filename="shortcut.bmp"):
         try:
+            print(
+                f"win_h:{self.window_height}\nwin_w:{self.window_width}\ngame_h:{self.game_height}\ngame_w:{self.game_width}"
+            )
             # 创建设备描述表
             mfcDC = win32ui.CreateDCFromHandle(self.window)
             # 创建内存设备描述表
@@ -223,13 +229,15 @@ class ColorMonitor(object):
             # 创建位图对象准备保存图片
             saveBitMap = win32ui.CreateBitmap()
             # 为bitmap开辟存储空间
-            saveBitMap.CreateCompatibleBitmap(mfcDC, self.game_width, self.game_height)
+            saveBitMap.CreateCompatibleBitmap(
+                mfcDC, self.window_width, self.window_height
+            )
             # 将截图保存到saveBitMap中
             saveDC.SelectObject(saveBitMap)
             # 保存bitmap到内存设备描述表
             saveDC.BitBlt(
                 (0, 0),
-                (self.game_width, self.game_height),
+                (self.window_width, self.window_height),
                 mfcDC,
                 (0, 0),
                 win32con.SRCCOPY,

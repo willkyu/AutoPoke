@@ -95,7 +95,7 @@ class AutoPokeCore(object):
             self.printf("Hit A.")
 
             # safari zone 判定
-            sleep(0.2)
+            sleep(0.5)
             if self.color_monitor.check("ally_battle_status"):
                 self.printf("Not shiny, run...")
                 self.RUN()
@@ -103,9 +103,9 @@ class AutoPokeCore(object):
 
             self.printf("not safari...")
             # 非safari zone额外等待时间
-            sleep(2.8)
+            sleep(2.5)
 
-            if self.color_monitor.check("ally_battle_status"):
+            if not self.color_monitor.check("ally_battle_status"):
                 self.printf("Got Shiny Pokemon! {} times.".format(self.cfg.i))
                 self.send_mail()
                 self.cfg.i = 0

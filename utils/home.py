@@ -1,8 +1,8 @@
 import flet
-import win32gui
 import inspect
 import threading
 import ctypes
+import win32gui
 from utils.my_ui import myHome
 from utils.config_tool import Config
 from utils.autopoke_core import AutoPokeCore
@@ -30,8 +30,10 @@ def get_eo(name):
         return windows
 
     hd = win32gui.GetDesktopWindow()
+    count = 0
     for win in enum_child_windows(hd, name):
         if get_window_size(win) > 10:
+            count += 1
             return win
     # assert False
     return False
