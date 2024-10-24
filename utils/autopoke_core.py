@@ -86,7 +86,7 @@ class AutoPokeCore(object):
                             sleep(0.2)
 
             # 遇敌黑屏到第一次按A的时间
-            sleep(3.6)
+            sleep(3.9)
             # 绿宝石额外动画时间
             if self.cfg.version == "E":
                 sleep(1)
@@ -95,7 +95,7 @@ class AutoPokeCore(object):
             self.printf("Hit A.")
 
             # safari zone 判定
-            sleep(0.5)
+            sleep(0.2)
             if self.color_monitor.check("ally_battle_status"):
                 self.printf("Not shiny, run...")
                 self.RUN()
@@ -103,7 +103,7 @@ class AutoPokeCore(object):
 
             self.printf("not safari...")
             # 非safari zone额外等待时间
-            sleep(2.5)
+            sleep(2.7)
 
             if not self.color_monitor.check("ally_battle_status"):
                 self.printf("Got Shiny Pokemon! {} times.".format(self.cfg.i))
@@ -279,7 +279,10 @@ class AutoPokeCore(object):
                     break
 
             # 遇敌黑屏到第一次按A的时间
-            sleep(3.6)
+            sleep(3.9)
+            # 绿宝石额外动画时间
+            if self.cfg.version == "E":
+                sleep(1)
             self.press_controller.hit_key(self.key("A"))
             self.press_controller.hit_key(self.key("A"))
             self.printf("Hit A.")
@@ -293,9 +296,9 @@ class AutoPokeCore(object):
 
             self.printf("not safari...")
             # 非safari zone额外等待时间
-            sleep(2.8)
+            sleep(2.7)
 
-            if self.color_monitor.check("ally_battle_status"):
+            if not self.color_monitor.check("ally_battle_status"):
                 self.printf("Got Shiny Pokemon! {} times.".format(self.cfg.i))
                 self.send_mail()
                 self.cfg.i = 0
