@@ -91,7 +91,7 @@ class AutoPokeCore(object):
             if self.cfg.version == "E":
                 sleep(1)
             self.press_controller.hit_key(self.key("A"))
-            self.press_controller.hit_key(self.key("A"))
+            # self.press_controller.hit_key(self.key("A"))
             self.printf("Hit A.")
 
             # safari zone 判定
@@ -328,7 +328,7 @@ class AutoPokeCore(object):
         self.press_controller.hit_key(self.key("RIGHT"))
         self.press_controller.hit_key(self.key("DOWN"))
         self.press_controller.hit_key(self.key("A"))
-        sleep(0.5)
+        sleep(0.6)
         self.press_controller.hit_key(self.key("A"))
         sleep(2.7)
 
