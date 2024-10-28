@@ -87,7 +87,7 @@ class Config:
         }
         configfile["MAIL"] = {
             "ifsend_comment": '"If send the mail."',
-            "ifsend": "False",
+            "ifsend": "True",
             "tomail_comment": '"The mail to receive message."',
             "tomail": "your receiving mail",
             "host_comment": '"The host of the mail to send message."',

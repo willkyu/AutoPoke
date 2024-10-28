@@ -80,6 +80,10 @@ class ColorMonitor(object):
     def check(self, mode=""):
         if mode == "black_out":
             return self.check_black_out()
+        if mode == "normal_dialogue":
+            return self.color_exist(mode2color[mode][:-1], mode) and self.color_exist(
+                mode2color[mode][-1:], mode
+            )
         return self.color_exist(mode2color[mode], mode)
 
     def color_exist(self, color_list, mode=""):

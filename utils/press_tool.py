@@ -118,9 +118,10 @@ class PressController(object):
         self.key_down(key)
         sleep(time)
         self.key_up(key)
+        # print("hit key: ", key)
 
-    def random_hit_key(self, key_list):
-        self.hit_key(choice(key_list))
+    def random_hit_key(self, key_list, time=0.3):
+        self.hit_key(choice(key_list), time)
 
     def release_all_keys(self, key_list):
         for key in key_list:

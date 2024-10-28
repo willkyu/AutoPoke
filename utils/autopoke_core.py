@@ -8,6 +8,8 @@ from random import choice
 # from atexit import register, unregister
 from utils.config_tool import Config
 
+emerald_anime_time = 1.2
+
 
 class AutoPokeCore(object):
     def __init__(self, eo, cfg: Config, printf, update_count) -> None:
@@ -89,10 +91,10 @@ class AutoPokeCore(object):
             sleep(3.9)
             # 绿宝石额外动画时间
             if self.cfg.version == "E":
-                sleep(1)
+                sleep(emerald_anime_time)
             self.press_controller.hit_key(self.key("A"))
             # self.press_controller.hit_key(self.key("A"))
-            self.printf("Hit A.")
+            # self.printf("Hit A.")
 
             # safari zone 判定
             sleep(0.2)
@@ -104,6 +106,10 @@ class AutoPokeCore(object):
             self.printf("not safari...")
             # 非safari zone额外等待时间
             sleep(2.7)
+
+            # 绿宝石额外动画时间
+            if self.cfg.version == "E":
+                sleep(emerald_anime_time)
 
             if not self.color_monitor.check("ally_battle_status"):
                 self.printf("Got Shiny Pokemon! {} times.".format(self.cfg.i))
@@ -153,7 +159,7 @@ class AutoPokeCore(object):
 
             sleep(4)
             self.press_controller.hit_key(self.key("A"))
-            self.printf("Hit A.")
+            # self.printf("Hit A.")
             sleep(3)
 
             if not self.color_monitor.check("ally_battle_status"):
@@ -282,10 +288,10 @@ class AutoPokeCore(object):
             sleep(3.9)
             # 绿宝石额外动画时间
             if self.cfg.version == "E":
-                sleep(1)
+                sleep(emerald_anime_time)
             self.press_controller.hit_key(self.key("A"))
             self.press_controller.hit_key(self.key("A"))
-            self.printf("Hit A.")
+            # self.printf("Hit A.")
 
             # safari zone 判定
             sleep(0.2)
@@ -297,6 +303,10 @@ class AutoPokeCore(object):
             self.printf("not safari...")
             # 非safari zone额外等待时间
             sleep(2.7)
+
+            # 绿宝石额外动画时间
+            if self.cfg.version == "E":
+                sleep(emerald_anime_time)
 
             if not self.color_monitor.check("ally_battle_status"):
                 self.printf("Got Shiny Pokemon! {} times.".format(self.cfg.i))
