@@ -158,7 +158,7 @@ class Home(myHome):
         self.direction.disabled = False
         (
             self.direction.update_state("lr")
-            if self.cfg.config["WILDPOKE"]["iflr"]
+            if self.cfg.config["WILDPOKE"]["iflr"] == "True"
             else self.direction.update_state("ud")
         )
         self.count_pannel.controls[1].on_change = self.count_on_change
@@ -188,6 +188,7 @@ class Home(myHome):
         elif e.control.value == "Stationary":
             self.mode = "Stationary".upper()
             self.lock()
+            self.direction.update_state("no")
             self.count_pannel.controls[1].on_change = self.count_on_change
             self.count_pannel.controls[1].disabled = False
             self.version_dropdown.disabled = False
@@ -195,6 +196,7 @@ class Home(myHome):
         elif e.control.value == "Fishing":
             self.mode = "Fishing".upper()
             self.lock()
+            self.direction.update_state("no")
             self.count_pannel.controls[1].on_change = self.count_on_change
             self.count_pannel.controls[1].disabled = False
             self.version_dropdown.disabled = False

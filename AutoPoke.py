@@ -5,8 +5,8 @@ from utils.my_ui import VERSION
 
 def main_page(page: flet.Page) -> None:
     page.title = "AutoPoke v{} by willkyu".format(VERSION)
-    page.window_width = 720
-    page.window_height = 300
+    page.window.width = 720
+    page.window.height = 300
     homePage = Home(page)
 
 

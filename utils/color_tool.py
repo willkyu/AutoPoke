@@ -41,6 +41,7 @@ mode2color = {
     "battle_dialogue_FrLg": bg_deep_blue,
     "get_fish": text_color,
     "no_fish": text_color,
+    "dialogue": dialogue_color,
 }
 
 
@@ -102,7 +103,7 @@ class ColorMonitor(object):
                     0, self.game_height // 4, self.get_interval(self.game_height // 4)
                 )
             ]
-        elif mode == "normal_dialogue":
+        elif mode == "normal_dialogue" or mode == "dialogue":
             # AB4
             x_list = [
                 i

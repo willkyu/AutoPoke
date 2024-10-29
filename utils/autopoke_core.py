@@ -8,8 +8,6 @@ from random import choice
 # from atexit import register, unregister
 from utils.config_tool import Config
 
-emerald_anime_time = 1.2
-
 
 class AutoPokeCore(object):
     def __init__(self, eo, cfg: Config, printf, update_count) -> None:
@@ -75,12 +73,12 @@ class AutoPokeCore(object):
                     self.update_count(self.cfg.i)
                     break
                 elif self.cfg.version == "E":
-                    if self.color_monitor.check("normal_dialogue"):
+                    if self.color_monitor.check("dialogue"):
                         # self.printf("PokeNav detected.")
                         if jump or run:
                             self.press_controller.key_up(self.key("B"))
                             sleep(0.2)
-                        while self.color_monitor.check("normal_dialogue"):
+                        while self.color_monitor.check("dialogue"):
                             self.press_controller.hit_key(self.key("B"))
                             sleep(0.2)
                         if jump or run:
@@ -89,9 +87,6 @@ class AutoPokeCore(object):
 
             # 遇敌黑屏到第一次按A的时间
             sleep(3.9)
-            # 绿宝石额外动画时间
-            if self.cfg.version == "E":
-                sleep(emerald_anime_time)
             self.press_controller.hit_key(self.key("A"))
             # self.press_controller.hit_key(self.key("A"))
             # self.printf("Hit A.")
@@ -106,10 +101,6 @@ class AutoPokeCore(object):
             self.printf("not safari...")
             # 非safari zone额外等待时间
             sleep(2.7)
-
-            # 绿宝石额外动画时间
-            if self.cfg.version == "E":
-                sleep(emerald_anime_time)
 
             if not self.color_monitor.check("ally_battle_status"):
                 self.printf("Got Shiny Pokemon! {} times.".format(self.cfg.i))
@@ -286,9 +277,6 @@ class AutoPokeCore(object):
 
             # 遇敌黑屏到第一次按A的时间
             sleep(3.9)
-            # 绿宝石额外动画时间
-            if self.cfg.version == "E":
-                sleep(emerald_anime_time)
             self.press_controller.hit_key(self.key("A"))
             self.press_controller.hit_key(self.key("A"))
             # self.printf("Hit A.")
@@ -303,10 +291,6 @@ class AutoPokeCore(object):
             self.printf("not safari...")
             # 非safari zone额外等待时间
             sleep(2.7)
-
-            # 绿宝石额外动画时间
-            if self.cfg.version == "E":
-                sleep(emerald_anime_time)
 
             if not self.color_monitor.check("ally_battle_status"):
                 self.printf("Got Shiny Pokemon! {} times.".format(self.cfg.i))
