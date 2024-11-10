@@ -50,6 +50,9 @@ Here, *dialogcolor* you can only change the first RGB value and leave the second
 
 # Update Log
 
+- 2024-11-10
+  - Support multi-game. (not test)
+
 - 2024-10-22
   - Redone the project.
   - Improve the robustness.
