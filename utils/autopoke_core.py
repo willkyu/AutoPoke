@@ -98,7 +98,7 @@ class AutoPokeCore(object):
                 self.RUN()
                 continue
 
-            self.printf("not safari...")
+            self.printf("Not safari...")
             # 非safari zone额外等待时间
             sleep(2.7)
 
@@ -139,7 +139,7 @@ class AutoPokeCore(object):
             while 1:
                 self.press_controller.hit_key(self.key("A"))
                 if self.color_monitor.check_black_out():
-                    self.printf("encountered!")
+                    self.printf("Encountered!")
                     while self.color_monitor.check_black_out():
                         sleep(0.98)
 
@@ -263,7 +263,7 @@ class AutoPokeCore(object):
                     sleep(0.2)
 
                 if self.color_monitor.check_black_out():
-                    self.printf("encountered!")
+                    self.printf("Encountered!")
                     flag = True
                     while self.color_monitor.check_black_out():
                         if flag:
@@ -288,7 +288,7 @@ class AutoPokeCore(object):
                 self.RUN()
                 continue
 
-            self.printf("not safari...")
+            self.printf("Not safari...")
             # 非safari zone额外等待时间
             sleep(2.7)
 

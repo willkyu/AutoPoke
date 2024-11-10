@@ -30,13 +30,13 @@ def get_eo(name):
         return windows
 
     hd = win32gui.GetDesktopWindow()
-    count = 0
+    win_list = []
     for win in enum_child_windows(hd, name):
         if get_window_size(win) > 10:
-            count += 1
-            return win
-    # assert False
-    return False
+            win_list.append(win)
+    return win_list
+    # # assert False
+    # return False
 
 
 class Home(myHome):
@@ -80,9 +80,9 @@ class Home(myHome):
         self.print_to_pannel("Searching for " + self.cfg.window_name + "......")
         # self.eo = win32gui.FindWindow(None, self.cfg.window_name)
         self.eo = get_eo(self.cfg.window_name)
-        if self.eo:
+        if len(self.eo) > 0:
             self.findeo = True
-            self.print_to_pannel("Done.")
+            self.print_to_pannel(f"Totally find {len(self.eo)} window(s).\nDone.")
         else:
             self.findeo = False
             self.print_to_pannel(self.cfg.window_name + " not found.")
@@ -91,7 +91,7 @@ class Home(myHome):
 
     def start(self, e=None):
         self.cfg.read_ini()
-        if not self.eo:
+        if len(self.eo) < 1:
             self.print_to_pannel(self.cfg.window_name + " not found, please refresh.")
             return
         if not self.version_dropdown.value or not self.mode_dropdown.value:
@@ -100,20 +100,27 @@ class Home(myHome):
 
         self.lock()
         self.print_to_pannel("=== AutoPoke Start===")
-        self.auto_poke_core = AutoPokeCore(
-            self.eo, self.cfg, self.print_to_pannel, self.update_count
-        )
-        self.running = threading.Thread(
-            target=self.auto_poke_core.exe_function,
-            args=(self.cfg.mode.upper(),),
-        )
-        self.running.start()
+        self.auto_poke_core_list = [
+            AutoPokeCore(eo, self.cfg, self.print_to_pannel, self.update_count)
+            for eo in self.eo
+        ]
+        self.running_list = [
+            threading.Thread(
+                target=auto_poke_core.exe_function,
+                args=(self.cfg.mode.upper(),),
+            )
+            for auto_poke_core in self.auto_poke_core_list
+        ]
+        for running in self.running_list:
+            running.start()
 
         e.control.text = "Stop!"
         e.control.on_click = self.end
         e.control.update()
 
-        self.running.join()
+        for running in self.running_list:
+            running.join()
+        # self.running.join()
         self.print_to_pannel("Done.")
         self.unlock()
 
@@ -125,8 +132,10 @@ class Home(myHome):
 
     def end(self, e=None):
         try:
-            self.stop_thread(self.running)
-            self.auto_poke_core.release_all_keys()
+            for running in self.running_list:
+                self.stop_thread(running)
+            for auto_poke_core in self.auto_poke_core_list:
+                auto_poke_core.release_all_keys()
             self.cfg.write_count_config()
             self.print_to_pannel("Stopped.")
         except:
