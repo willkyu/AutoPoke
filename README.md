@@ -42,8 +42,8 @@ Here, *dialogcolor* you can only change the first RGB value and leave the second
 
 |  Confirmed   | RS | E | FrLg |
 | :----: | :----: |:----: |:----: |
-| Wild Encounter | **Yes** | Not Test | **Yes** |
-| Safari Zone | **Yes** | Not Test | Not Test |
+| Wild Encounter | **Yes** | **Yes** | **Yes** |
+| Safari Zone | **Yes** | **Yes** | Not Test |
 | Stationary | **Yes** | Not Test | **Yes** |
 | Fishing | **Yes** | Not Test | Not Test |
 | Special Stationary | Not Complete | Not Complete | Not Complete |
