@@ -183,8 +183,8 @@ class ColorMonitor(object):
                         num += 1
         return False
 
-    def check_black_out(self):
-        interval = self.window_height // 10
+    def check_black_out(self, interval_ratio=10):
+        interval = self.window_height // interval_ratio
         check_list = [
             [
                 self.window_width // 2 + i * interval,

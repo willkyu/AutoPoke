@@ -54,6 +54,7 @@ class Home(myHome):
         self.count_pannel.controls[1].on_change = self.count_on_change
         self.jump_block.controls[1].on_change = self.jump_on_change
         self.run_block.controls[1].on_change = self.run_on_change
+        self.sweet_scent_block.controls[1].on_change = self.sweet_scent_on_change
         self.mode = "WILDPOKE"
         self.page.update()
 
@@ -75,6 +76,9 @@ class Home(myHome):
 
     def run_on_change(self, e):
         self.cfg.update_config("WILDPOKE", "run", str(e.control.value))
+
+    def sweet_scent_on_change(self, e):
+        self.cfg.update_config("WILDPOKE", "sweet_scent", str(e.control.value))
 
     def findEO(self, e=None):
         self.print_to_pannel("Searching for " + self.cfg.window_name + "......")
@@ -164,6 +168,11 @@ class Home(myHome):
         self.run_block.controls[1].disabled = False
         self.run_block.controls[1].tristate = False
         self.run_block.controls[1].value = eval(self.cfg.config["WILDPOKE"]["run"])
+        self.sweet_scent_block.controls[1].disabled = False
+        self.sweet_scent_block.controls[1].tristate = False
+        self.sweet_scent_block.controls[1].value = eval(
+            self.cfg.config["WILDPOKE"]["run"]
+        )
         self.direction.disabled = False
         (
             self.direction.update_state("lr")
@@ -183,6 +192,9 @@ class Home(myHome):
         self.run_block.controls[1].disabled = True
         self.run_block.controls[1].tristate = True
         self.run_block.controls[1].value = None
+        self.sweet_scent_block.controls[1].disabled = True
+        self.sweet_scent_block.controls[1].tristate = True
+        self.sweet_scent_block.controls[1].value = None
         self.direction.disabled = True
         self.count_pannel.controls[1].on_change = None
         self.count_pannel.controls[1].disabled = True
@@ -194,18 +206,8 @@ class Home(myHome):
         if e.control.value == "Wild Encounter":
             self.mode = "WILDPOKE"
             self.unlock()
-        elif e.control.value == "Stationary":
-            self.mode = "Stationary".upper()
-            self.lock()
-            self.direction.update_state("no")
-            self.count_pannel.controls[1].on_change = self.count_on_change
-            self.count_pannel.controls[1].disabled = False
-            self.version_dropdown.disabled = False
-            self.mode_dropdown.disabled = False
-        elif e.control.value == "Fishing":
-            self.mode = "Fishing".upper()
-            self.lock()
-            self.direction.update_state("no")
+        else:
+            self.mode = e.control.value.upper()
             self.count_pannel.controls[1].on_change = self.count_on_change
             self.count_pannel.controls[1].disabled = False
             self.version_dropdown.disabled = False

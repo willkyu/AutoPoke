@@ -1,6 +1,8 @@
 import configparser
+from utils.my_ui import MODES
 
-MODES = ["WILDPOKE", "STATIONARY", "FISHING"]
+FMODES = ["WILDPOKE" if mode == "Wild Encounter" else mode.upper() for mode in MODES]
+# MODES = ["WILDPOKE", "STATIONARY", "FISHING"]
 
 
 class Config:
@@ -17,6 +19,7 @@ class Config:
     def read_ini(self):
         self.config = configparser.ConfigParser(allow_no_value=True)
         self.config.read(self.inifile, encoding="utf-8")
+        self.check_update()
 
         self.window_name = self.config.get("DEFAULT", "window_name")
         self.version = self.config.get("DEFAULT", "version")
@@ -50,7 +53,7 @@ class Config:
 
     def read_config(self):
         # mode_list = ["WILDPOKE", "STATIONARY"]
-        if self.mode not in MODES:
+        if self.mode not in FMODES:
             self.end_app("Error 'mode' in config.ini file.")
         try:
             self.mode_config = dict(self.config.items(self.mode))
@@ -67,6 +70,10 @@ class Config:
         self.config[block][item] = value
         with open(self.inifile, "w", encoding="utf-8") as cfgfile:
             self.config.write(cfgfile)
+
+    def check_update(self):
+        if "sweet_scent" not in self.config["WILDPOKE"]:
+            self.update_config("WILDPOKE", "sweet_scent", str(False))
 
     def end_app(self, message):
         print(message)
@@ -102,6 +109,8 @@ class Config:
             "jump": "False",
             "run_comment": '"If running."',
             "run": "False",
+            "sweet_scent_comment": '"If use sweet scent."',
+            "sweet_scent": "False",
             "iflr_comment": '"Move left and right or up and down, needed only jump is False."',
             "iflr": "True",
         }

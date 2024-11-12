@@ -2,7 +2,7 @@ import flet
 
 # from utils.base64img import *
 
-VERSION = "5.2.0.111024_alpha"
+VERSION = "5.3.0.111224_beta"
 MODES = ["Wild Encounter", "Stationary", "Fishing"]
 
 
@@ -36,7 +36,12 @@ class myHome(object):
         # Column2
         self.jump_block = Block("Jump? ", flet.Checkbox(tristate=True, disabled=True))
         self.run_block = Block("Run? ", flet.Checkbox(tristate=True, disabled=True))
-        self.checkbox_column = flet.Column(controls=[self.jump_block, self.run_block])
+        self.sweet_scent_block = Block(
+            "Sweet Scent? ", flet.Checkbox(tristate=True, disabled=True)
+        )
+        self.checkbox_column = flet.Column(
+            controls=[self.jump_block, self.run_block, self.sweet_scent_block]
+        )
 
         self.image = flet.Container(
             image_src="https://github.com/willkyu/AutoPoke/blob/main/fig.png?raw=true",

@@ -11,9 +11,14 @@ Auto hunting shiny pokemon using Playback(Epilogue GB operator), writing with Py
 - **In `Emerald` version, make sure *BATTLE SCENE* in the setting of your game is *OFF***
 - **Do not minimize the window of Operator when AutoPoke is running.**
 - **Your FIRST pokemon should NOT be shiny.**
-- **Do not change the window size of Operator `tooooo` large.**
+- **Do not change the window size of Operator *tooooo* large or *tooooo* small.**
 - Make player role where you need to encounter PM, and set parameters in `config.ini` file (Optional). Then run `AutoPoke.py` or `AutoPoke.exe`.
-- If your Operator version is lower than `v1.0.0`, download AutoPoke of `v1.1` version.
+- Support sweet scent.
+  - You should make sure the pointer of the menu is at **Pokemon**.
+  - The last of your pokemon should have learnt sweet scent.
+  - Sweet scent should be the first out-battle skill of your last pokemon.
+
+> If your Operator version is lower than `v1.0.0`, download AutoPoke of `v1.1` version.
 
 ## Update the config of AutoPoke
 
@@ -50,8 +55,14 @@ Here, *dialogcolor* you can only change the first RGB value and leave the second
 
 # Update Log
 
+- 2024-11-12
+  - Support sweet scent.
+    - You should make sure the pointer of the menu is at **Pokemon**.
+    - The last of your pokemon should have learnt sweet scent.
+    - Sweet scent should be the first out-battle skill of your last pokemon.
+
 - 2024-11-10
-  - Support multi-game. (not test)
+  - Ready for multi-game.
 
 - 2024-10-22
   - Redone the project.
