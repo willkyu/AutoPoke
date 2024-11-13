@@ -74,6 +74,11 @@ class Config:
     def check_update(self):
         if "sweet_scent" not in self.config["WILDPOKE"]:
             self.update_config("WILDPOKE", "sweet_scent", str(False))
+            self.update_config(
+                "WILDPOKE",
+                "sweet_scent_comment",
+                '"If use sweet scent."',
+            )
 
     def end_app(self, message):
         print(message)

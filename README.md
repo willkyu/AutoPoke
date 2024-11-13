@@ -55,6 +55,10 @@ Here, *dialogcolor* you can only change the first RGB value and leave the second
 
 # Update Log
 
+- 2024-11-13
+  - Fix sweet scent in `RSE`.
+  - Support smoke ball.
+
 - 2024-11-12
   - Support sweet scent.
     - You should make sure the pointer of the menu is at **Pokemon**.

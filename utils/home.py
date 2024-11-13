@@ -171,7 +171,7 @@ class Home(myHome):
         self.sweet_scent_block.controls[1].disabled = False
         self.sweet_scent_block.controls[1].tristate = False
         self.sweet_scent_block.controls[1].value = eval(
-            self.cfg.config["WILDPOKE"]["run"]
+            self.cfg.config["WILDPOKE"]["sweet_scent"]
         )
         self.direction.disabled = False
         (
@@ -212,6 +212,7 @@ class Home(myHome):
             self.count_pannel.controls[1].disabled = False
             self.version_dropdown.disabled = False
             self.mode_dropdown.disabled = False
+            # self.lock()
 
         self.cfg.update_config("DEFAULT", "mode", self.mode)
         self.page.update()

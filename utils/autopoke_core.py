@@ -106,10 +106,14 @@ class AutoPokeCore(object):
     def RUN(self):
         self.press_controller.hit_key(self.key("RIGHT"))
         self.press_controller.hit_key(self.key("DOWN"))
-        self.press_controller.hit_key(self.key("A"))
-        sleep(0.6)
-        self.press_controller.hit_key(self.key("A"))
-        sleep(2.7)
+        while not self.color_monitor.check_black_out():
+            self.press_controller.hit_key(self.key("A"))
+            # print("A")
+            # sleep(0.1)
+            self.press_controller.hit_key(self.key("B"))
+        while self.color_monitor.check_black_out():
+            print("black")
+            sleep(0.1)
 
     def check_shiny(self):
         # 遇敌黑屏到第一次按A的时间
@@ -194,8 +198,13 @@ class AutoPokeCore(object):
         sleep(0.1)
         self.press_controller.hit_key(self.key("UP"), time=0.1)
         self.press_controller.hit_key(self.key("A"), time=0.1)
-        self.press_controller.hit_key(self.key("DOWN"), time=0.1)
-        self.press_controller.hit_key(self.key("A"))
+        if self.ifFRLG:
+            self.press_controller.hit_key(self.key("DOWN"), time=0.1)
+        else:
+            # self.press_controller.key_up(self.key(("A")))
+            sleep(0.1)
+        self.press_controller.hit_key(self.key("A"), time=0.1)
+        self.printf("Using sweet scent.")
         while 1:
             if self.color_monitor.check_black_out():
                 while self.color_monitor.check_black_out():
