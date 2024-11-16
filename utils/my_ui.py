@@ -2,8 +2,8 @@ import flet
 
 # from utils.base64img import *
 
-VERSION = "5.3.2.111324_beta"
-MODES = ["Wild Encounter", "Stationary", "Fishing"]
+VERSION = "5.3.3.111624_alpha"
+MODES = ["Wild Encounter", "Stationary", "Fishing", "Test"]
 
 
 class myHome(object):

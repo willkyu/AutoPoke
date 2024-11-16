@@ -23,12 +23,35 @@ class AutoPokeCore(object):
 
         pass
 
+    def test(self):
+        import win32gui, win32con
+
+        self.printf(
+            f"sendmessage return: {win32gui.SendMessage(self.hander, win32con.WM_KEYDOWN, 38, 0)}"
+        )
+        sleep(0.1)
+        self.printf(
+            f"sendmessage return: {win32gui.SendMessage(self.hander, win32con.WM_KEYUP, 38, 0)}"
+        )
+        sleep(0.5)
+        self.printf(
+            f"postmessage return: {win32gui.PostMessage(self.hander, win32con.WM_KEYDOWN, 38, 0)}"
+        )
+        sleep(0.1)
+        self.printf(
+            f"postmessage return: {win32gui.PostMessage(self.hander, win32con.WM_KEYUP, 38, 0)}"
+        )
+        self.color_monitor.save_image()
+        self.printf("screenshot saved.")
+
     def exe_function(self, function: str):
         # try:
         # with ColorMonitor(self.hander, self.printf) as self.color_monitor:
         self.color_monitor = ColorMonitor(self.hander, self.printf)
         print(function)
-        if function == "WILDPOKE":
+        if function == "TEST":
+            self.test()
+        elif function == "WILDPOKE":
             self.WILDPOKE()
         elif function == "STATIONARY":
             self.STATIONARY()
