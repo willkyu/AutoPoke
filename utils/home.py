@@ -22,7 +22,8 @@ def get_eo(name):
         def callback(hwnd, extra):
             # 获取窗口标题
             window_title = win32gui.GetWindowText(hwnd)
-            if window_title.strip() == name:
+            # if window_title.strip() == name:
+            if name in window_title:
                 windows.append(hwnd)
 
         # 枚举所有子窗口
