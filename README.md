@@ -1,6 +1,6 @@
 # AutoPoke
 
-> **The emulator bar causes problems because its color value is similar to the text color in Pokémon games. Therefore, it's better to avoid having the emulator bar visible when using AutoPoke, especially during the FISHING function.**
+> **The emulator bar causes problems because its color value is similar to the text color in Pokémon games. Therefore, it's better to avoid having the emulator bar visible when using AutoPoke, especially during the FISHING function. (One approach is to use the PIP mode, i.e., Picture-in-Picture.)**
 
 Auto hunting shiny pokemon using Playback(Epilogue GB operator), writing with Python. Only for Gen3.
 宝可梦三代自动化刷闪工具，使用Playback(Epilogue GB operator)。模拟器等也可参考使用。
