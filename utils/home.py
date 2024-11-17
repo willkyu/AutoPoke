@@ -51,12 +51,14 @@ class Home(myHome):
         self.start_button.on_click = self.start
         self.mode_dropdown.on_change = self.mode_on_change
         self.version_dropdown.on_change = self.version_on_change
+        self.language_row.on_change = self.language_on_change
         self.direction.on_click = self.on_click_direction_button
         self.count_pannel.controls[1].on_change = self.count_on_change
         self.jump_block.controls[1].on_change = self.jump_on_change
         self.run_block.controls[1].on_change = self.run_on_change
         self.sweet_scent_block.controls[1].on_change = self.sweet_scent_on_change
         self.mode = "WILDPOKE"
+        self.language_row.value = self.cfg.language
         self.page.update()
 
     def read_config(self):
@@ -221,6 +223,9 @@ class Home(myHome):
 
     def version_on_change(self, e=None):
         self.cfg.update_config("DEFAULT", "version", e.control.value)
+
+    def language_on_change(self, e=None):
+        self.cfg.update_config("DEFAULT", "language", e.control.value)
 
     def _async_raise(self, tid, exctype):
         """raises the exception, performs cleanup if needed"""

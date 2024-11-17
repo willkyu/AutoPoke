@@ -48,7 +48,8 @@ class AutoPokeCore(object):
         # try:
         # with ColorMonitor(self.hander, self.printf) as self.color_monitor:
         self.color_monitor = ColorMonitor(self.hander, self.printf)
-        print(function)
+        self.language = self.cfg.language
+        # print(function)
         if function == "TEST":
             self.test()
         elif function == "WILDPOKE":
@@ -141,6 +142,8 @@ class AutoPokeCore(object):
     def check_shiny(self):
         # 遇敌黑屏到第一次按A的时间
         sleep(3.9)
+        if self.language == "Jpn":
+            sleep(0.5)
         self.press_controller.hit_key(self.key("A"))
         # self.press_controller.hit_key(self.key("A"))
         # self.printf("Hit A.")

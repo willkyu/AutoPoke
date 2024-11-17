@@ -24,6 +24,7 @@ class Config:
         self.window_name = self.config.get("DEFAULT", "window_name")
         self.version = self.config.get("DEFAULT", "version")
         self.mode = self.config.get("DEFAULT", "mode")
+        self.language = self.config.get("DEFAULT", "language")
         self.read_config()
         self.i = eval(self.config.get("DEFAULT", "count"))
         dic = dict(self.config.items("KEYMAP"))
@@ -78,6 +79,13 @@ class Config:
                 "WILDPOKE",
                 "sweet_scent_comment",
                 '"If use sweet scent."',
+            )
+        if "language" not in self.config["DEFAULT"]:
+            self.update_config("DEFAULT", "language", "Eng")
+            self.update_config(
+                "DEFAULT",
+                "language_comment",
+                '"Your game language."',
             )
 
     def end_app(self, message):

@@ -55,6 +55,12 @@ Here, *dialogcolor* you can only change the first RGB value and leave the second
 
 # Update Log
 
+- 2024-11-17
+  - Fix bugs in Japanese games.
+
+- 2024-11-16
+  - Support multi-game.
+
 - 2024-11-13
   - Fix sweet scent in `RSE`.
   - Support smoke ball.

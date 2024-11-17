@@ -2,7 +2,7 @@ import flet
 
 # from utils.base64img import *
 
-VERSION = "5.3.4.111624_alpha"
+VERSION = "5.3.5.111724_alpha"
 MODES = ["Wild Encounter", "Stationary", "Fishing", "Test"]
 
 
@@ -27,8 +27,21 @@ class myHome(object):
         self.button_row = flet.Row(
             controls=[self.start_button, self.refresh, self.direction], expand=1
         )
+        self.language_row = flet.RadioGroup(
+            content=flet.Row(
+                [
+                    flet.Radio(value="Eng", label="Eng"),
+                    flet.Radio(value="Jpn", label="Jpn"),
+                ]
+            )
+        )
         self.Column1 = flet.Column(
-            controls=[self.version_dropdown, self.mode_dropdown, self.button_row],
+            controls=[
+                self.version_dropdown,
+                self.mode_dropdown,
+                self.language_row,
+                self.button_row,
+            ],
             alignment=flet.alignment.center,
             expand=1,
         )
