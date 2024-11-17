@@ -2,7 +2,7 @@ import flet
 
 # from utils.base64img import *
 
-VERSION = "5.3.5.111724_alpha"
+VERSION = "5.4.0.111724_alpha"
 MODES = ["Wild Encounter", "Stationary", "Fishing", "Test"]
 
 
@@ -52,8 +52,18 @@ class myHome(object):
         self.sweet_scent_block = Block(
             "Sweet Scent? ", flet.Checkbox(tristate=True, disabled=True)
         )
+        self.repel_block = Block(
+            "Auto Repel? ", flet.Checkbox(tristate=True, disabled=True)
+        )
         self.checkbox_column = flet.Column(
-            controls=[self.jump_block, self.run_block, self.sweet_scent_block]
+            controls=[
+                self.jump_block,
+                self.run_block,
+                self.sweet_scent_block,
+                self.repel_block,
+            ],
+            # expand=1,
+            spacing=1,
         )
 
         self.image = flet.Container(
@@ -76,8 +86,11 @@ class myHome(object):
                     value="8192",
                     text_style=flet.TextStyle(size=32),
                     text_align=flet.TextAlign.CENTER,
+                    # height=50,
                 ),
-            ]
+            ],
+            # expand=1,
+            spacing=0,
         )
         self.Column2 = flet.Column(
             controls=[self.row_in_column2, self.count_pannel], expand=1

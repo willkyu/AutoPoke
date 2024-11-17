@@ -80,6 +80,13 @@ class Config:
                 "sweet_scent_comment",
                 '"If use sweet scent."',
             )
+        if "repel" not in self.config["WILDPOKE"]:
+            self.update_config("WILDPOKE", "repel", str(False))
+            self.update_config(
+                "WILDPOKE",
+                "repel_comment",
+                '"If auto use repel."',
+            )
         if "language" not in self.config["DEFAULT"]:
             self.update_config("DEFAULT", "language", "Eng")
             self.update_config(

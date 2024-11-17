@@ -74,6 +74,10 @@ class AutoPokeCore(object):
         self.run = eval(self.cfg.mode_config["run"])
         self.ifLR = eval(self.cfg.mode_config["iflr"])
         self.sweet_scent = eval(self.cfg.mode_config["sweet_scent"])
+        self.repel = eval(self.cfg.mode_config["repel"])
+
+        if self.repel:
+            self.use_repel()
 
         # 默认左右走，ifLR=False时，上下走
         self.move_key_list = (
@@ -197,7 +201,7 @@ class AutoPokeCore(object):
                 self.cfg.i += 1
                 self.update_count(self.cfg.i)
                 break
-            elif self.cfg.version == "E":
+            elif self.cfg.version == "E" or self.repel:
                 if self.color_monitor.check("dialogue"):
                     # self.printf("PokeNav detected.")
                     if self.jump or self.run:
@@ -209,6 +213,8 @@ class AutoPokeCore(object):
                     if self.jump or self.run:
                         self.press_controller.key_down(self.key("B"))
                         sleep(0.2)
+                    if self.repel:
+                        self.use_repel()
 
     def sweet_scent_encountering(self):
         self.press_controller.hit_key(self.key("START"))
@@ -327,6 +333,32 @@ class AutoPokeCore(object):
                 # unregister(exit_print_i)
                 # register(exit_print_i, i=cfg.i, cfg=cfg)
                 break
+
+    def use_repel(self):
+        self.printf("Using Repel...")
+        self.press_controller.hit_key(self.key("START"))
+        self.press_controller.hit_key(self.key("A"))
+        while 1:
+            if self.color_monitor.check_black_out():
+                while self.color_monitor.check_black_out():
+                    sleep(0.98)
+                break
+        self.press_controller.hit_key(self.key("A"), time=0.1)
+        sleep(0.3)
+        self.press_controller.hit_key(self.key("A"), time=0.1)
+        while not self.color_monitor.check("dialogue"):
+            self.press_controller.hit_key(self.key("A"), time=0.1)
+        while 1:
+            self.press_controller.hit_key(self.key("B"), time=0.1)
+            if self.color_monitor.check_black_out():
+                while self.color_monitor.check_black_out():
+                    sleep(0.98)
+                # self.cfg.i += 1
+                # self.update_count(self.cfg.i)
+                break
+            sleep(0.3)
+        self.press_controller.hit_key(self.key("B"), time=0.1)
+        sleep(0.3)
 
     def after_SL(self):
         sleep(2)

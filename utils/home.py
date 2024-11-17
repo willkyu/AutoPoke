@@ -57,6 +57,7 @@ class Home(myHome):
         self.jump_block.controls[1].on_change = self.jump_on_change
         self.run_block.controls[1].on_change = self.run_on_change
         self.sweet_scent_block.controls[1].on_change = self.sweet_scent_on_change
+        self.repel_block.controls[1].on_change = self.repel_on_change
         self.mode = "WILDPOKE"
         self.language_row.value = self.cfg.language
         self.page.update()
@@ -82,6 +83,9 @@ class Home(myHome):
 
     def sweet_scent_on_change(self, e):
         self.cfg.update_config("WILDPOKE", "sweet_scent", str(e.control.value))
+
+    def repel_on_change(self, e):
+        self.cfg.update_config("WILDPOKE", "repel", str(e.control.value))
 
     def findEO(self, e=None):
         self.print_to_pannel("Searching for " + self.cfg.window_name + "......")
@@ -176,6 +180,9 @@ class Home(myHome):
         self.sweet_scent_block.controls[1].value = eval(
             self.cfg.config["WILDPOKE"]["sweet_scent"]
         )
+        self.repel_block.controls[1].disabled = False
+        self.repel_block.controls[1].tristate = False
+        self.repel_block.controls[1].value = eval(self.cfg.config["WILDPOKE"]["repel"])
         self.direction.disabled = False
         (
             self.direction.update_state("lr")
@@ -198,6 +205,9 @@ class Home(myHome):
         self.sweet_scent_block.controls[1].disabled = True
         self.sweet_scent_block.controls[1].tristate = True
         self.sweet_scent_block.controls[1].value = None
+        self.repel_block.controls[1].disabled = True
+        self.repel_block.controls[1].tristate = True
+        self.repel_block.controls[1].value = None
         self.direction.disabled = True
         self.count_pannel.controls[1].on_change = None
         self.count_pannel.controls[1].disabled = True
