@@ -45,7 +45,7 @@ Here, *dialogcolor* you can only change the first RGB value and leave the second
 | Wild Encounter | **Yes** | **Yes** | **Yes** |
 | Safari Zone | **Yes** | **Yes** | Not Test |
 | Stationary | **Yes** | Not Test | **Yes** |
-| Fishing | **Yes** | Not Test | Not Test |
+| Fishing | **Yes** | Not Test | **Yes** |
 | Special Stationary | Not Complete | Not Complete | Not Complete |
 
 - Japanese version:<br>Not Test
@@ -54,6 +54,10 @@ Here, *dialogcolor* you can only change the first RGB value and leave the second
 
 
 # Update Log
+
+- 2024-11-24
+  - Fix bugs.
+  - Support fishing in `FRLG`.
 
 - 2024-11-17
   - Fix bugs in Japanese games.

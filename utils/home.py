@@ -133,7 +133,13 @@ class Home(myHome):
             running.join()
         # self.running.join()
         self.print_to_pannel("Done.")
-        self.unlock()
+        if self.cfg.mode.upper() == "WILDPOKE":
+            self.unlock()
+        else:
+            self.count_pannel.controls[1].on_change = self.count_on_change
+            self.count_pannel.controls[1].disabled = False
+            self.version_dropdown.disabled = False
+            self.mode_dropdown.disabled = False
 
         e.control.text = "Start!"
         e.control.on_click = self.start

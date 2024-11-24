@@ -8,7 +8,7 @@ dialogue_color = [
     (255, 251, 255),
     (77, 76, 77),
 ]
-text_color = [(74, 73, 74)]
+text_color = [(74, 73, 74), (99, 97, 99)]
 bg_deep_green = [(107, 162, 165)]
 bg_deep_blue = [(41, 81, 107)]
 bg_yellow = [(255, 251, 222)]
@@ -41,6 +41,7 @@ mode2color = {
     "battle_dialogue_FrLg": bg_deep_blue,
     "get_fish": text_color,
     "no_fish": text_color,
+    "encounter_fish": text_color,
     "dialogue": dialogue_color,
 }
 
@@ -151,6 +152,20 @@ class ColorMonitor(object):
                 i
                 for i in range(
                     0, self.game_width // 2, self.get_interval(self.game_width // 4)
+                )
+            ]
+            y_list = [
+                self.game_height // 4 * 3 + i
+                for i in range(
+                    0, self.game_height // 45, max(self.game_height // 45 // 5, 1)
+                )
+            ]
+        elif mode in ["encounter_fish"]:
+            # C4+1/45
+            x_list = [
+                self.game_width // 2 + i
+                for i in range(
+                    0, self.game_width // 4, self.get_interval(self.game_width // 4)
                 )
             ]
             y_list = [

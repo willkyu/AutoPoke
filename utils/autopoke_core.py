@@ -56,9 +56,9 @@ class AutoPokeCore(object):
             self.WILDPOKE()
         elif function == "STATIONARY":
             self.STATIONARY()
-        elif function == "FISHING" and not self.ifFRLG:
-            assert self.cfg.version in ["RS", "E"]
-            self.FISHING_RSE()
+        elif function == "FISHING":
+            # assert self.cfg.version in ["RS", "E"]
+            self.FISHING()
         # except Exception as e:
         #     self.printf(str(e))
         self.release_all_keys()
@@ -117,9 +117,13 @@ class AutoPokeCore(object):
             self.after_SL()
         pass
 
-    def FISHING_RSE(self):
+    def FISHING(self):
         while 1:
-            self.fishing_rse_encountering()
+            (
+                self.fishing_rse_encountering()
+                if not self.ifFRLG
+                else self.fishing_frlg_encountering()
+            )
 
             if self.check_shiny():
                 break
@@ -142,6 +146,7 @@ class AutoPokeCore(object):
         while self.color_monitor.check_black_out():
             print("black")
             sleep(0.1)
+        sleep(1.2)
 
     def check_shiny(self):
         # 遇敌黑屏到第一次按A的时间
@@ -271,6 +276,28 @@ class AutoPokeCore(object):
                 break
             sleep(0.1)
 
+    def fishing_frlg_encountering(self):
+        while 1:
+            no_black_count = 10
+            no_fish_flag = False
+            self.printf("Fishing...")
+            self.press_controller.hit_key(self.key("SELECT"))
+            sleep(1)
+            while self.color_monitor.check("dialogue"):
+                self.press_controller.hit_key(self.key("A"))
+                sleep(0.3)
+
+            while not self.color_monitor.check_black_out():
+                sleep(0.1)
+                no_black_count -= 1
+                if no_black_count <= 0:
+                    no_fish_flag = True
+                    break
+            if no_fish_flag:
+                continue
+            self.printf("Encountered!")
+            return
+
     def fishing_rse_encountering(self):
         fishflag: bool = False
         while 1:
@@ -283,7 +310,7 @@ class AutoPokeCore(object):
                 if self.color_monitor.check("get_fish"):
                     self.press_controller.hit_key(self.key("A"))
                     self.printf("Got pokemon!")
-                    sleep(0.2)
+                    sleep(0.1)
                     fishflag = True
                     break
                 elif self.color_monitor.check("no_fish"):
@@ -292,11 +319,11 @@ class AutoPokeCore(object):
                     self.printf("Not even a nibble...")
                     # sleep(0.5)
                     break
-                sleep(0.1)
+                sleep(0.2)
 
             if not fishflag:
                 # no fish
-                while self.color_monitor.check("normal_dialogue"):
+                while self.color_monitor.check("dialogue"):
                     self.press_controller.hit_key(self.key("B"))
                     sleep(0.2)
                 continue
@@ -304,13 +331,17 @@ class AutoPokeCore(object):
             # if colorGot in black:
 
             # second rod
-            while self.color_monitor.check("normal_dialogue"):
+            while self.color_monitor.check("dialogue"):
                 if self.color_monitor.check("get_fish"):
+                    print("next bite")
                     self.press_controller.hit_key(self.key("A"))
                     sleep(0.1)
                     continue
 
-                elif self.color_monitor.check("no_fish"):  # Actually we do have fish
+                elif self.color_monitor.check(
+                    "encounter_fish"
+                ):  # Actually we do have fish
+                    print("getfish")
                     self.press_controller.hit_key(self.key("A"))
                     sleep(0.1)
                     self.press_controller.hit_key(self.key("A"))
