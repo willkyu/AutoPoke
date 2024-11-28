@@ -152,7 +152,7 @@ class AutoPokeCore(object):
         # 遇敌黑屏到第一次按A的时间
         sleep(3.9)
         if self.language == "Jpn":
-            sleep(0.5)
+            sleep(1)
         self.press_controller.hit_key(self.key("A"))
         # self.press_controller.hit_key(self.key("A"))
         # self.printf("Hit A.")
