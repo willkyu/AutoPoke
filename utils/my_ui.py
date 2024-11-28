@@ -2,7 +2,7 @@ import flet
 
 # from utils.base64img import *
 
-VERSION = "5.5.0.112424_beta"
+VERSION = "5.5.1.112824_beta"
 MODES = ["Wild Encounter", "Stationary", "Fishing", "Test"]
 
 
