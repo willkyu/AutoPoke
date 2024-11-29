@@ -139,10 +139,10 @@ class AutoPokeCore(object):
         self.press_controller.hit_key(self.key("RIGHT"))
         self.press_controller.hit_key(self.key("DOWN"))
         while not self.color_monitor.check_black_out():
-            self.press_controller.hit_key(self.key("A"))
+            self.press_controller.hit_key(self.key("A"), time=0.1)
             # print("A")
             # sleep(0.1)
-            self.press_controller.hit_key(self.key("B"))
+            # self.press_controller.hit_key(self.key("B"))
         while self.color_monitor.check_black_out():
             print("black")
             sleep(0.1)
