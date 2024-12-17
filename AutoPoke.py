@@ -1,13 +1,16 @@
 import flet
-from utils.home import Home
-from utils.my_ui import VERSION
+from ui.AutoPokeUI import AutoPokeUI
+from core.config import VERSION
+
+# from utils.my_ui import VERSION
 
 
 def main_page(page: flet.Page) -> None:
-    page.title = "AutoPoke v{} by willkyu".format(VERSION)
-    page.window.width = 720
-    page.window.height = 300
-    homePage = Home(page)
+    page.title = f"AutoPoke {VERSION} by willkyu"
+    page.window.width = 500
+    page.window.height = 400
+    page.window.resizable = False
+    AutoPokeUI(page)
 
 
 if __name__ == "__main__":

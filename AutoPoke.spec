@@ -8,7 +8,7 @@ a = Analysis(
     ['AutoPoke.py'],
     pathex=['./'],
     binaries=[],
-    datas=[],
+    datas=[("src/icon.png","./src"),("src/icon-grey.png","./src"),("src/icon.ico","./src")],
     hiddenimports=[],
     hookspath=[],
     hooksconfig={},
