@@ -20,7 +20,7 @@ Auto hunting shiny pokemon using Playback(Epilogue GB operator), writing with Py
 
 > If your Operator version is lower than `v1.0.0`, download AutoPoke of `v1.1` version.
 
-## Update the config of AutoPoke
+## Update the config of AutoPoke (Unavailable in 6.0 version)
 
 > In the latest version, this section is not necessary.
 
@@ -44,9 +44,9 @@ Here, *dialogcolor* you can only change the first RGB value and leave the second
 | :----: | :----: |:----: |:----: |
 | Wild Encounter | **Yes** | **Yes** | **Yes** |
 | Safari Zone | **Yes** | **Yes** | Not Test |
-| Stationary | **Yes** | Not Test | **Yes** |
+| Simple Stationary | **Yes** | Not Test | **Yes** |
 | Fishing | **Yes** | Not Test | **Yes** |
-| Special Stationary | Not Complete | Not Complete | Not Complete |
+| Starters | Not Complete | Not Complete | **Yes** |
 
 - Japanese version:<br>Not Test
 - Other versions:<br>Not Test
@@ -54,6 +54,12 @@ Here, *dialogcolor* you can only change the first RGB value and leave the second
 
 
 # Update Log
+
+- 2024-12-18
+  - Refactor code and ui.
+  - Automate stop when closing Autopoke.
+  - Support starters in `FRLG`.
+  - Support Windows notification.
 
 - 2024-11-24
   - Fix bugs.
