@@ -1,6 +1,7 @@
 # from multiprocessing.connection import wait
 from time import sleep
 from typing import Literal
+from random import random
 
 from core.press_core import PressController
 from core.color_core import ColorMonitor, read_color
@@ -56,11 +57,7 @@ class AutoPokeCore(object):
                     self.config.general.count[self.mode]
                 )
             )
-            self.send_mail()
-            self.send_notification()
-            self.update_count(0)
-            # self.config.general.count[self.mode] = 0
-            # self.config.save_config()
+            self.shiny_handle()
             return True
         return False
 
@@ -87,8 +84,9 @@ class AutoPokeCore(object):
                     sleep(0.98)
                 break
         sleep(0.3)
-        if self.ifFRLG:
-            return True if self.color_monitor.check("shiny_star") else False
+        if self.ifFRLG and self.color_monitor.check("shiny_star"):
+            self.shiny_handle()
+            return True
         return False
 
     def check_extra_anime(self):
@@ -116,40 +114,24 @@ class AutoPokeCore(object):
             # sleep(0.1)
             # self.hit_key("B")
         while self.color_monitor.check_black_out():
-            print("black")
+            # print("black")
             sleep(0.1)
         sleep(1.2)
 
     def after_SL(self):
         sleep(2)
-
-        # if self.ifFRLG:
-        #     sleep(2)
-        # self.hit_key("A")
-        # sleep(1)
-
-        # self.printf("Hit A")
-        # self.hit_key("A")
-        # sleep(1)
-        # self.printf("Hit A")
-        # sleep(1)
-        # self.hit_key("A")
-        # self.printf("Hit A")
-
+        sleep(random())
         if self.ifFRLG:
             sleep(2)
         self.hit_key("A")
-        # self.printf("Hit A")
         self.hit_key("A")
-        # self.printf("Hit A")
         sleep(0.5)
         self.hit_key("A")
-        # self.printf("Hit A")
         if self.ifFRLG:
             while 1:
                 self.hit_key("A")
                 if self.color_monitor.check_white_out():
-                    self.printf("whiteout")
+                    # self.printf("whiteout")
                     self.printf("Entering save-choose ui.")
                     break
                 sleep(0.3)
@@ -184,6 +166,7 @@ class AutoPokeCore(object):
             sleep(2)
             # print("finish skip")
             # continue
+        sleep(random())
         self.printf("Finish SL.")
 
     def SL(self):
@@ -204,9 +187,14 @@ class AutoPokeCore(object):
     #     self.printf("No shiny pokemon in {} times.".format(self.config.general.count[self.mode]))
     #     self.config.save_config()
 
+    def shiny_handle(self):
+        self.color_monitor.save_image()
+        self.send_mail()
+        self.send_notification()
+        self.update_count(0)
+
     def send_mail(self):
         if self.config.mail.send_mail:
-            self.color_monitor.save_image()
             try:
                 send_mail(
                     self.config.general.count[self.mode],

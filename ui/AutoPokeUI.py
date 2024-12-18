@@ -51,6 +51,8 @@ class AutoPokeUI:
         self.page = page
         self.config = Config()
         self.page.window.icon = get_resource_path("src/icon.ico")
+        self.page.window.prevent_close = True
+        self.page.window.on_event = self.close_app
 
         self.sidebar = ft.NavigationRail(
             selected_index=0,
@@ -126,7 +128,7 @@ class AutoPokeUI:
             )
         )
 
-    def set_logger_visible(self, e):
+    def set_logger_visible(self, e=None):
         self.output_view.visible = not self.output_view.visible
         self.page.update()
 
@@ -165,6 +167,12 @@ class AutoPokeUI:
         self.output_view.controls[-1].content.append(
             ft.Text(value=text, weight=ft.FontWeight.BOLD)
         )
+
+    def close_app(self, e):
+        if e.data == "close":
+            self.navigation_view.wild_pm_ui.pannel.stop()
+            self.navigation_view.stationary_ui.pannel.stop()
+            self.page.window.destroy()
 
 
 # class AllUI(ft.Row):

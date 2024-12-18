@@ -102,11 +102,12 @@ class Panel(ft.Column):
         for running in self.running_list:
             running.join()
         self.auto_poke_ui.enable_lock(False)
+        self.auto_poke_ui.set_logger_visible()
         self.start_button.on_click = self.start
         self.start_button.text = "Start"
         self.start_button.update()
 
-    def stop(self, e):
+    def stop(self, e=None):
         self.auto_poke_ui.enable_lock(False)
         self.start_button.on_click = self.start
         self.start_button.text = "Start"
@@ -119,8 +120,8 @@ class Panel(ft.Column):
                 auto_poke_core.release_all_keys()
             self.config.save_config()
             self.auto_poke_ui.printf("Stopped.")
-        except Exception as e:
-            self.auto_poke_ui.printf(str(e))
+        except Exception as exception:
+            self.auto_poke_ui.printf(str(exception))
 
     def _async_raise(self, tid, exctype):
         """raises the exception, performs cleanup if needed"""

@@ -46,7 +46,7 @@ class AutoPokeCoreStationary(AutoPokeCore):
             sleep(choice(self.delay_list))
 
             self.encountering()
-            print("start checking")
+            # print("start checking")
             if self.check_shiny_in_bag(no_dex=True, first=True):
                 break
 
