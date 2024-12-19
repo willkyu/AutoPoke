@@ -20,7 +20,7 @@ Auto hunting shiny pokemon using Playback(Epilogue GB operator), writing with Py
 
 > If your Operator version is lower than `v1.0.0`, download AutoPoke of `v1.1` version.
 
-## Update the config of AutoPoke (Unavailable in 6.0 version)
+## Update the config of AutoPoke
 
 > In the latest version, this section is not necessary.
 
