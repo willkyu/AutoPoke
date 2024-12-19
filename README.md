@@ -55,6 +55,9 @@ Here, *dialogcolor* you can only change the first RGB value and leave the second
 
 # Update Log
 
+- 2024-12-19
+  - Add new features.
+
 - 2024-12-18
   - Refactor code and ui.
   - Automate stop when closing Autopoke.
