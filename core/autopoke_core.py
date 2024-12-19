@@ -166,7 +166,7 @@ class AutoPokeCore(object):
             sleep(2)
             # print("finish skip")
             # continue
-        sleep(random())
+        sleep(random() * 3)
         self.printf("Finish SL.")
 
     def SL(self):

@@ -59,14 +59,15 @@ class AutoPokeVersion:
 
 @dataclass
 class ColorConfig:
-    dialogue_color: ColorConfigType = field(
-        default_factory=lambda: [(255, 251, 255), (77, 76, 77)]
+    dialogue_color_main: ColorConfigType = field(
+        default_factory=lambda: (255, 251, 255)
     )
-    text_color: ColorConfigType = field(default_factory=lambda: [(74, 73, 74)])
-    BG_deep_gree: ColorConfigType = field(default_factory=lambda: [(107, 162, 165)])
-    BG_deep_blue: ColorConfigType = field(default_factory=lambda: [(41, 81, 107)])
-    BG_yellow: ColorConfigType = field(default_factory=lambda: [(255, 251, 222)])
-    Shiny_Star_yellow: ColorConfigType = field(default_factory=lambda: [(255, 210, 82)])
+    dialogue_color_rainy: ColorConfigType = field(default_factory=lambda: (77, 76, 77))
+    text_color: ColorConfigType = field(default_factory=lambda: (74, 73, 74))
+    bg_deep_green: ColorConfigType = field(default_factory=lambda: (107, 162, 165))
+    bg_deep_blue: ColorConfigType = field(default_factory=lambda: (41, 81, 107))
+    bg_yellow: ColorConfigType = field(default_factory=lambda: (255, 251, 222))
+    shiny_star_yellow: ColorConfigType = field(default_factory=lambda: (255, 210, 82))
 
 
 @dataclass

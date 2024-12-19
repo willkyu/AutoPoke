@@ -21,13 +21,16 @@ def read_color(color_config: ColorConfig):
     global dialogue_color, text_color, bg_deep_green, bg_deep_blue, bg_yellow, shiny_star_yellow
     try:
         (
-            dialogue_color,
+            dialogue_color_main,
+            dialogue_color_rainy,
             text_color,
             bg_deep_green,
             bg_deep_blue,
             bg_yellow,
             shiny_star_yellow,
-        ) = list(color_config.__dict__.values())
+        ) = [[color] for color in color_config.__dict__.values()]
+        dialogue_color = dialogue_color_main + dialogue_color_rainy
+
     except Exception as e:
         print(f"Read color from ini failed:\n{e}")
 
@@ -86,13 +89,10 @@ class ColorMonitor(object):
         self.sqr_dis = color_distance**2
 
         self.density = 30
-
-        self.l_start = self.r_end = 107
-        self.u_start = 106
-        self.d_end = 7
         self.boundary_init()
 
     def check(self, mode=""):
+        self.boundary_init()
         if mode == "black_out":
             return self.check_black_out()
         if mode == "normal_dialogue":
@@ -279,7 +279,28 @@ class ColorMonitor(object):
     def get_interval(self, x):
         return max(x // self.density, 1)
 
+    def check_black_boundary(self):
+        interval = self.window_width // 32
+        # print(self.window_width, self.window_height)
+        return (
+            win32gui.GetPixel(self.window, interval, self.window_height // 2) == 0
+            and win32gui.GetPixel(
+                self.window, self.window_width - interval, self.window_height // 2
+            )
+            == 0
+        )
+
     def boundary_init(self):
+        if self.check_black_boundary():
+            self.l_start = self.r_end = 107
+            self.u_start = 106
+            self.d_end = 7
+            # print("black")
+        else:
+            self.l_start = self.r_end = 0
+            self.u_start = 0
+            self.d_end = 0
+            # print("no black")
         self.game_width = self.window_width - self.l_start - self.r_end
         self.game_height = self.window_height - self.u_start - self.d_end
         pass

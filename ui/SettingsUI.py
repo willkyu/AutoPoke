@@ -195,8 +195,72 @@ class ColorBlockView(ft.Column):
         self.config = config
         self.controls = [
             SettingTittle("Colors", ft.icons.COLOR_LENS_ROUNDED),
-            ft.Text(value="Color customization is coming soon."),
+        ] + [
+            x
+            for item in zip(
+                [divider_small] * (len(color_setting_tips_dict) - 1),
+                [
+                    Block_Color(name, self.config, color_setting_tips_dict[name])
+                    for name in color_setting_tips_dict.keys()
+                ],
+            )
+            for x in item
         ]
+
+
+class Block_Color(Block):
+    def __init__(self, text: str, config: Config, tips: str, expand=0):
+        self.config = config
+        self.name = get_variable(text)
+        self.another = ColorTextField(config, self.name)
+        # print(self.text)
+        super().__init__(
+            text + ":",
+            self.another,
+            tips,
+            expand=expand,
+            spacing=0,
+        )
+
+
+class ColorTextField(ft.Row):
+    def __init__(self, config: Config, name: str, **kwargs):
+        self.config = config
+        self.name = name
+        self.value = getattr(self.config.color, self.name)
+        super().__init__(**kwargs)
+        self.controls = [
+            ft.TextField(
+                hint_text="R",
+                height=40,
+                width=60,
+                border_color=ft.colors.GREY_800,
+                value=self.value[0],
+                on_change=self.on_update,
+            ),
+            ft.TextField(
+                hint_text="G",
+                height=40,
+                width=60,
+                border_color=ft.colors.GREY_800,
+                value=self.value[1],
+                on_change=self.on_update,
+            ),
+            ft.TextField(
+                hint_text="B",
+                height=40,
+                width=60,
+                border_color=ft.colors.GREY_800,
+                value=self.value[2],
+                on_change=self.on_update,
+            ),
+        ]
+        self.spacing = 3
+
+    def on_update(self, e: ft.ControlEvent):
+        new_value = tuple([self.controls[i].value for i in range(3)])
+        setattr(self.config.color, self.name, new_value)
+        self.config.save_config()
 
 
 class IntervalBlockView(ft.Column):
@@ -221,6 +285,16 @@ general_setting_tips_dict = {
     "Game Version": "游戏版本。RS代表红蓝宝石，E代表绿宝石，FrLg代表火红叶绿。\nGame version, where RS represents Ruby and Sapphire, E is Emerald, and FrLg denotes Fire red and Leaf green.",
     "Send Notification": "出闪后是否发送系统通知。\nWhether send Windows notification when getting shiny PM.",
     "Window Name": "Playback的窗口名称。通常不需要修改这项，除非你要使用模拟器而非GBO。\nThe window name of Playback software. Usually this shouldn't be modified unless you wanna use an emulator instead of GBO.",
+}
+
+color_setting_tips_dict = {
+    "Dialogue Color Main": "下方对话栏颜色。\nThe color of the dialogue bar below the game.",
+    "Dialogue Color Rainy": "雨天下方对话栏颜色。\nThe color of the dialogue bar below the game on rainy days.",
+    "Text Color": "下方对话栏文字颜色。\nThe color of the text in the dialogue bar below the game.",
+    "BG Deep Green": "宝石进入对战后下方深绿对话栏颜色。\nThe deep green dialogue bar color in battle of RSE.",
+    "BG Deep Blue": "火叶进入对战后下方深蓝对话栏颜色。\nThe deep blue dialogue bar color in battle of FrLg.",
+    "BG Yellow": "进入对战后宝可梦状态栏浅黄色背景色。\nThe light yellow background color of the Pokemon status bar in battle.",
+    "Shiny Star Yellow": "火叶闪光宝可梦详情中星星的颜色。\nThe color of star in the summary view of shiny Pokemon.",
 }
 
 mail_setting_tips_dict = {
