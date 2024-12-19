@@ -212,13 +212,13 @@ class CountView(ft.Container):
 
     def count_on_change(self, e: ft.ControlEvent):
         try:
-            self.config.general.count = int(e.control.value)
+            self.config.general.count[self.mode] = int(e.control.value)
         except Exception as e:
-            self.config.general.count = 0
+            self.config.general.count[self.mode] = 0
             self.config.save_config()
             self.count.value = "0"
         self.config.save_config()
-        self.progress_ring.update_value(self.config.general.count)
+        self.progress_ring.update_value(self.config.general.count[self.mode])
         self.update()
 
 
