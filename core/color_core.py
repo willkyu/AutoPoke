@@ -191,7 +191,10 @@ class ColorMonitor(object):
             x_list = [
                 self.game_width // 2 + i
                 for i in range(
-                    0, self.game_width // 4, self.get_interval(self.game_width // 4)
+                    # 0, self.game_width // 4, self.get_interval(self.game_width // 4)
+                    0,
+                    self.game_width // 4,
+                    3,
                 )
             ]
             y_list = [
