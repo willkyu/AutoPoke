@@ -141,7 +141,7 @@ class AutoPokeUI:
                 f"发现{len(self.eo)}个窗口。\nFind {len(self.eo)} window(s)."
             )
         else:
-            self.sidebar.leading.image_src = get_resource_path("src/icon-gray.png")
+            self.sidebar.leading.image_src = get_resource_path("src/icon-grey.png")
             self.sidebar.leading.tooltip = f"未发现{self.config.general.window_name}，点击以刷新。\nNo {self.config.general.window_name} found. Click for refreshing."
         if trigger:
             self.navigation_view.wild_pm_ui.pannel.start_buttom_refresh()
