@@ -205,11 +205,14 @@ class AutoPokeCore(object):
                     self.printf,
                 )
             except:
-                self.printf("Please open config.ini file to config email information.")
+                self.printf("Please config email settings.")
 
     def send_notification(self):
         if self.config.general.send_notification:
-            send_toast(self.config.general.count[self.mode])
+            try:
+                send_toast(self.config.general.count[self.mode])
+            except Exception as e:
+                self.printf(f"Notification error: {e}")
 
     def add_one_count(self):
         self.config.general.count[self.mode] += 1
