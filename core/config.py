@@ -3,7 +3,7 @@ import os
 from dataclasses import dataclass, field
 from typing import Literal
 
-VERSION = "V6.0.0_build6"
+VERSION = "V6.0.0_build7"
 
 ColorConfigType = list[tuple[int]]
 
@@ -59,6 +59,7 @@ class AutoPokeVersion:
 
 @dataclass
 class ColorConfig:
+    color_distance: float = 10.0
     dialogue_color_main: ColorConfigType = field(
         default_factory=lambda: (255, 251, 255)
     )

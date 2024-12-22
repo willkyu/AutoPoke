@@ -2,7 +2,7 @@ import win32gui
 import win32ui
 import win32con
 
-from core.config import ColorConfig
+from core.config import ColorConfig, Config
 
 # from PIL import Image
 
@@ -21,6 +21,7 @@ def read_color(color_config: ColorConfig):
     global dialogue_color, text_color, bg_deep_green, bg_deep_blue, bg_yellow, shiny_star_yellow
     try:
         (
+            _,
             dialogue_color_main,
             dialogue_color_rainy,
             text_color,
@@ -63,9 +64,12 @@ mode2color = {
 
 
 class ColorMonitor(object):
-    def __init__(self, hander, print_f=print, color_distance=10) -> None:
+    def __init__(self, hander, config: Config, print_f=print) -> None:
         self.hander = hander
-        self.refresh(hander, print_f, color_distance)
+        self.config = config
+        self.print = print_f
+        self.sqr_dis = self.config.color.color_distance**2
+        self.refresh()
 
     def __enter__(self):
         return self
@@ -80,19 +84,17 @@ class ColorMonitor(object):
     #     self.width = right - left
     #     self.height = bot - top
 
-    def refresh(self, hander, print_f, color_distance) -> None:
-        self.window = win32gui.GetWindowDC(hander)
-        left, top, right, bot = win32gui.GetWindowRect(hander)
+    def refresh(self) -> None:
+        self.window = win32gui.GetWindowDC(self.hander)
+        left, top, right, bot = win32gui.GetWindowRect(self.hander)
         self.window_width = right - left
         self.window_height = bot - top
-        self.print = print_f
-        self.sqr_dis = color_distance**2
 
         self.density = 30
         self.boundary_init()
 
     def check(self, mode=""):
-        self.boundary_init()
+        self.refresh()
         if mode == "black_out":
             return self.check_black_out()
         if mode == "normal_dialogue":
@@ -191,10 +193,12 @@ class ColorMonitor(object):
             x_list = [
                 self.game_width // 2 + i
                 for i in range(
-                    # 0, self.game_width // 4, self.get_interval(self.game_width // 4)
                     0,
                     self.game_width // 4,
-                    3,
+                    self.get_interval(self.game_width // 4),
+                    # 0,
+                    # self.game_width // 4,
+                    # 3,
                 )
             ]
             y_list = [

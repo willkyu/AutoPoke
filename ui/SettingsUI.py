@@ -195,17 +195,37 @@ class ColorBlockView(ft.Column):
         self.config = config
         self.controls = [
             SettingTittle("Colors", ft.icons.COLOR_LENS_ROUNDED),
+            Block(
+                "Color Distance",
+                ft.TextField(
+                    hint_text="D",
+                    height=40,
+                    width=60,
+                    border_color=ft.colors.GREY_800,
+                    value=config.color.color_distance,
+                    on_change=self.on_update_color_distance,
+                ),
+                color_setting_tips_dict["Color Distance"],
+            ),
         ] + [
             x
             for item in zip(
                 [divider_small] * (len(color_setting_tips_dict) - 1),
                 [
                     Block_Color(name, self.config, color_setting_tips_dict[name])
-                    for name in color_setting_tips_dict.keys()
+                    for name in list(color_setting_tips_dict.keys())[1:]
                 ],
             )
             for x in item
         ]
+
+    def on_update_color_distance(self, e: ft.TapEvent):
+        try:
+            self.config.color.color_distance = float(e.control.value)
+            self.config.save_config()
+        except:
+            e.control.value = str(self.config.color.color_distance)
+            e.control.update()
 
 
 class Block_Color(Block):
@@ -258,9 +278,14 @@ class ColorTextField(ft.Row):
         self.spacing = 3
 
     def on_update(self, e: ft.ControlEvent):
-        new_value = tuple([self.controls[i].value for i in range(3)])
-        setattr(self.config.color, self.name, new_value)
-        self.config.save_config()
+        if (
+            self.controls[0].value.isdigit()
+            and self.controls[1].value.isdigit()
+            and self.controls[2].value.isdigit()
+        ):
+            new_value = tuple([int(self.controls[i].value) for i in range(3)])
+            setattr(self.config.color, self.name, new_value)
+            self.config.save_config()
 
 
 class IntervalBlockView(ft.Column):
@@ -288,6 +313,7 @@ general_setting_tips_dict = {
 }
 
 color_setting_tips_dict = {
+    "Color Distance": "设定颜色在RGB空间中的偏移量的允许最大距离。\nThe maximum allowable distance for color offset in RGB space.",
     "Dialogue Color Main": "下方对话栏颜色。\nThe color of the dialogue bar below the game.",
     "Dialogue Color Rainy": "雨天下方对话栏颜色。\nThe color of the dialogue bar below the game on rainy days.",
     "Text Color": "下方对话栏文字颜色。\nThe color of the text in the dialogue bar below the game.",

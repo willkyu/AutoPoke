@@ -19,7 +19,7 @@ class AutoPokeCore(object):
         self.update_count = update_count
         self.press_controller = PressController(self.hander)
         read_color(self.config.color)
-        self.color_monitor = ColorMonitor(self.hander, self.printf)
+        self.color_monitor = ColorMonitor(self.hander, self.config, self.printf)
         self.language = self.config.general.game_language
         self.ifFRLG = self.config.general.game_version == "FrLg"
 
