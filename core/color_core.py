@@ -94,7 +94,7 @@ class ColorMonitor(object):
         self.boundary_init()
 
     def check(self, mode=""):
-        self.refresh()
+        # self.refresh()
         if mode == "black_out":
             return self.check_black_out()
         if mode == "normal_dialogue":
