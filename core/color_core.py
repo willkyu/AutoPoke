@@ -274,6 +274,9 @@ class ColorMonitor(object):
         """
         return rgbint2rgbtuple(win32gui.GetPixel(self.window, x, y))
 
+    def get_color_center(self):
+        return self.get_color(self.window_width // 2, self.window_height // 2)
+
     def in_color_range(self, color0, color1):
         return color_distance_square(color0, color1) <= self.sqr_dis
 
