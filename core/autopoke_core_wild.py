@@ -1,4 +1,4 @@
-from time import sleep
+from time import sleep, time
 
 from core.autopoke_core import AutoPokeCore
 
@@ -93,6 +93,7 @@ class AutoPokeCoreWildPm(AutoPokeCore):
     def wild_encountering(self):
         if self.jump or self.run:
             self.press_controller.key_down(self.key("B"))
+        timestamp = None
         while 1:
             if not self.jump:
                 self.press_controller.random_hit_key(self.move_key_list)
@@ -110,18 +111,24 @@ class AutoPokeCoreWildPm(AutoPokeCore):
                 break
             elif self.config.general.game_version == "E" or self.repel:
                 if self.color_monitor.check("dialogue"):
-                    # self.printf("PokeNav detected.")
-                    if self.jump or self.run:
-                        self.press_controller.key_up(self.key("B"))
-                        sleep(0.2)
-                    while self.color_monitor.check("dialogue"):
-                        self.hit_key("B")
-                        sleep(0.2)
-                    if self.jump or self.run:
-                        self.press_controller.key_down(self.key("B"))
-                        sleep(0.2)
-                    if self.repel:
-                        self.use_repel()
+                    if timestamp is None:
+                        timestamp = time()
+                        continue
+                    elif time() - timestamp < 5:
+                        continue
+                    else:
+                        # self.printf("PokeNav detected.")
+                        if self.jump or self.run:
+                            self.press_controller.key_up(self.key("B"))
+                            sleep(0.2)
+                        while self.color_monitor.check("dialogue"):
+                            self.hit_key("B")
+                            sleep(0.2)
+                        if self.jump or self.run:
+                            self.press_controller.key_down(self.key("B"))
+                            sleep(0.2)
+                        if self.repel:
+                            self.use_repel()
 
     def sweet_scent_encountering(self):
         self.hit_key("START")

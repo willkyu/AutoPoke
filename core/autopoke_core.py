@@ -109,6 +109,8 @@ class AutoPokeCore(object):
         self.hit_key("A")
         sleep(0.1)
         center_color_cache = self.color_monitor.get_color_center()
+        sleep(0.5)
+        self.hit_key("A", time=0.1)
         while self.color_monitor.get_color_center() == center_color_cache:
             self.hit_key("A", time=0.1)
             # print("A")

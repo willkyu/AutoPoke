@@ -41,8 +41,9 @@ def get_eo(name):
     hd = win32gui.GetDesktopWindow()
     win_list = []
     for win in enum_child_windows(hd, name):
-        if get_window_size(win) > 10:
+        if get_window_size(win) > 100:
             win_list.append(win)
+        # print(get_window_size(win))
     return win_list
 
 
