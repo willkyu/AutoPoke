@@ -129,6 +129,7 @@ class AutoPokeCoreWildPm(AutoPokeCore):
                             sleep(0.2)
                         if self.repel:
                             self.use_repel()
+                            timestamp = None
 
     def sweet_scent_encountering(self):
         self.hit_key("START")
