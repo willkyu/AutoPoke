@@ -67,7 +67,9 @@ class AutoPokeCoreWildPm(AutoPokeCore):
     def use_repel(self):
         self.printf("Using Repel...")
         self.hit_key("START")
+        sleep(0.3)
         self.hit_key("A")
+        sleep(0.3)
         while 1:
             if self.color_monitor.check_black_out():
                 while self.color_monitor.check_black_out():
