@@ -164,16 +164,14 @@ class AutoPokeCore(object):
         self.printf("Finish SL.")
 
     def after_SL_rse(self):
-        black_count = 0
-        while black_count < 2:
+        sleep(2)
+        while not self.color_monitor.check("right_top_rse_in_game"):
             self.hit_key("A")
             sleep(0.3)
-            if self.color_monitor.check("right_top_rse_in_game"):
-                black_count += 1
-                # print(f"white {black_count}.")
-                # self.printf("Entering game.")
-        # while self.color_monitor.check_white_out():
-        #     sleep(0.2)
+        print("white")
+
+        self.hit_key("A")
+        sleep(1.8)
 
     def after_SL_frlg(self):
         sleep(2)
