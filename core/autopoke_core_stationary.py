@@ -15,7 +15,7 @@ class AutoPokeCoreStationary(AutoPokeCore):
             StationaryEncounteringFactory(
                 self.color_monitor, self.hit_key, self.printf, self.add_one_count
             )
-            .get_encountering(self.func)
+            .get_encountering(self.func, self.extra_value)
             .encounter
         )
 
@@ -24,6 +24,8 @@ class AutoPokeCoreStationary(AutoPokeCore):
             self.NormalHitA()
         elif self.func == "FrLg Starters":
             self.StartersFrLg()
+        elif self.func == "RSE Starters":
+            self.StartersRSE()
         pass
 
     def NormalHitA(self):
@@ -48,6 +50,30 @@ class AutoPokeCoreStationary(AutoPokeCore):
             self.encountering()
             # print("start checking")
             if self.check_shiny_in_bag(no_dex=True, first=True):
+                break
+
+            self.printf("Not shiny, SLing...")
+            self.SL()
+            self.after_SL()
+        pass
+
+    def StartersRSE(self):
+        self.ifFRLG = False
+        last_delay = (
+            0 if self.config.general.game_version == "E" else choice(self.delay_list)
+        )
+        while 1:
+            new_delay = (
+                last_delay + 1 / 60
+                if self.config.general.game_version == "E"
+                else choice(self.delay_list)
+            )
+            sleep(new_delay)
+            last_delay = new_delay
+
+            self.encountering()
+            # print("start checking")
+            if self.check_shiny_rse_starters():
                 break
 
             self.printf("Not shiny, SLing...")

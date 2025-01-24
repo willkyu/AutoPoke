@@ -11,12 +11,15 @@ from core.notification_core import send_toast
 
 
 class AutoPokeCore(object):
-    def __init__(self, eo, cfg: Config, printf, update_count) -> None:
+    def __init__(
+        self, eo, cfg: Config, printf, update_count, extra_value: str = ""
+    ) -> None:
         # self.color_monitor: ColorMonitor
         self.hander = eo
         self.config = cfg
         self.printf = printf
         self.update_count = update_count
+        self.extra_value = extra_value
         self.press_controller = PressController(self.hander)
         read_color(self.config.color)
         self.color_monitor = ColorMonitor(self.hander, self.config, self.printf)
@@ -52,6 +55,38 @@ class AutoPokeCore(object):
         sleep(2.7)
 
         if not self.color_monitor.check("ally_battle_status"):
+            self.printf(
+                "Got Shiny Pokemon! {} times.".format(
+                    self.config.general.count[self.mode]
+                )
+            )
+            self.shiny_handle()
+            return True
+        return False
+
+    def check_shiny_rse_starters(self):
+        # 遇敌黑屏到第一次按A的时间
+        sleep(3.9)
+        if self.language == "Jpn":
+            sleep(1)
+        self.hit_key("A")
+
+        sleep(2.4)
+
+        if not self.color_monitor.check("ally_battle_status"):
+            self.printf(
+                "Got Shiny Poochyena/Zigzagoon in {} times. LOL :D".format(
+                    self.config.general.count[self.mode]
+                )
+            )
+            self.hit_key("A")
+            sleep(2.4)
+            self.color_monitor.save_image()
+            self.send_mail()
+            self.send_notification()
+            # self.update_count(0)
+
+        if self.color_monitor.check("right_bottom_bggreen"):
             self.printf(
                 "Got Shiny Pokemon! {} times.".format(
                     self.config.general.count[self.mode]
@@ -169,6 +204,8 @@ class AutoPokeCore(object):
             sleep(2)
             # print("finish skip")
             # continue
+        else:
+            sleep(1)
         sleep(random() * 3)
         self.printf("Finish SL.")
 
@@ -244,7 +281,9 @@ class AutoPokeCoreFactory(object):
 
         pass
 
-    def get_autopoke_core(self, mode: Literal[0, 1], function: str) -> AutoPokeCore:
+    def get_autopoke_core(
+        self, mode: Literal[0, 1], function: str, extra_value
+    ) -> AutoPokeCore:
         from core.autopoke_core_wild import AutoPokeCoreWildPm
         from core.autopoke_core_stationary import AutoPokeCoreStationary
 
@@ -255,6 +294,7 @@ class AutoPokeCoreFactory(object):
                 cfg=self.config,
                 printf=self.printf,
                 update_count=self.update_count,
+                extra_value=extra_value,
             )
             if mode == 0
             else AutoPokeCoreStationary(
@@ -263,5 +303,6 @@ class AutoPokeCoreFactory(object):
                 cfg=self.config,
                 printf=self.printf,
                 update_count=self.update_count,
+                extra_value=extra_value,
             )
         )

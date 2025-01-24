@@ -80,10 +80,7 @@ class Panel(ft.Column):
                 self.config,
                 self.auto_poke_ui.printf,
                 self.count_view.update_count,
-            ).get_autopoke_core(
-                self.mode,
-                self.func,
-            )
+            ).get_autopoke_core(self.mode, self.func, self.extra_value)
             for eo in self.auto_poke_ui.eo
         ]
         self.running_list = [

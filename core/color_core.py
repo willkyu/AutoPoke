@@ -57,6 +57,7 @@ mode2color = {
     "no_fish": text_color,
     "encounter_fish": text_color,
     "dialogue": dialogue_color,
+    "right_bottom_bggreen": bg_deep_green,
     "shiny_star": shiny_star_yellow,
     "dialogue_for_FrLg_Starters_and_RS_fishing": dialogue_color,
     # "dialogue_for_RS_fishing": dialogue_color,
@@ -119,7 +120,10 @@ class ColorMonitor(object):
                     0, self.game_height // 4, self.get_interval(self.game_height // 4)
                 )
             ]
-        elif mode == "dialogue_for_FrLg_Starters_and_RS_fishing":
+        elif (
+            mode == "dialogue_for_FrLg_Starters_and_RS_fishing"
+            or mode == "right_bottom_bggreen"
+        ):
             x_list = [
                 self.game_width // 8 * 7 + i
                 for i in range(

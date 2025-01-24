@@ -10,7 +10,7 @@ class StationaryUI(ft.Column):
     def __init__(self, config: Config, auto_poke_ui: object, **kwargs):
         super().__init__(**kwargs)
         self.config = config
-
+        self.extra_value = ""
         self.pannel = Panel(self.config, auto_poke_ui, mode=1, func="", width=200)
         self.pannel_and_tips = ControlAndTips(pannel=self.pannel, width=200)
         self.target_dropdown = ft.Dropdown(
@@ -21,7 +21,7 @@ class StationaryUI(ft.Column):
             on_change=self.dropdown_on_change,
             # expand=1,
         )
-        self.tips_view = TipsView()
+        self.tips_view = TipsView(self.update_extra_value)
         self.controls = [
             ft.Container(
                 content=self.target_dropdown, height=80, alignment=ft.alignment.center
@@ -38,6 +38,7 @@ class StationaryUI(ft.Column):
                 ],
                 expand=True,
             ),
+            # self.extra_view,
         ]
         # print(id(self.pannel_and_tips))
 
@@ -46,19 +47,25 @@ class StationaryUI(ft.Column):
         self.tips_view.update_value(e.control.value)
         self.pannel_and_tips.pannel.func = e.control.value
         # print(self.pannel_and_tips.pannel.func)
+        # self.extra_view.update_extra_view(e.control.value)
         self.tips_view.update()
+
+    def update_extra_value(self, extra_value):
+        self.pannel_and_tips.pannel.extra_value = extra_value
+        print(extra_value)
 
 
 class TipsView(ft.Container):
-    def __init__(self, **kwargs):
+    def __init__(self, update_func, **kwargs):
         super().__init__(expand=True, **kwargs)
+        self.update_func = update_func
         self.tip_view = ft.Text(
             value="选择刷闪目标。\nChoose your target.",
             size=13,
             color=ft.colors.GREY,
         )
         self.alignment = ft.alignment.top_left
-        self.extra_view = ExtraView()
+        self.extra_view = ExtraView(self.update_extra_value)
         self.content = ft.Column([self.tip_view, self.extra_view])
 
     def update_value(self, target_name):
@@ -67,18 +74,45 @@ class TipsView(ft.Container):
         self.update()
         # self.alignment = ft.alignment.center
 
+    def update_extra_value(self, extra_value):
+        self.update_func(extra_value)
+        # print(self.extra_value)
 
-class ExtraView(ft.Column):
-    def __init__(self, **kwargs):
+
+class ExtraView(ft.Container):
+    def __init__(self, update_func, **kwargs):
         super().__init__(**kwargs)
         self.visible = False
+        self.update_value = update_func
+        self.view = ft.Container()
+        self.content = ft.Column([ft.Divider(thickness=1, height=1), self.view])
 
     def update_extra_view(self, func: str):
+        print(func)
+        if func == "RSE Starters":
+            self.view.content = ft.RadioGroup(
+                content=ft.Column(
+                    [
+                        ft.Radio(label="木守宫\nTreecko", value="left"),
+                        ft.Radio(label="火稚鸡\nTorchic", value="center"),
+                        ft.Radio(label="水跃鱼\nMudkip", value="right"),
+                    ]
+                ),
+                on_change=lambda e: self.update_value(e.control.value),
+            )
+            self.view.content.value = "center"
+        else:
+            self.visible = False
+            # self.update()
+            return
+        self.visible = True
+        # self.update()
         pass
 
 
 support_target_dict = {
     "Normal Hit A": "最简单的一直按A直到进入战斗。\nSimply hit A untill battle begins.",
     "FrLg Starters": "火叶初始御三家。\nStarters in FrLg.",
+    "RSE Starters": "宝石御三家。\nStarters in RSE.",
     "Coming Soon": "敬请期待后续功能。\nNew features coming soon.",
 }
