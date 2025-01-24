@@ -85,8 +85,6 @@ class AutoPokeCoreWildPm(AutoPokeCore):
             if self.color_monitor.check_black_out():
                 while self.color_monitor.check_black_out():
                     sleep(0.98)
-                # self.cfg.i += 1
-                # self.update_count(self.cfg.i)
                 break
             sleep(0.3)
         self.hit_key("B", time=0.1)
@@ -108,8 +106,9 @@ class AutoPokeCoreWildPm(AutoPokeCore):
                     self.press_controller.key_up(self.key("B"))
                 while self.color_monitor.check_black_out():
                     sleep(0.98)
-                self.config.general.count[self.mode] += 1
-                self.update_count(self.config.general.count[self.mode])
+                self.add_one_count()
+                # self.config.general.count[self.mode] += 1
+                # self.update_count(self.config.general.count[self.mode])
                 break
             elif self.config.general.game_version == "E" or self.repel:
                 if self.color_monitor.check("dialogue"):
@@ -140,7 +139,7 @@ class AutoPokeCoreWildPm(AutoPokeCore):
             if self.color_monitor.check_black_out():
                 while self.color_monitor.check_black_out():
                     sleep(0.98)
-                self.add_one_count()
+                # self.add_one_count()
                 break
         self.hit_key("UP", time=0.1)
         sleep(0.1)
@@ -157,7 +156,7 @@ class AutoPokeCoreWildPm(AutoPokeCore):
             if self.color_monitor.check_black_out():
                 while self.color_monitor.check_black_out():
                     sleep(0.98)
-                self.add_one_count()
+                # self.add_one_count()
                 break
         sleep(1.5)
         while 1:
