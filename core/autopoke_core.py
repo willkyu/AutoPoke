@@ -175,35 +175,16 @@ class AutoPokeCore(object):
 
     def after_SL_frlg(self):
         sleep(2)
-        sleep(random())
-        if self.ifFRLG:
-            sleep(2)
-            self.hit_key("A")
-            self.hit_key("A")
-            sleep(0.5)
-            self.hit_key("A")
-        else:
-            self.hit_key("A")
-            sleep(1)
-
-        while 1:
-            self.hit_key("A")
-            if self.color_monitor.check_white_out():
-                # self.printf("whiteout")
-                print("Entering save-choose ui.")
-                self.printf("Entering save-choose ui.")
-                break
-            sleep(0.3)
-
-        while 1:
-            if self.color_monitor.check_black_out():
-                print("Entering game.")
-                self.printf("Entering game.")
-                break
-            self.hit_key("A")
-            # colorGot = getColor(eo, *pos.colorPos)
-            # if colorGot in black:
-            sleep(0.1)
+        while not self.color_monitor.check("right_top_rse_in_game"):
+            self.press_controller.random_hit_key(
+                [self.key("LEFT"), self.key("RIGHT"), self.key("START")]
+                + [self.key("A")] * 10
+            )
+            sleep(random() * 0.5)
+        print("white")
+        sleep(1)
+        self.hit_key("A")
+        sleep(0.5)
 
         self.hit_key("B")
         sleep(0.3)
@@ -211,7 +192,7 @@ class AutoPokeCore(object):
         self.printf("Skip Memory...")
         # skip memory recall 跳过回忆
         self.hit_key("B")
-        sleep(2)
+        sleep(1)
 
         sleep(random() * 3)
 
