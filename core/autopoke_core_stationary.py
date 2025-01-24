@@ -26,6 +26,8 @@ class AutoPokeCoreStationary(AutoPokeCore):
             self.StartersFrLg()
         elif self.func == "RSE Starters":
             self.StartersRSE()
+        elif self.func == "FrLg Gifts":
+            self.GiftsFrLg()
         pass
 
     def NormalHitA(self):
@@ -35,6 +37,20 @@ class AutoPokeCoreStationary(AutoPokeCore):
 
             self.encountering()
             if self.check_shiny():
+                break
+
+            self.printf("Not shiny, SLing...")
+            self.SL()
+            self.after_SL()
+        pass
+
+    def GiftsFrLg(self):
+        self.ifFRLG = True
+        while 1:
+            sleep(choice(self.delay_list))
+            self.encountering()
+            # print("start checking")
+            if self.check_shiny_in_bag(no_dex=False, first=False):
                 break
 
             self.printf("Not shiny, SLing...")

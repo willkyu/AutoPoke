@@ -50,6 +50,10 @@ class StationaryEncounteringFactory(object):
                 self.add_one_count,
                 extra_value,
             )
+        elif func == "FrLg Gifts":
+            return GiftFrLgEncountering(
+                self.color_monitor, self.hit_key, self.printf, self.add_one_count
+            )
 
 
 class HitAEncountering(Encountering):
@@ -91,6 +95,22 @@ class StartersFrLgEncountering(Encountering):
                     break
 
             sleep(0.2)
+
+
+class GiftFrLgEncountering(Encountering):
+    def encounter(self):
+        while 1:
+            self.hit_key("A")
+            sleep(1)
+            # print("hit b")
+            # sleep(3)
+            if not self.color_monitor.check(
+                "dialogue_for_FrLg_Starters_and_RS_fishing"
+            ):
+                self.add_one_count()
+                break
+
+            # sleep(0.2)
 
 
 class StartersRSEEncountering(Encountering):

@@ -114,5 +114,6 @@ support_target_dict = {
     "Normal Hit A": "最简单的一直按A直到进入战斗。\nSimply hit A untill battle begins.",
     "FrLg Starters": "火叶初始御三家。\nStarters in FrLg.",
     "RSE Starters": "宝石御三家。\nStarters in RSE.",
+    "FrLg Gifts": "火叶礼物宝可梦，如火叶伊布等。需要将菜单指针移动至第一项。",
     "Coming Soon": "敬请期待后续功能。\nNew features coming soon.",
 }
