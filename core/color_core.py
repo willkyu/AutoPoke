@@ -49,6 +49,7 @@ def color_distance_square(color01, color02):
 
 
 mode2color = {
+    "right_top_rse_in_game": dialogue_color[:1],
     "ally_battle_status": bg_yellow,
     "normal_dialogue": dialogue_color + text_color,
     "battle_dialogue_RSE": bg_deep_green,
@@ -118,6 +119,19 @@ class ColorMonitor(object):
                 self.game_height // 2 + i
                 for i in range(
                     0, self.game_height // 4, self.get_interval(self.game_height // 4)
+                )
+            ]
+        elif mode == "right_top_rse_in_game":
+            x_list = [
+                i
+                for i in range(
+                    0, self.game_width // 8, self.get_interval(self.game_width // 8)
+                )
+            ]
+            y_list = [
+                i
+                for i in range(
+                    0, self.game_height // 8, self.get_interval(self.game_height // 4)
                 )
             ]
         elif (
