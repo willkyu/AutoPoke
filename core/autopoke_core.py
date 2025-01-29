@@ -179,7 +179,7 @@ class AutoPokeCore(object):
         
         if self.language == 'Jpn':
             self.hit_key("A")
-            sleep(2)
+            sleep(3)
         
 
     def after_SL_frlg(self):
