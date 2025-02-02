@@ -40,7 +40,7 @@ class AutoPokeCore(object):
         # 遇敌黑屏到第一次按A的时间
         sleep(3.9)
         if self.language == "Jpn":
-            sleep(1)
+            sleep(0.5)
         self.hit_key("A")
         # self.hit_key("A")
         # self.printf("Hit A.")
