@@ -40,7 +40,7 @@ class AutoPokeCore(object):
         # 遇敌黑屏到第一次按A的时间
         sleep(3.9)
         if self.language == "Jpn":
-            sleep(0.5)
+            sleep(0.2)
         self.hit_key("A")
         # self.hit_key("A")
         # self.printf("Hit A.")
@@ -178,11 +178,10 @@ class AutoPokeCore(object):
 
         self.hit_key("A")
         sleep(2)
-        
-        if self.language == 'Jpn':
+
+        if self.language == "Jpn":
             self.hit_key("A")
             sleep(2)
-        
 
     def after_SL_frlg(self):
         sleep(2)
