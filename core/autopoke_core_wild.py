@@ -21,7 +21,7 @@ class AutoPokeCoreWildPm(AutoPokeCore):
             self.Fishing()
 
     def WildPm(self):
-        if self.repel:
+        if self.repel and not self.sweet_scent:
             self.use_repel()
 
         # 默认左右走，ifLR=False时，上下走
@@ -141,6 +141,8 @@ class AutoPokeCoreWildPm(AutoPokeCore):
                     sleep(0.98)
                 # self.add_one_count()
                 break
+            # else:
+            #     print("not black out")
         self.hit_key("UP", time=0.1)
         sleep(0.1)
         self.hit_key("UP", time=0.1)

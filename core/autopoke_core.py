@@ -137,6 +137,8 @@ class AutoPokeCore(object):
                     sleep(0.02)
                     break
                 sleep(0.1)
+                if self.ifFRLG:
+                    self.hit_key("A")
 
     def RUN(self):
         self.hit_key("RIGHT")
