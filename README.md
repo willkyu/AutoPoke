@@ -10,7 +10,7 @@ Auto hunting shiny pokemon using Playback(Epilogue GB operator), writing with Py
 - **Make sure *TEXT SPEED* in the setting of your game is *Fast*.**
 - **In `Emerald` version, make sure *BATTLE SCENE* in the setting of your game is *OFF***
 - **Do not minimize the window of Operator when AutoPoke is running.**
-- **Do not change the window size of Operator *tooooo* large or *tooooo* small.**
+- **Do not change the window size of Operator *tooooo* large or *tooooo* small. The default size is recommended.**
 - Make player role where you need to encounter PM, and set parameters in `config.ini` file (Optional). Then run `AutoPoke.py` or `AutoPoke.exe`.
 - Support sweet scent.
   - You should make sure the pointer of the menu is at **Pokemon**.
