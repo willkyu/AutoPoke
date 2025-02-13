@@ -101,6 +101,7 @@ class ExtraView(ft.Container):
                 on_change=lambda e: self.update_value(e.control.value),
             )
             self.view.content.value = "center"
+            self.update_value("center")
         else:
             self.visible = False
             # self.update()

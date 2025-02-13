@@ -64,9 +64,7 @@ class AutoPokeCore(object):
 
     def check_shiny_rse_starters(self):
         # 遇敌黑屏到第一次按A的时间
-        sleep(3.9)
-        if self.language == "Jpn":
-            sleep(1)
+        sleep(3.5) if self.language == "Jpn" else sleep(3.9)
         self.hit_key("A")
 
         sleep(2.4)

@@ -2,6 +2,8 @@ pillow==10.2.0
 pywin32==306
 windows-toasts==1.3.0
 winrt-runtime==2.3.0
+winrt-sdk==2.3.0
+winrt-WindowsAppSDK==2.3.0
 flet==0.25.2
 flet-cli==0.25.2
 flet-core==0.24.1
