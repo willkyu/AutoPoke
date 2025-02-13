@@ -38,9 +38,7 @@ class AutoPokeCore(object):
 
     def check_shiny(self):
         # 遇敌黑屏到第一次按A的时间
-        sleep(3.9)
-        if self.language == "Jpn":
-            sleep(0.2)
+        sleep(3.5) if self.language == "Jpn" else sleep(3.9)
         self.hit_key("A")
         # self.hit_key("A")
         # self.printf("Hit A.")
