@@ -67,7 +67,7 @@ class AutoPokeCore(object):
         sleep(3.5) if self.language == "Jpn" else sleep(3.9)
         self.hit_key("A")
 
-        sleep(2.4)
+        sleep(3) if self.language == "Jpn" else sleep(2.4)
 
         if not self.color_monitor.check("ally_battle_status"):
             self.printf(
@@ -76,7 +76,7 @@ class AutoPokeCore(object):
                 )
             )
             self.hit_key("A")
-            sleep(2.4)
+            sleep(3) if self.language == "Jpn" else sleep(2.4)
             self.color_monitor.save_image()
             self.send_mail()
             self.send_notification()
