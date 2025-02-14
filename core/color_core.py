@@ -123,7 +123,7 @@ class ColorMonitor(object):
             ]
         elif mode == "right_top_rse_in_game":
             x_list = [
-                i
+                self.game_width // 2 + i
                 for i in range(
                     0, self.game_width // 8, self.get_interval(self.game_width // 8)
                 )
