@@ -1,5 +1,7 @@
 # AutoPoke
 
+> Recently my friends have reported several bugs in `Jpn` versions. I'll fix them as soon as possible when I'm free, maybe in March, 2025.
+
 > **The emulator bar causes problems because its color value is similar to the text color in Pokémon games. Therefore, it's better to avoid having the emulator bar visible when using AutoPoke, especially during the FISHING function and auto repel. (One approach is to use the PIP mode, i.e., Picture-in-Picture.)**
 
 Auto hunting shiny pokemon using Playback(Epilogue GB operator), writing with Python. Only for Gen3.
