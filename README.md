@@ -9,6 +9,7 @@ Auto hunting shiny pokemon using Playback(Epilogue GB operator), writing with Py
 
 # How to use?
 
+- **Important!** Make sure the zoom ratio in Windows display settings is 100%.
 - **Make sure *TEXT SPEED* in the setting of your game is *Fast*.**
 - **In `Emerald` version, make sure *BATTLE SCENE* in the setting of your game is *OFF***
 - **Do not minimize the window of Operator when AutoPoke is running.**
