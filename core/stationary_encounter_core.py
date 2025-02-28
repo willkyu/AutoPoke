@@ -78,7 +78,7 @@ class HitAEncountering(Encountering):
 class LegendaryRSEEncountering(Encountering):
     def encounter(self):
         # hit 'A' till encounter
-        self.hit_key("UP")
+        self.hit_key("LEFT")
         while 1:
             self.hit_key("A")
             if self.color_monitor.check_black_out():
