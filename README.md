@@ -51,6 +51,8 @@ Here, *dialogcolor* you can only change the first RGB value and leave the second
 | Starters | **Yes** | **Yes** | **Yes** |
 | Gifted PM | Not Complete | Not Complete | **Yes** |
 
+- - others: Groudon and Kyogre
+
 - Japanese version:
 
 |  Confirmed   | RS | E | FrLg |
@@ -61,5 +63,8 @@ Here, *dialogcolor* you can only change the first RGB value and leave the second
 | Fishing | **Yes** | **Yes** | **Yes** |
 | Starters | **Yes** | **Yes** | **Yes** |
 | Gifted PM | Not Complete | Not Complete | **Yes** |
+
+- - others: Groudon and Kyogre
+
 
 - Other versions:<br>Not Test

@@ -20,7 +20,7 @@ class AutoPokeCoreStationary(AutoPokeCore):
         )
 
     def function(self):
-        if self.func == "Normal Hit A":
+        if self.func in ["Normal Hit A", "RSE Legendary"]:
             self.NormalHitA()
         elif self.func == "FrLg Starters":
             self.StartersFrLg()
@@ -28,6 +28,8 @@ class AutoPokeCoreStationary(AutoPokeCore):
             self.StartersRSE()
         elif self.func == "FrLg Gifts":
             self.GiftsFrLg()
+        # elif self.func=="RSE Legendary":
+        #     self.LegendaryRSE()
         pass
 
     def NormalHitA(self):
@@ -43,6 +45,20 @@ class AutoPokeCoreStationary(AutoPokeCore):
             self.SL()
             self.after_SL()
         pass
+
+    # def LegendaryRSE(self):
+
+    #     while 1:
+    #         sleep(choice(self.delay_list))
+
+    #         self.encountering()
+    #         if self.check_shiny():
+    #             break
+
+    #         self.printf("Not shiny, SLing...")
+    #         self.SL()
+    #         self.after_SL()
+    #     pass
 
     def GiftsFrLg(self):
         self.ifFRLG = True

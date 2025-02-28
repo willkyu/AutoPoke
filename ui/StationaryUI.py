@@ -116,5 +116,6 @@ support_target_dict = {
     "FrLg Starters": "火叶初始御三家。\nStarters in FrLg.",
     "RSE Starters": "宝石御三家。\nStarters in RSE.",
     "FrLg Gifts": "火叶礼物宝可梦，如火叶伊布等。需要将菜单指针移动至第一项。",
+    "RSE Legendary": "红蓝宝石封面神。裂空座请使用Normal Hit A。\nGroudon and Kyogre. Use Normal Hit A for Rayquaza.",
     "Coming Soon": "敬请期待后续功能。\nNew features coming soon.",
 }

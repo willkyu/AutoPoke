@@ -3,7 +3,7 @@ import os
 from dataclasses import dataclass, field
 from typing import Literal
 
-VERSION = "V6.0.1_build6"
+VERSION = "V6.0.2_build1"
 
 ColorConfigType = list[tuple[int]]
 

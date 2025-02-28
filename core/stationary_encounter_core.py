@@ -37,6 +37,10 @@ class StationaryEncounteringFactory(object):
             return HitAEncountering(
                 self.color_monitor, self.hit_key, self.printf, self.add_one_count
             )
+        elif func == "RSE Legendary":
+            return LegendaryRSEEncountering(
+                self.color_monitor, self.hit_key, self.printf, self.add_one_count
+            )
         elif func == "FrLg Starters":
             return StartersFrLgEncountering(
                 self.color_monitor, self.hit_key, self.printf, self.add_one_count
@@ -59,6 +63,22 @@ class StationaryEncounteringFactory(object):
 class HitAEncountering(Encountering):
     def encounter(self):
         # hit 'A' till encounter
+        while 1:
+            self.hit_key("A")
+            if self.color_monitor.check_black_out():
+                self.printf("Encountered!")
+                while self.color_monitor.check_black_out():
+                    sleep(0.98)
+
+                self.add_one_count()
+                break
+            sleep(0.1)
+
+
+class LegendaryRSEEncountering(Encountering):
+    def encounter(self):
+        # hit 'A' till encounter
+        self.hit_key("UP")
         while 1:
             self.hit_key("A")
             if self.color_monitor.check_black_out():
