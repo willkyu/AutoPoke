@@ -182,17 +182,20 @@ class AutoPokeCore(object):
     def after_SL_frlg(self):
         sleep(2)
         while 1:
-            while not self.color_monitor.check("right_top_rse_in_game"):
+            while not self.color_monitor.check("FrLg_SL_title"):
                 self.press_controller.random_hit_key(
                     [self.key("LEFT"), self.key("RIGHT"), self.key("START")]
                     + [self.key("A")] * 10
                 )
                 sleep(random() * 0.5)
             sleep(1)
-            if self.color_monitor.check("right_top_rse_in_game"):
+            if self.color_monitor.check("FrLg_SL_title"):
                 break
         # print("white")
-        # sleep(1)
+        self.hit_key("A")
+        while 1:
+            if self.color_monitor.check("right_top_rse_in_game"):
+                break
         self.hit_key("A")
         sleep(0.5)
 

@@ -61,6 +61,7 @@ mode2color = {
     "right_bottom_bggreen": bg_deep_green,
     "shiny_star": shiny_star_yellow,
     "dialogue_for_FrLg_Starters_and_RS_fishing": dialogue_color,
+    "FrLg_SL_title": dialogue_color[:1],
     # "dialogue_for_RS_fishing": dialogue_color,
 }
 
@@ -137,6 +138,7 @@ class ColorMonitor(object):
         elif (
             mode == "dialogue_for_FrLg_Starters_and_RS_fishing"
             or mode == "right_bottom_bggreen"
+            or mode == "FrLg_SL_title"
         ):
             x_list = [
                 self.game_width // 8 * 7 + i
