@@ -192,10 +192,9 @@ class AutoPokeCore(object):
             if self.color_monitor.check("FrLg_SL_title"):
                 break
         # print("white")
-        self.hit_key("A")
-        while 1:
-            if self.color_monitor.check("right_top_rse_in_game"):
-                break
+        while not self.color_monitor.check_black_out():
+            self.hit_key("A")
+        sleep(0.5)
         self.hit_key("A")
         sleep(0.5)
 
