@@ -204,7 +204,7 @@ class AutoPokeCore(object):
         self.printf("Skip Memory...")
         # skip memory recall 跳过回忆
         self.hit_key("B")
-        sleep(1)
+        sleep(2)
 
         sleep(random() * 3)
 
