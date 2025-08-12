@@ -1,6 +1,6 @@
 # AutoPoke
 
-> Recently my friends have reported several bugs in `Jpn` versions. I'll fix them as soon as possible when I'm free, maybe in March, 2025.
+> **I am currently working on the [new version](https://github.com/willkyu/AutoPoke-Clover) of this project, implemented in Unity with integrated object detection. Therefore, this version will no longer be updated.**
 
 > **The emulator bar causes problems because its color value is similar to the text color in Pokémon games. Therefore, it's better to avoid having the emulator bar visible when using AutoPoke, especially during the FISHING function and auto repel. (One approach is to use the PIP mode, i.e., Picture-in-Picture.)**
 

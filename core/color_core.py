@@ -1,6 +1,7 @@
 import win32gui
 import win32ui
 import win32con
+import time
 
 from core.config import ColorConfig, Config
 
@@ -98,12 +99,15 @@ class ColorMonitor(object):
 
     def check(self, mode=""):
         # self.refresh()
+        print(f"Check: {mode}")
+        self.starttime = time.time()
         if mode == "black_out":
             return self.check_black_out()
         if mode == "normal_dialogue":
             return self.color_exist(mode2color[mode][:-1], mode) and self.color_exist(
                 mode2color[mode][-1:], mode
             )
+
         return self.color_exist(mode2color[mode], mode)
 
     def color_exist(self, color_list, mode=""):
@@ -242,8 +246,13 @@ class ColorMonitor(object):
                 # color_set.add(color)
                 for target_color in target_color_list:
                     if self.in_color_range(color, target_color):
+                        print(
+                            f"FPS: {1/(time.time()-self.starttime) if (time.time()-self.starttime!=0) else 1000}"
+                        )
                         return True
-        # print(color_set)
+                        # print(color_set)
+        print(f"FPS: {1/(time.time()-self.starttime)}")
+
         return False
 
     def color_exist_core_with_count(self, x_list, y_list, target_color_list):
@@ -257,6 +266,8 @@ class ColorMonitor(object):
         return False
 
     def check_black_out(self, interval_ratio=10):
+        self.starttime = time.time()
+
         interval = self.window_height // interval_ratio
         check_list = [
             [
@@ -270,6 +281,10 @@ class ColorMonitor(object):
         res = all(
             map(lambda x: win32gui.GetPixel(self.window, x[0], x[1]) == 0, check_list)
         )
+        print(
+            f"FPS: {1/(time.time()-self.starttime) if (time.time()-self.starttime!=0) else 1000}"
+        )
+
         return res
 
     def check_white_out(self, interval_ratio=10):
